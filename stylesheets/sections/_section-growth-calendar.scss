@@ -1,0 +1,89 @@
+.section-growth-calendar {
+  .calendar-outer-container {
+    position: relative;
+    .dropDown-container {
+      position: absolute;
+      left: 284px;
+      top: 28px;
+      z-index: 99;
+      .from-group {
+        display: flex;
+        select {
+          height: 63px;
+          font-size: 25px;
+          font-weight: 700;
+          color: $color-gc-blue;
+          background-color: #f8f8f8;
+          &:not(:last-child) {
+            margin-right: 11px;
+          }
+        }
+      }
+    }
+  }
+  .event-list-container {
+    margin-top: 18px;
+    ul.event-list {
+      list-style: none;
+      height: 420px;
+      overflow-y: scroll;
+      li {
+        display: flex;
+        padding: 20px 20px 20px 0;
+        background-color: $color-gc-cyan;
+        margin-bottom: 18px;
+        transition: all 0.3s ease;
+        &:hover {
+          background-color: darken($color: $color-gc-cyan, $amount: 20%);
+        }
+        &:nth-child(2n) {
+          background-color: $color-gc-orange-1;
+          &:hover {
+            background-color: darken($color: $color-gc-orange-1, $amount: 20%);
+          }
+        }
+        .event-left {
+          border-right: 1px solid white;
+          width: 76px;
+          text-align: center;
+          p {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0;
+          }
+        }
+        .event-title {
+          display: flex;
+          align-items: center;
+          padding: 14px;
+          h3 {
+            flex-grow: 1;
+            font-size: 20px;
+            font-weight: 400;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
+
+.section-growth-calendar {
+  .content-container {
+    .content-container-inner {
+      padding: 36px 52px;
+      box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
+      h2 {
+        margin-bottom: 31px;
+        color: $color-gc-blue;
+      }
+      h3 {
+        color: $color-gc-blue;
+      }
+      p {
+        color: $color-gc-blue;
+      }
+    }
+  }
+}

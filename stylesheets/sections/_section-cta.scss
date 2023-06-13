@@ -1,0 +1,16 @@
+.section-cta {
+  border: 1px solid transparent;
+  padding: 70px 0;
+  background-size: cover;
+  @media (max-width: 768px) {
+    padding: 20px 0;
+  }
+  .content-container {
+    width: 524px;
+    max-width: 100%;
+    margin: 0 auto;
+    .header-box {
+      margin-bottom: 36px;
+    }
+  }
+}

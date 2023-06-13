@@ -1,0 +1,41 @@
+.section-coaching-clinic {
+  padding: 80px 0;
+  h1,
+  h2,
+  h3,
+  h4,
+  p {
+    color: $color-gc-blue;
+  }
+  .content-container.left {
+    padding: 80px 0;
+    background-size: cover;
+    @media (max-width: 768px) {
+      padding: 40px 0 20px;
+    }
+  }
+  .button-group {
+    .button-container {
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+    }
+  }
+  .content-container.right {
+  }
+  .image-container {
+    @media (max-width: 768px) {
+      margin-bottom: 25px;
+    }
+  }
+  .off-width {
+    @media (min-width: 1200px) {
+      width: 39%;
+    }
+  }
+  .negative-offset {
+    @media (min-width: 1200px) {
+      margin-left: -15%;
+    }
+  }
+}

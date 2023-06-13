@@ -1,0 +1,21 @@
+.section-growth-partners {
+  padding: 55px 0 79px;
+  .header-box {
+    margin-bottom: 23px;
+    h1 {
+      color: $color-gc-blue;
+    }
+  }
+  ul.partner-list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 50px;
+    list-style-type: none;
+    justify-content: center;
+    align-items: center;
+    .partner-item {
+      max-width: 136px;
+    }
+  }
+}

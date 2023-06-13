@@ -1,0 +1,57 @@
+.section-growth-innovation {
+  .content-container-outer {
+    // margin-top: -239px;
+    position: relative;
+    height: 563px;
+    .left {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 69.94%;
+      height: 100%;
+      transition: all 0.3s ease;
+      // &:hover {
+      //   z-index: 99;
+      //   // transform: scale(1.05);
+      // }
+      .image-container {
+        border-radius: 8px;
+        height: 100%;
+        img {
+          width: 141px;
+        }
+      }
+    }
+    .right {
+      position: absolute;
+      width: 51.94%;
+      left: 50%;
+      top: 50%;
+      transform: translate(0%, -50%);
+      z-index: 10;
+      background-color: $color-gc-grey;
+      padding: 54px 70px;
+      // transition: all 0.3s ease;
+      // &:hover {
+      //   z-index: 99;
+      //   // transform: scale(1.05);
+      // }
+      .content-container-inner {
+        .header-box-secondary {
+          h2 {
+            font-weight: 400;
+            line-height: 1.4;
+            color: $color-gc-blue;
+          }
+        }
+        .header-box {
+          margin-bottom: 35px;
+          h1 {
+            color: $color-gc-blue;
+            line-height: 1.2;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+.search-input {
+  font-family: "Calibri";
+  font-size: 18px;
+  padding: 8px 20px;
+  border: 1px solid $color-gc-blue;
+}
+
+.read-more {
+  cursor: pointer;
+}
+
+.pill {
+  background-color: white;
+  display: inline-block;
+  padding: 5px 10px;
+  @media (max-width: 991px) {
+    padding: 3px 5px;
+  }
+  a {
+    font-size: 18px;
+    color: $color-gc-blue;
+    margin: 0;
+    @media (max-width: 991px) {
+      font-size: 16px;
+    }
+    @media (max-width: 567px) {
+      font-size: 12px;
+    }
+  }
+  p {
+    margin: 0;
+  }
+}

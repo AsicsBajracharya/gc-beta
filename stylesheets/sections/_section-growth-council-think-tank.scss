@@ -1,0 +1,36 @@
+.section-growth-council-think-tank {
+  background-size: cover;
+  padding-bottom: 181px;
+  .header-with-button {
+    margin-bottom: 89px;
+  }
+  .think-tank-series-slider {
+    padding-left: 50px;
+    .slick-list {
+      padding: 0 20% 0 0 !important;
+    }
+    .slick-slider {
+      margin: 0 25px;
+    }
+    .slick-slide {
+      margin-left: 25px;
+      margin-right: 25px;
+    }
+    .content-container {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      .image-container {
+        height: 100%;
+        img {
+          height: 100%;
+        }
+      }
+      .text-box {
+        position: absolute;
+        bottom: 45px;
+        left: 42px;
+      }
+    }
+  }
+}

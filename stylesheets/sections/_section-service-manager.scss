@@ -1,0 +1,24 @@
+.section-service-manager {
+  padding: 50px 0;
+  @media (max-width: 768px) {
+    padding: 20px 0;
+  }
+  .content-container.left {
+    @media (max-width: 768px) {
+      text-align: center;
+      margin-bottom: 21px;
+    }
+  }
+  .content-container.right {
+    .image-container {
+      width: 253px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 10px solid $color-gc-cyan;
+      margin-right: 24px;
+      @media (max-width: 768px) {
+        width: 103px;
+      }
+    }
+  }
+}

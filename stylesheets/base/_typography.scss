@@ -1,0 +1,62 @@
+/**
+ * Basic typography style for copy text
+ */
+body {
+  font-family: "Calibri";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+h1,
+.h1 {
+  font-size: 48px;
+  font-weight: 700;
+  @media (max-width: 768px) {
+    font-size: 32px;
+  }
+}
+
+h2,
+.h2 {
+  font-size: 32px;
+  font-weight: 700;
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+}
+
+h3,
+.h3 {
+  font-size: 24px;
+  font-weight: 700;
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
+}
+
+p {
+  font-size: 18px;
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
+}
+
+.text-white {
+  color: white;
+}
+
+.text-blue {
+  color: $color-gc-blue;
+}
+.text-blue-dark {
+  color: $color-gc-blue-dark;
+}
+.text-black-light {
+  color: $color-black-text;
+}
+
+.caption {
+  font-size: 14px;
+  color: $color-gc-blue;
+  line-height: 1.21;
+}

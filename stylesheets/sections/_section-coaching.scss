@@ -1,0 +1,27 @@
+.section-coaching {
+  padding: 69px 0;
+  background-size: cover;
+  @media (max-width: 768px) {
+    padding: 21px 0;
+  }
+  .content-container {
+    margin-bottom: 51px;
+    .image-container {
+      width: 60px;
+      margin-bottom: 34px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .text-container {
+      text-align: center;
+    }
+  }
+
+  .slick-track {
+    display: flex !important;
+  }
+
+  .slick-slide {
+    height: inherit !important;
+  }
+}

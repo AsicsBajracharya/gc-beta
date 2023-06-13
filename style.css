@@ -1,0 +1,200 @@
+/*-------------------------------------------------------
+Theme Name: Growth Innovation leadership Council Theme
+Theme URI: https://www.gilcouncil.com
+Description: Growth Innovation leadership child theme template 
+Author: Amanda Kelly
+Author URI: https://www.gilcouncil.com
+Template: Divi
+Version: 1.0.0
+----------------- ADDITIONAL CSS HERE ------------------*/
+#top-header .container {
+    padding: .75em 0;
+}
+#top-header #et-secondary-menu>ul>li a {
+    padding-bottom: 0;
+	line-height: 1.2;
+}
+#top-header #et-secondary-menu>ul>li a img {
+    vertical-align: top;
+    width: 20px;
+}
+
+
+/* Code for 2 column */
+.article-list-layout-2col .mkb-article-item, 
+.mkb-content-main--search .mkb-article-item, 
+.mkb-content-main--tag .mkb-article-item {
+    flex: 1;
+    display: inline-block;
+    width: 49%;
+    margin-right: 2%;
+    vertical-align: top;
+	margin-bottom: 25px;
+}
+.article-list-layout-2col .mkb-article-item:nth-child(2n + 2), 
+.mkb-content-main--search .mkb-article-item:nth-child(odd), 
+.mkb-content-main--tag .mkb-article-item:nth-child(odd)
+{
+    margin-right: 0;
+}
+.mkb-content-main--tag .mkb-article-item--simple .mkb-entry-header {
+    background: #FFFFFF !important;
+}
+@media (max-width:767px) {
+	.article-list-layout-2col .mkb-article-item, 
+	.mkb-content-main--search .mkb-article-item, 
+	.mkb-content-main--tag .mkb-article-item 
+	{
+		width: 100%;
+		margin-right: 0;
+	}
+	.article-list-layout-2col .mkb-article-item img.alignleft, 
+	.mkb-content-main--search .mkb-article-item img.alignleft, 
+	.mkb-content-main--tag .mkb-article-item img.alignleft
+	{
+		width: 150px !important;
+		height: auto !important;
+	}
+}
+.article-list-layout-2col .mkb-article-item--detailed .mkb-entry-title, 
+.mkb-content-main--search .mkb-article-item--detailed .mkb-entry-title, 
+.mkb-content-main--tag .mkb-article-item--detailed .mkb-entry-title 
+{
+    line-height: 1.3em;
+    margin-bottom: 10px;
+    display: inherit;
+}
+.article-list-layout-2col .mkb-article-item__excerpt, 
+.mkb-content-main--search .mkb-article-item__excerpt, 
+.mkb-content-main--tag .mkb-article-item__excerpt
+{
+    line-height: 1.5em !important;
+    margin-top: 15px;
+}
+.article-list-layout-2col .mkb-article-item a.mkb-article-item__read-more, 
+.mkb-content-main--search .mkb-article-item a.mkb-article-item__read-more, 
+.mkb-content-main--tag .mkb-article-item a.mkb-article-item__read-more 
+{
+    color: #fff;
+    background: #1283c6;
+    padding: 6px 8px;
+    border-radius: 3px;
+    margin-top: 15px;
+    transition: .5s ease-out;
+    width: auto;
+}
+.article-list-layout-2col .mkb-article-item a.mkb-article-item__read-more:hover, 
+.mkb-content-main--search .mkb-article-item a.mkb-article-item__read-more:hover,
+.mkb-content-main--tag .mkb-article-item a.mkb-article-item__read-more:hover {
+	padding: 6px 16px 6px 8px;
+}
+.article-list-layout-2col .mkb-article-item a.mkb-article-item__read-more button, 
+.mkb-content-main--search .mkb-article-item a.mkb-article-item__read-more button, 
+.mkb-content-main--tag .mkb-article-item a.mkb-article-item__read-more button {
+	background: none;
+    border: 0;
+    color: #FFF;
+    cursor: pointer;
+}
+
+/* Country Specific Module display */
+#apac_module {padding-top: 0px;}
+
+#apac_module .et_pb_row_inner_2.et_pb_row_inner, 
+#us_module .et_pb_row_inner_2.et_pb_row_inner {
+    padding-top: 0px !important;
+    padding-bottom: 10px !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+#apac_module .et_pb_text_inner, 
+#us_module .et_pb_text_inner {
+    padding-top: 15px !important;
+}
+#apac_module .et_pb_text_inner h3, 
+#us_module .et_pb_text_inner h3 {
+    color: #ffffff!important;
+}
+#apac_module .et_pb_image, 
+#us_module .et_pb_image {
+    padding-top: 0px;
+    margin-top: 5px !important;
+    text-align: center;
+}
+#apac_module .et_pb_team_member, 
+#us_module .et_pb_team_member {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+#apac_module .et_pb_team_member h4, 
+#us_module .et_pb_team_member h4 {
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #172e55 !important;
+}
+#apac_module .et_pb_team_member .et_pb_member_position, 
+#us_module .et_pb_team_member .et_pb_member_position {
+    color: #ffffff !important;
+}
+#apac_module .et_pb_button_module_wrapper, 
+#us_module .et_pb_button_module_wrapper {
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+}
+#apac_module .et_pb_custom_button_icon, 
+#us_module .et_pb_custom_button_icon {
+    color: #ffffff !important;
+    border-color: #f26923 !important;
+    border-radius: 5px !important;
+    font-size: 16px !important;
+    background-color: #f26923 !important;
+}
+#apac_module .et_pb_custom_button_icon:after, 
+#us_module .et_pb_custom_button_icon:after {
+    line-height: inherit !important;
+    font-size: inherit !important;
+}
+
+.ajde_evcal_calendar #evcal_head.calendar_header #evcal_cur, .ajde_evcal_calendar .evcal_month_line p, .ajde_evcal_calendar .evo_footer_nav p.evo_month_title {
+    color: #7F7F7F !important;
+}
+
+/* hide author name, published date and other post meta data */
+.post-meta{
+	display : none;
+}
+
+/* Set new height for APAC/MEASA blog height */
+#apac-measa-blocks article.et_pb_post.critical_issues{height:550px !important}
+
+.evo_row6_l, .large_6 {
+    flex-basis: unset !important;
+    max-width: 100% !important;
+}
+.evo_event_moreinfo_org .evo_row .evo_row_item .evo_h3 {
+	font-size : 22px !important;
+}
+.date{
+    font-size : 19px !important;
+}
+.evoet_title{
+    font-size : 16px !important;
+}
+.evcal_cblock .evo_end:before {
+    margin-left: -2px !important;
+}
+.evcal_cblock .evo_end {
+    font-size: 26px !important;
+}
+.eventon_events_list .eventon_list_event .evoet_cx, .evo_pop_body .evoet_cx {
+    margin-right: 20px !important;
+}
+.evcal_event_subtitle{
+    font-size : 14px !important;
+}
+    
+
+
+
+    
+    

@@ -1,0 +1,100 @@
+.section-hero-outer {
+  position: relative;
+  padding: 0;
+  .button-container {
+    position: absolute;
+    bottom: 141px;
+    left: calc((100% - 1204px) / 2);
+    .button-primary {
+      font-weight: 700;
+    }
+  }
+}
+
+.section-hero {
+  padding: 0;
+  h1 {
+    color: white;
+  }
+  h2 {
+    color: rgba(#fff, 0.8);
+  }
+
+  .slider-single-main {
+    width: 100%;
+    height: 680px !important;
+    display: flex;
+    align-items: center;
+    background-size: cover;
+
+    @media (max-width: 768px) {
+      height: 437px !important;
+    }
+    @media (max-width: 576px) {
+      height: 712px !important;
+    }
+    .content-container {
+      width: 798px;
+      max-width: 100%;
+      margin-top: -96px;
+      @media (min-width: 1200px) {
+      }
+    }
+    .text-box_primary {
+      padding-bottom: 30px;
+      margin-bottom: 30px;
+      @media (max-width: 768px) {
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+      }
+    }
+    .text-box_secondary {
+      margin-bottom: 21px;
+      @media (max-width: 768px) {
+        margin-bottom: 11px;
+      }
+    }
+  }
+  .slick-custom {
+    cursor: pointer;
+    position: absolute;
+    background-size: cover;
+    z-index: 999;
+    // left: calc(((100% - 1232px) / 2) - -535px);
+    left: 15px;
+    bottom: 117px;
+    transition: all 0.3s ease;
+    @media (min-width: 545px) {
+      // left: 15px;
+      left: calc(((100% - 535px) / 2));
+      bottom: 32px;
+    }
+
+    @media (min-width: 768px) {
+      left: calc(((100% - 678px) / 2));
+      bottom: 33px;
+    }
+    @media (min-width: 992px) {
+      left: calc(((100% - 960px) / 2));
+      bottom: 79px;
+    }
+    @media (min-width: 1200px) {
+      left: calc(((100% - 1232px) / 2) - -606px);
+      bottom: 159px;
+    }
+    // @media (min-width: 1200px) {
+    //   left: calc(((100% - 1232px) / 2) - -675);
+    //   bottom: 0;
+    // }
+    // &:hover {
+    //   transform: scale(1.2);
+    // }
+  }
+  // .slick-custom-prev {
+  //   background-image: url("../assets/images/chev-left.svg");
+  // }
+  // .slick-custom-next {
+  //   background-image: url("../assets/images/hero-chev-right-filled.svg");
+  //   transform: translateX(100%);
+  // }
+}

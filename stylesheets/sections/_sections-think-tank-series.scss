@@ -1,0 +1,168 @@
+.section-think-tank-series {
+  background-size: cover;
+  padding: 69px 0 76px;
+  @media (max-width: 768px) {
+    padding: 22px 0 130px;
+  }
+  .container {
+    max-width: 100%;
+    @media (min-width: 1366px) {
+      width: 1061px;
+    }
+  }
+  .header-box-outer {
+    margin-bottom: 42px;
+    // .button-container {
+    //   .btn-small {
+    //     &::after {
+    //       background-image: url("data:image/svg+xml,%3Csvg width='9' height='15' viewBox='0 0 9 15' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.5 1.25L7.75 7.5L1.5 13.75' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    //     }
+    //   }
+    // }
+  }
+
+  .think-tank-content {
+    .think-tank-main {
+      background-size: cover;
+      height: 511px;
+      padding: 73px 45px;
+      display: flex;
+      align-items: end;
+      border-radius: 8px;
+      margin-bottom: 46px;
+      border-bottom: 13px solid $color-gc-orange;
+      position: relative;
+      .content-container {
+        width: 726px;
+        max-width: 100%;
+        .text-container {
+          margin-bottom: 46px;
+          h3 {
+            font-size: 48px;
+            line-height: 1.23;
+          }
+        }
+      }
+      .pill-secondary {
+        margin-bottom: 30px;
+      }
+    }
+    .think-tank-slider {
+      .slick-slider {
+        margin: 0 14px;
+      }
+      .slick-slide {
+        margin-left: 14px;
+        margin-right: 14px;
+      }
+      .slide {
+        .content-container {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          .image-container {
+            position: relative;
+            height: 150px;
+            background-size: cover;
+            flex-shrink: 0;
+            .pill-small {
+              position: absolute;
+              bottom: 16px;
+              left: 18px;
+              padding: 8px 10px;
+              font-size: 14px;
+              font-weight: 400;
+              .left {
+                margin-right: 13px;
+                .icon {
+                  margin-right: 3px;
+                }
+                &:after {
+                  content: "";
+                  position: absolute;
+                  width: 2px;
+                  height: 13px;
+                  background-color: #323232;
+                  right: -7px;
+                  top: 5px;
+                }
+              }
+              .right {
+                padding-left: 3px;
+                .icon {
+                  margin-right: 3px;
+                }
+              }
+            }
+          }
+          border-radius: 5px;
+          overflow: hidden;
+          border-bottom: 10px solid $color-gc-orange;
+          .content-container-inner {
+            flex-grow: 1;
+            padding: 18px 18px 14px;
+            background-color: white;
+            height: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .text-box {
+              p {
+                font-size: 20px;
+                line-height: 1.5;
+              }
+            }
+            .btn-small {
+              font-size: 16px;
+              &:after {
+                display: none !important;
+              }
+            }
+          }
+        }
+        &:nth-child(2n) {
+          .content-container {
+            border-bottom: 10px solid $color-gc-blue-shade-2;
+          }
+        }
+      }
+    }
+
+    .slick-custom-prev {
+      position: absolute;
+      top: 50%;
+      transform: translate(-150%, -50%);
+      @media (max-width: 1200px) {
+        transform: translate(-100%, -50%);
+      }
+      @media (max-width: 768px) {
+        top: 100%;
+        left: 50%;
+        transform: translate(calc(-100% + -8px), 50%);
+      }
+    }
+    .slick-custom-next {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translate(150%, -50%);
+      @media (max-width: 1200px) {
+        transform: translate(100%, -50%);
+      }
+      @media (max-width: 768px) {
+        top: 100%;
+        left: 50%;
+        transform: translate(calc(0% + 8px), 50%);
+      }
+    }
+  }
+
+  .slick-track {
+    display: flex !important;
+  }
+
+  .slick-slide {
+    height: inherit !important;
+  }
+}

@@ -1,0 +1,31 @@
+section {
+  padding: 55px 0;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.dashed {
+  position: relative;
+  padding-bottom: 28px;
+  margin-bottom: 28px;
+  &::after {
+    content: "";
+    position: absolute;
+    width: 146px;
+    height: 10px;
+    left: 0;
+    bottom: 0;
+    background-color: white;
+
+    @media (max-width: 768px) {
+      width: 73px;
+      height: 5px;
+    }
+  }
+}
+
+.section-with-image {
+  padding: 33px 0;
+}

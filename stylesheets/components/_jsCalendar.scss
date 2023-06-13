@@ -1,0 +1,51 @@
+.jsCalendar tbody td,
+.jsCalendar thead .jsCalendar-week-days th {
+  width: 77px;
+  height: 77px;
+  font-size: 25px;
+  line-height: 3;
+}
+
+.jsCalendar thead .jsCalendar-title-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: $color-gc-blue;
+  padding: 10px 44px;
+  background: #f8f8f8;
+  border-radius: 8px;
+  // margin-left: 52px;
+  margin-top: 12px;
+  position: relative;
+  &:before {
+    content: "";
+    position: absolute;
+    width: 13px;
+    height: 21px;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg width='13' height='22' viewBox='0 0 13 22' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.5 20.5L1.5 11L11.5 1.5' stroke='%234EAFEA' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E ");
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    width: 13px;
+    height: 21px;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%) rotateZ(180deg);
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg width='13' height='22' viewBox='0 0 13 22' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.5 20.5L1.5 11L11.5 1.5' stroke='%234EAFEA' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E ");
+  }
+}
+
+.jsCalendar-title {
+  padding: 11px 52px;
+  position: relative;
+}
+.jsCalendar thead .jsCalendar-nav-left,
+.jsCalendar thead .jsCalendar-nav-right {
+  font-size: 28px;
+  display: none;
+}

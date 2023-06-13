@@ -1,0 +1,75 @@
+.section-growth-coaching-program {
+  padding: 100px 0 32px;
+  background-size: cover;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  @media (max-width: 768px) {
+    padding: 44px 0;
+  }
+  .header-box {
+    width: 548px;
+    max-width: 100%;
+    margin: 0 auto;
+    margin-bottom: 67px;
+    @media (max-width: 768px) {
+      margin-bottom: 29px;
+    }
+    h1 {
+      color: $color-gc-blue;
+    }
+  }
+  .header-box-secondary {
+    h2 {
+      color: $color-gc-blue;
+    }
+    margin-bottom: 30px;
+    @media (max-width: 768px) {
+      margin-bottom: 15px;
+    }
+  }
+  .text-box {
+    margin-bottom: 30px;
+  }
+
+  .slick-track {
+    display: flex !important;
+  }
+
+  .slick-slide {
+    height: inherit !important;
+  }
+
+  .slick-custom-prev {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 52'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D.cls-2%7Bfill:%231f5aab;%7D%3C/style%3E%3C/defs%3E%3Cg id='Layer_2' data-name='Layer 2'%3E%3Cg id='Layer_1-2' data-name='Layer 1'%3E%3Ccircle class='cls-1' cx='26' cy='26' r='26'/%3E%3Cpath class='cls-2' d='M29.33,32.55a1.18,1.18,0,0,0,.27-.4,1.27,1.27,0,0,0,.09-.47,1.28,1.28,0,0,0-.09-.48,1.18,1.18,0,0,0-.27-.4L24.53,26l4.8-4.8a1.27,1.27,0,0,0,.36-.88,1.24,1.24,0,0,0-.36-.87,1.23,1.23,0,0,0-1.74,0L21.9,25.13a1.56,1.56,0,0,0-.27.4,1.28,1.28,0,0,0-.09.48,1.27,1.27,0,0,0,.09.47,1.56,1.56,0,0,0,.27.4l5.69,5.68A1.24,1.24,0,0,0,29.33,32.55Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    position: absolute;
+    top: 50%;
+    transform: translate(20%, -50%);
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+    @media (max-width: 1200px) {
+      transform: translate(-100%, -50%);
+    }
+    @media (max-width: 768px) {
+      top: 100%;
+      left: 50%;
+      transform: translate(calc(-100% + -8px), 50%);
+    }
+  }
+  .slick-custom-next {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 52'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D.cls-2%7Bfill:%231f5aab;%7D%3C/style%3E%3C/defs%3E%3Cg id='Layer_2' data-name='Layer 2'%3E%3Cg id='Layer_1-2' data-name='Layer 1'%3E%3Ccircle class='cls-1' cx='26' cy='26' r='26'/%3E%3Cpath class='cls-2' d='M22.67,19.45a1.18,1.18,0,0,0-.27.4,1.27,1.27,0,0,0-.09.47,1.28,1.28,0,0,0,.09.48,1.18,1.18,0,0,0,.27.4l4.8,4.8-4.8,4.8a1.27,1.27,0,0,0-.36.88,1.24,1.24,0,0,0,.36.87,1.23,1.23,0,0,0,1.74,0l5.69-5.68a1.56,1.56,0,0,0,.27-.4,1.28,1.28,0,0,0,.09-.48,1.27,1.27,0,0,0-.09-.47,1.56,1.56,0,0,0-.27-.4l-5.69-5.68A1.24,1.24,0,0,0,22.67,19.45Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(-20%, -50%);
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+    @media (max-width: 1200px) {
+      transform: translate(100%, -50%);
+    }
+    @media (max-width: 768px) {
+      top: 100%;
+      left: 50%;
+      transform: translate(calc(0% + 8px), 50%);
+    }
+  }
+}

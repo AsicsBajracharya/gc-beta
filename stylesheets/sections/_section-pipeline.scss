@@ -1,0 +1,57 @@
+.section-pipeline {
+  padding: 70px 0;
+  background-size: cover;
+  @media (max-width: 768px) {
+    padding: 19px 0;
+  }
+  .header-box {
+    margin-bottom: 65px;
+    h1 {
+      margin-bottom: 14px;
+    }
+  }
+  .pill {
+    padding: 13px 37px;
+    border-radius: 12px;
+    background-color: $color-gc-grey-light-3;
+    width: 583px;
+    max-width: 100%;
+    .left,
+    .right {
+      padding: 23px 0;
+
+      .icon-container {
+        width: 30px;
+        margin-right: 28px;
+      }
+      p {
+        color: $color-gc-blue-shade-1;
+      }
+    }
+    .left {
+      border-right: 1px solid #d1d1d1;
+      padding-right: 37px;
+      display: flex;
+    }
+    .right {
+      padding-left: 37px;
+      display: flex;
+    }
+  }
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .image-container {
+      width: 247px;
+      height: 247px;
+      max-width: 100%;
+      margin-bottom: 33px;
+      border-radius: 50%;
+      border: 5px solid $color-gc-grey-light-2;
+      background-size: cover;
+      background-position: center;
+    }
+  }
+}
