@@ -185,6 +185,7 @@ if ($content['enable_disable']) :
           </div>
         </div>
       </div>
+	  
       <div class="growth-generation-demo">
         <div class="container">
           <div class="row">

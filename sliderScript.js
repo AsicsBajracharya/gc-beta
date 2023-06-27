@@ -2,9 +2,9 @@ $(document).ready(function () {
   console.log("Initializing sliders....");
 
   $(".section-hero.slider-1").slick({
-    auto: true,
-    autoplay: true,
-    autoplaySpeed: 2000,
+    // auto: true,
+    // autoplay: true,
+    // autoplaySpeed: 2000,
     prevArrow:
       "<div class = 'slick-custom-prev slick-custom'><span></span></div>",
     nextArrow:
@@ -101,7 +101,7 @@ $(document).ready(function () {
           slidesToScroll: 1,
           infinite: true,
           centerMode: true,
-          centerPadding: "50px",
+          centerPadding: "20px",
         },
       },
     ],
@@ -113,7 +113,7 @@ $(document).ready(function () {
     slidesToShow: 3,
     slidesToScroll: 3,
     centerMode: true,
-    centerPadding: "50px",
+    centerPadding: "20px",
     prevArrow:
       "<div class = 'slick-custom-prev slick-custom slick-arrow-center-sm'><span></span></div>",
     nextArrow:
@@ -165,7 +165,7 @@ $(document).ready(function () {
     slidesToShow: 3,
     slidesToScroll: 1,
     centerMode: true,
-    centerPadding: "50px",
+    centerPadding: "20px",
     prevArrow:
       "<div class = 'slick-custom-prev slick-custom slick-arrow-center-sm'><span></span></div>",
     nextArrow:
@@ -185,23 +185,13 @@ $(document).ready(function () {
     auto: true,
     autoplay: true,
     autoplaySpeed: 2000,
-    slidesToShow: 2,
-    slidesToScroll: 2,
+    slidesToShow: 3,
+    slidesToScroll: 3,
     prevArrow:
       "<div class = 'slick-custom-prev slick-custom slick-position-end'><span></span></div>",
     nextArrow:
       "<div class = 'slick-custom-next slick-custom slick-position-end'><span></span></div>",
     responsive: [
-      {
-        breakpoint: 1366,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          infinite: true,
-          centerMode: true,
-          centerPadding: "20px",
-        },
-      },
       {
         breakpoint: 768,
         settings: {
@@ -221,9 +211,9 @@ $(document).ready(function () {
     slidesToShow: 3,
     slidesToScroll: 3,
     prevArrow:
-      "<div class = 'slick-custom-prev slick-custom slick-arrow-center-sm'><span></span></div>",
+      "<div class = 'slick-custom-prev slick-custom slick-position-center-outside'><span></span></div>",
     nextArrow:
-      "<div class = 'slick-custom-next slick-custom slick-arrow-center-sm'><span></span></div>",
+      "<div class = 'slick-custom-next slick-custom slick-position-center-outside'><span></span></div>",
     responsive: [
       {
         breakpoint: 991,
@@ -232,7 +222,7 @@ $(document).ready(function () {
           slidesToScroll: 1,
           infinite: true,
           centerMode: true,
-          centerPadding: "50px",
+          centerPadding: "20px",
         },
       },
     ],
@@ -275,9 +265,9 @@ $(document).ready(function () {
     slidesToScroll: 1,
     infinite: true,
     prevArrow:
-      "<div class = 'slick-custom-prev slick-custom slick-arrow-center-sm'><span></span></div>",
+      "<div class = 'slick-custom-prev slick-custom slick-position-center-outside'><span></span></div>",
     nextArrow:
-      "<div class = 'slick-custom-next slick-custom slick-arrow-center-sm'><span></span></div>",
+      "<div class = 'slick-custom-next slick-custom slick-position-center-outside'><span></span></div>",
     responsive: [
       {
         breakpoint: 768,
@@ -285,8 +275,6 @@ $(document).ready(function () {
           slidesToShow: 1,
           slidesToScroll: 1,
           infinite: true,
-          centerMode: true,
-          centerPadding: "20px",
         },
       },
     ],

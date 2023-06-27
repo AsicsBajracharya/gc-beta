@@ -8,23 +8,23 @@ do_action( 'et_after_main_content' );
 
 if ( 'on' === et_get_option( 'divi_back_to_top', 'false' ) ) : ?>
 
-	<span class="et_pb_scroll_top et-pb-icon"></span>
+<span class="et_pb_scroll_top et-pb-icon"></span>
 
 <?php endif;
 
 if ( ! is_page_template( 'page-template-blank.php' ) ) : ?>
 
-			<footer id="main-footer">
-				<?php echo do_shortcode('[et_pb_section global_module="316"][/et_pb_section]'); ?>
-				<?php get_sidebar( 'footer' ); ?>
+<footer id="main-footer">
+    <?php echo do_shortcode('[et_pb_section global_module="316"][/et_pb_section]'); ?>
+    <?php get_sidebar( 'footer' ); ?>
 
 
-		<?php
+    <?php
 			if ( has_nav_menu( 'footer-menu' ) ) : ?>
 
-				<div id="et-footer-nav">
-					<div class="container">
-						<?php
+    <div id="et-footer-nav">
+        <div class="container">
+            <?php
 							wp_nav_menu( array(
 								'theme_location' => 'footer-menu',
 								'depth'          => '1',
@@ -33,14 +33,14 @@ if ( ! is_page_template( 'page-template-blank.php' ) ) : ?>
 								'fallback_cb'    => '',
 							) );
 						?>
-					</div>
-				</div> <!-- #et-footer-nav -->
+        </div>
+    </div> <!-- #et-footer-nav -->
 
-			<?php endif; ?>
+    <?php endif; ?>
 
-				<div id="footer-bottom">
-					<div class="container clearfix">
-				<?php
+    <div id="footer-bottom">
+        <div class="container clearfix">
+            <?php
 					if ( false !== et_get_option( 'show_footer_social_icons', true ) ) {
 						get_template_part( 'includes/social_icons', 'footer' );
 					}
@@ -49,18 +49,18 @@ if ( ! is_page_template( 'page-template-blank.php' ) ) : ?>
 					echo et_core_fix_unclosed_html_tags( et_core_esc_previously( et_get_footer_credits() ) );
 					// phpcs:enable
 				?>
-					</div>	<!-- .container -->
-				</div>
-			</footer> <!-- #main-footer -->
-		</div> <!-- #et-main-area -->
+        </div> <!-- .container -->
+    </div>
+</footer> <!-- #main-footer -->
+</div> <!-- #et-main-area -->
 
 <?php endif; // ! is_page_template( 'page-template-blank.php' ) ?>
 
-	</div> <!-- #page-container -->
+</div> <!-- #page-container -->
 
-	<?php wp_footer(); ?>
-	
-	<!-- <script
+<?php wp_footer(); ?>
+
+<!-- <script
       type="text/javascript"
       src="http://code.jquery.com/jquery-1.11.0.min.js"
     ></script>
@@ -85,5 +85,7 @@ if ( ! is_page_template( 'page-template-blank.php' ) ) : ?>
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script> -->
+
 </body>
+
 </html>

@@ -51,21 +51,21 @@ function remove_dashboard_widgets() {
     unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_recent_drafts']);
     unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_recent_comments']);
     unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_primary']);
-    unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary']);
- 
+    unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary']); 
 }
  
 add_action('wp_dashboard_setup', 'remove_dashboard_widgets' );
 function my_login_logo() { ?>
-    <style type="text/css">
-        #login h1 a, .login h1 a {
-           background-image: url(https://www.pdsxchange.com/wp-content/uploads/2018/09/FS-Logo-Blue-600x315.jpg);  
-		height: 151px;
-		width:300px;
-		background-size: 300px 151px;
-		background-repeat: no-repeat;
-		}
-		
+<style type="text/css">
+#login h1 a,
+.login h1 a {
+    background-image: url(https://www.pdsxchange.com/wp-content/uploads/2018/09/FS-Logo-Blue-600x315.jpg);
+    height: 151px;
+    width: 300px;
+    background-size: 300px 151px;
+    background-repeat: no-repeat;
+}
+
 body.login div#login form#loginform input#wp-submit {
     background-color: #ea7200;
     border: medium none;
@@ -73,24 +73,25 @@ body.login div#login form#loginform input#wp-submit {
     box-shadow: none;
     padding: 0 36px 2px;
     text-shadow: none;
-        }
-		
-		.login form {
+}
+
+.login form {
     padding: 40px 40px 60px;
     border-radius: 20px;
-  
+
 }
-		
-		.login #backtoblog a, .login #nav a {
-  color: #FFFFFF!important;
+
+.login #backtoblog a,
+.login #nav a {
+    color: #FFFFFF !important;
 }
-		
-		body.login {
- background: #183f6a;
- background-size: 100%;
- background-attachment: fixed;
+
+body.login {
+    background: #183f6a;
+    background-size: 100%;
+    background-attachment: fixed;
 }
-    </style>
+</style>
 <?php }
 add_action( 'login_enqueue_scripts', 'my_login_logo' );
 
@@ -161,8 +162,6 @@ function ltc_limit_forum ($forum_id) {
 	);
 }
 
-
-
 /* Check visitors country by IP */
 function check_visitors_country( $atts = array(), $content = null ){
 	
@@ -195,8 +194,7 @@ function check_visitors_country( $atts = array(), $content = null ){
 		} else {
 			$output = $content;
 		}
-	}
-	
+	}	
 
 	/*for($i=0; $i<count($list_country); $i++){
 		echo $list_country[$i];
@@ -213,7 +211,6 @@ function check_visitors_country( $atts = array(), $content = null ){
 } 
 
 add_shortcode('DISPLAY_VISITOR_COUNTRY', 'check_visitors_country');
-
 
 function change_columns( $cols ) {
     $cols = array(
@@ -359,7 +356,7 @@ function wpse207879_change_password_mail_message( $pass_change_mail, $user, $use
 
 //delete all FCM device token
 
-add_action( 'init', 'delete_all_token' );
+//add_action( 'init', 'delete_all_token' );
 function delete_all_token() {
     $reset_date = date_create(get_field('reset_date', 'option'));
     $current_date = date_create(date("m/d/Y"));
@@ -386,12 +383,119 @@ add_action( 'new_user_approve_deny_user', 'remove_my_action', 1 );
 function remove_my_action(){
     remove_action('new_user_approve_deny_user', 'deny_user', 10, 2);
 }
-
 function allowAuthorEditing()
 {
   add_post_type_support( 'critical_issues', 'author' );
 }
 
+function send_content_notification_func($ID,$post,$update) {    
+    global $wpdb;
+    $table = $wpdb->prefix.'pd_android_fcm';
+     $notificationTable = $wpdb->prefix . 'notification';
+     $post_status = get_post_status( $ID );
+    if($post_status == "auto-draft"){
+       // print_r($ID); exit();
+    }
+
+    function content_push_notification($wpdb, $user, $post, $table, $key){
+        $content_notification_option = get_user_meta($user->ID, 'content_notification', true);
+        if ($content_notification_option && $key->ID ) :
+            $device_token = $wpdb->get_results("SELECT device_token FROM $table WHERE post_ID =  $key->ID");
+            $token = $device_token[0]->device_token;
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://fcm.googleapis.com/fcm/send',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS =>'{
+                "to" : "'.$token.'",
+                "notification": {
+                    "id" : "Content_notification",
+                    "title":"New Growth Content resources added!",
+                    "body":"Review resources now...",
+                },
+                "data":{
+                    "post_id":'.$post->ID.',
+                    "type": "content"
+                },
+            }',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: key='.get_field('fcm_key', 'option'),
+                'Content-Type: application/json'
+            ),
+            ));
+            date_default_timezone_set('America/New_York');
+            $data = array();
+            $receiver_user_id = $user->ID;
+            $receiver_user_email= $key->post_title;
+            $data['event_id'] = $post->ID;
+            $data['sender_user_id'] = '';
+            $data['sender_user_email'] = '';
+            $data['notification_type'] = 'Content_notification';
+            $data['notification_title'] = 'New Growth Content resources added!';
+            $data['notification_content'] = 'Review resources now...';
+            $data['status'] = 0;
+            $data['triggered_date'] = date('Y-m-d h:i:s');
+            $data['expiration_date'] = date('Y-m-d', strtotime(' + 3 months'));
+            insert_notification($receiver_user_id,$receiver_user_email,$data);
+            
+            $response = curl_exec($curl);
+            curl_close($curl);
+        endif;
+    }
+    
+	$args = array(
+		'post_type' => 'pdandroidfcm',
+		'posts_per_page' => -1,
+		'post_status'    => 'publish'
+	);
+	
+	$terms = get_posts($args);
+    echo "<pre>";
+    //print_r($terms); die;
+   
+   if($post->post_type == 'kb' && $post_status !== "auto-draft" ){
+     foreach ($terms as $key) {
+        $user = get_user_by('email', $key->post_title);
+        $result = $wpdb->get_results("SELECT * FROM $notificationTable WHERE receiver_user_id = $user->ID AND event_id = $post->ID AND status = 0 ");
+        
+        $user_industry = get_field('industry', 'user_' . $user->ID, false);
+        $user_area_of_interest = get_field('areas_of_interests','user_' . $user->ID, false);
+        $user_region = get_field('region','user_' . $user->ID, false);
+
+        // print_r($user->ID."==");`
+        // print_r($user_region);
+
+        $content_library_region = get_field('content_library_region',$post->ID);        
+        $content_library_meta = get_post_meta($post->ID);      
+        $content_library_aoi = !empty($content_library_meta['content_library_area_of_interest'][0]) ? unserialize($content_library_meta['content_library_area_of_interest'][0]) : '' ;
+        $intersect= ( !empty($user_area_of_interest) && !empty($content_library_aoi) ) ? array_intersect($content_library_aoi,$user_area_of_interest) : ''; 
+        
+        //if(!empty($user) && isset($user_industry) && !empty($user_industry) && (count($result) == 0) ) :        
+            if($content_library_region == $user_region) :
+                if( (isset($user_industry) && !empty($user_industry) && $user_industry !== 'None' ) || ( !empty( $user_area_of_interest) && isset($user_area_of_interest)) ) :
+                    if($content_library_meta['content_library_industry'][0] == $user_industry || !empty($intersect)) :
+                        //print_r("user industry"); die;
+                        content_push_notification($wpdb, $user, $post, $table, $key);
+                    endif;                    
+                else :
+                    //print_r("User industry not mentioned");die;
+                    content_push_notification($wpdb, $user, $post, $table, $key);
+                endif;            
+            endif;
+        //endif;
+    }
+  }
+    
+}
+
+add_action( 'save_post_kb', 'send_content_notification_func', 10, 3 );
+   
 add_action('init','allowAuthorEditing');
 
 // register the ajax action for authenticated users
@@ -435,7 +539,7 @@ function fetch_calender_events() {
     );
     
     $current_user_id = get_current_user_id();    
-    if ($all_events) {          
+    if ($all_events == true) {          
         if($user_region === 'ALL REGIONS' || $user_region === 'Region' || $user_region === 'region' || $user_region === ''){
             $args = array(
                'post_type' => 'ajde_events',
@@ -460,10 +564,10 @@ function fetch_calender_events() {
         $events_query = new WP_Query($args);
         $event_session = $events_query->posts;
     } else {
-        // $events_array = get_field('registered_events', 'user_218' . $current_user_id);
-        // $sessions_array = get_field('registered_sessions', 'user_218' . $current_user_id);
-        $events_array = get_field('registered_events', 'user_218');
-        $sessions_array = get_field('registered_sessions', 'user_218');
+        $events_array = get_field('registered_events', 'user_' . $current_user_id);
+        $sessions_array = get_field('registered_sessions', 'user_' . $current_user_id);
+        // $events_array = get_field('registered_events', 'user_218');
+        // $sessions_array = get_field('registered_sessions', 'user_218');
        
         if( $events_array && $sessions_array){
             $event_session = array_merge($events_array, $sessions_array);
@@ -481,10 +585,10 @@ function fetch_calender_events() {
             $events = array();
             foreach ($event_session as $key => $event) {
                 $event_meta = get_post_meta($event->ID);
-                // $event_aoi = unserialize($event_meta['event_area_of_interest'][0]);
+                $event_aoi = unserialize($event_meta['event_area_of_interest'][0]);
                 // $intererst= array_intersect($event_aoi,$user_area_of_interest);  
 
-                if (is_past_event($event_meta)) continue;
+                //if (is_past_event($event_meta)) continue;
                 
                 $event_details = array();
                 $event_details['ID'] = $event->ID;
@@ -565,15 +669,15 @@ function fetch_calender_events() {
                     array_push($events, $event_details);
                 }
             }         
-            // usort($events, function($a, $b) {
-            //     return strtotime($a['event_start']) - strtotime($b['event_start']);
-            // });
+            usort($events, function($a, $b) {
+                return strtotime($a['event_start']) - strtotime($b['event_start']);
+            });
             // return gil_response(200, 'success', $events);
         } 
     } 
 
     // in the end, returns success json data
-    wp_send_json_success( $events);
+    wp_send_json_success( $events); 
 
     // or, on error, return error json data
     wp_send_json_error(['Events not found']);
@@ -587,9 +691,7 @@ add_action('wp_ajax_nopriv_register_event', 'register_event');
 
 // handle the ajax request
 function register_event() {  
-    // $url_params = $request->get_json_params();
-    // $slug = $url_params['slug'];
-    $event_id = isset($_POST['event_id'])?$_POST['event_id']:"9579";
+    $event_id = isset($_POST['event_id'])?$_POST['event_id']: "";
     $current_user_id = get_current_user_id();
     //$current_user_id = 218;
     $user_object = get_user_by('ID',   $current_user_id);
@@ -609,26 +711,18 @@ function register_event() {
         'post__in' => array($event_id),
     );
     $message = "";
-
     $events = new WP_Query($args);
     
     if ($current_user_id != 0 && !empty($event_id) && $events->found_posts > 0) {
         //add event to user register field
         $registered_events = get_field('registered_events', 'user_' . $current_user_id, false);
         if (is_array($registered_events) && !in_array($event_id, $registered_events)) {
-            array_push($registered_events, $event_id);
-            
-            if ($slug == 'growth-leadership-coaching'){
-                $to =   $second_email;
-                $subject = 'Event Registration';
-                $message =  'Growth Innovation Leadership Member: '.$user_object->user_email.' has requested RSVP for " '.$title.'. If this is your client, please document their interest and follow up with the client and coordinating AE, if necessary. Thank you';
-                $mailResult = wp_mail($to, $subject, $message );
-            }
+            array_push($registered_events, $event_id);          
             
             $to =   $send_to;
             $subject = 'Event Registration';
-            $message =  'Growth Innovation Leadership Member: '.$user_object->user_email.' has requested RSVP for " '.$title.'. If this is your client, please document their interest and follow up with the client and coordinating AE, if necessary. Thank you';
-            $mailResult = wp_mail($to, $subject, $message );
+            $mail_message =  'Growth Innovation Leadership Member: '.$user_object->user_email.' has requested RSVP for " '.$title.'. If this is your client, please document their interest and follow up with the client and coordinating AE, if necessary. Thank you';
+            $mailResult = wp_mail($to, $subject, $mail_message );
          
         } 
         elseif(!in_array($event_id, $registered_events)) {
@@ -657,6 +751,7 @@ function register_event() {
                 update_field('event_registered_members', $members_id, 'event_type_3_' . $pillar['term_id']);
             }
             $message = "Event registration succesfull";
+            wp_send_json_success($message);
             //return gil_response(200, 'Event registration succesfull', null);
         } else {
             $message = "Event registration failed";
@@ -670,7 +765,7 @@ function register_event() {
         //return gil_error(401, 'Unauthorized', null);
     }
     // in the end, returns success json data
-    wp_send_json_success($message);
+   
 
     // or, on error, return error json data
     wp_send_json_error(['Events not found']);
@@ -727,95 +822,100 @@ add_action('wp_ajax_content_search', 'content_search');
 add_action('wp_ajax_nopriv_content_search', 'content_search');
 
 function content_search(){
-    $search_text =  $event_id = isset($_POST['search'])?$_POST['search']:"APAC";
-    $search_string = $search_text;
+    $search_string = $_POST['search'];
 
-    $search_query = new WP_Query(array(
+    // $search_query = new WP_Query(array(
+    //     's' => $search_text,
+    //     'post_type' => array('kb'),
+    //     'posts_per_page' => -1
+    // ));
+
+    $events_sessions_object = new WP_Query(array(
         's' => $search_string,
-        'post_type' => array('kb'),
+        'post_type' => array('ajde_events','kb'),
         'posts_per_page' => -1
     ));
 
-    // $pillars = get_terms(array(
-    //     'search' => $search_string,
-    //     'taxonomy' => array('event_type_3'),
-    //     'hide_empty' => false,
-    //     'parent' => 0
-    // ));
+    $pillars = get_terms(array(
+        'search' => $search_string,
+        'taxonomy' => array('event_type_3'),
+        'hide_empty' => false,
+        'parent' => 0
+    ));
 
-    // $poes_object = get_terms(array(
-    //     'search' => $search_string,
-    //     'taxonomy' => array('event_type_3'),
-    //     'hide_empty' => false
-    // ));
+    $poes_object = get_terms(array(
+        'search' => $search_string,
+        'taxonomy' => array('event_type_3'),
+        'hide_empty' => false
+    ));
 
-    // $search_results = array(
-    //     'events_sessions' => array(),
-    //     'pillars' => array(),
-    //     'poes' => array()
-    // );
+    $search_results = array(
+        'events_sessions' => array(),
+        'pillars' => array(),
+        'poes' => array()
+    );
 
-    if ($search_query) {
-        $search_results = array();
-        foreach ($search_query->posts as $key => $content) {
-            $content_meta = get_post_meta($content->ID);
-            //if (is_past_event($event_meta)) continue;
+    if ($events_sessions_object) {
+        $events = array();
+        foreach ($events_sessions_object->posts as $key => $event) {
+            $event_meta = get_post_meta($event->ID);
+            if (is_past_event($event_meta)) continue;
 
-            $content_detail = array();
-            $content_detail['ID'] = $content->ID;
-            $content_detail['title'] = $content->post_title;
-            $content_detail['descirption'] =  $content->post_content;
-            $content_detail['post_name'] =  $content->post_name;
-            $content_detail['guid'] =  $content->guid;
-            $content_detail['post_date'] =  $content->post_date;
-            $content_detail['post_date_gmt'] =  $content->post_date_gmt;
-            $content_detail['redirect_url'] = get_home_url()."?page_id=".$content->ID;
-            // $event_details['event_start'] =  date_i18n('Y-m-d H:i:s', is_array($event_meta['evcal_srow']) ? array_pop($event_meta['evcal_srow']) : $event_meta['evcal_srow']);
-            // $event_details['event_end'] =  date_i18n('Y-m-d H:i:s', is_array($event_meta['evcal_erow']) ? array_pop($event_meta['evcal_erow']) : $event_meta['evcal_erow']);
-            // if (!empty($event_meta['_evo_tz'])) {
-            //     $event_details['time_zone'] =  is_array($event_meta['_evo_tz']) ? array_pop($event_meta['_evo_tz']) : $event_meta['_evo_tz'];
-            // }
-            $content_detail['image'] =  get_the_post_thumbnail_url($content->ID);
-            //$content_detail['pillar_categories'] = get_the_terms($event->ID, 'event_type_3');
+            $event_details = array();
+            $event_details['ID'] = $event->ID;
+            $event_details['title'] = $event->post_title;
+            $event_details['descirption'] =  $event->post_content;
+            $event_details['post_name'] =  $event->post_name;
+            $event_details['guid'] =  $event->guid;
+            $event_details['post_date'] =  $event->post_date;
+            $event_details['post_date_gmt'] =  $event->post_date_gmt;
+            $event_details['event_start'] =  date_i18n('Y-m-d H:i:s', is_array($event_meta['evcal_srow']) ? array_pop($event_meta['evcal_srow']) : $event_meta['evcal_srow']);
+            $event_details['event_end'] =  date_i18n('Y-m-d H:i:s', is_array($event_meta['evcal_erow']) ? array_pop($event_meta['evcal_erow']) : $event_meta['evcal_erow']);
+            if (!empty($event_meta['_evo_tz'])) {
+                $event_details['time_zone'] =  is_array($event_meta['_evo_tz']) ? array_pop($event_meta['_evo_tz']) : $event_meta['_evo_tz'];
+            }
+            $event_details['image'] =  get_the_post_thumbnail_url($event->ID);
+            $event_details['pillar_categories'] = get_the_terms($event->ID, 'event_type_3');
 
-            // $location_term = get_the_terms($event->ID, 'event_location');
-            // $option_value = get_option('evo_tax_meta');
-            // if (!empty($location_term[0])) {
-            //     $event_details['location'] = $option_value['event_location'][$location_term[0]->term_id];
-            //     if (!empty($event_details['location']['evo_loc_img'])) {
-            //         $event_details['location_image'] = wp_get_attachment_image_url($event_details['location']['evo_loc_img'], 'full');
-            //     }
-            // }
+            $location_term = get_the_terms($event->ID, 'event_location');
+            $option_value = get_option('evo_tax_meta');
+            if (!empty($location_term[0])) {
+                $event_details['location'] = $option_value['event_location'][$location_term[0]->term_id];
+                if (!empty($event_details['location']['evo_loc_img'])) {
+                    $event_details['location_image'] = wp_get_attachment_image_url($event_details['location']['evo_loc_img'], 'full');
+                }
+            }
 
-            // $organizer_term = get_the_terms($event->ID, 'event_organizer');
-            // if (!empty($organizer_term[0])) {
-            //     $event_details['organizer'] = $option_value['event_organizer'][$organizer_term[0]->term_id];
-            //     $event_details['organizer']['term_name'] = stripslashes($event_details['organizer']['term_name']);
-            //     $event_details['organizer_image'] = wp_get_attachment_image_url($event_details['organizer']['evo_org_img'], 'full');
-            // }
+
+            $organizer_term = get_the_terms($event->ID, 'event_organizer');
+            if (!empty($organizer_term[0])) {
+                $event_details['organizer'] = $option_value['event_organizer'][$organizer_term[0]->term_id];
+                $event_details['organizer']['term_name'] = stripslashes($event_details['organizer']['term_name']);
+                $event_details['organizer_image'] = wp_get_attachment_image_url($event_details['organizer']['evo_org_img'], 'full');
+            }
 
             // $event_details['event_meta'] = $event_meta;
-            array_push($search_results, $content_detail);
+            array_push($events, $event_details);
         }
-        //$search_results['events_sessions'] = $search_results;
+        $search_results['events_sessions'] = $events;
     }
-    // if ($pillars) {
-    //     $search_results['pillars'] = $pillars;
-    // }
+    if ($pillars) {
+        $search_results['pillars'] = $pillars;
+    }
 
-    // if ($poes_object) {
-    //     $poes = array();
-    //     foreach ($poes_object as $poe) {
-    //         if ($poe->parent) {
-    //             $poe_image = array(
-    //                 'image' => get_field('pillar_image', 'event_type_3_' . $poe->term_id)
-    //             );
-    //             $poe_object =  (object) array_merge((array) $poe, $poe_image);
-    //             array_push($poes, $poe_object);
-    //         }
-    //     }
-    //     $search_results['poes'] = $poes;
-    // }
+    if ($poes_object) {
+        $poes = array();
+        foreach ($poes_object as $poe) {
+            if ($poe->parent) {
+                $poe_image = array(
+                    'image' => get_field('pillar_image', 'event_type_3_' . $poe->term_id)
+                );
+                $poe_object =  (object) array_merge((array) $poe, $poe_image);
+                array_push($poes, $poe_object);
+            }
+        }
+        $search_results['poes'] = $poes;
+    }
      // in the end, returns success json data
      wp_send_json_success($search_results);
 
@@ -858,5 +958,56 @@ function send_mail_function(){
 
      // or, on error, return error json data
      wp_send_json_error(['Events not found']);
+    //return gil_response(200, 'success', $search_results);
+}
+
+add_action('wp_ajax_get_users_notification_list', 'get_users_notification_list');
+
+// register the ajax action for unauthenticated users
+add_action('wp_ajax_nopriv_get_users_notification_list', 'get_users_notification_list');
+
+function get_users_notification_list(){
+    	// WP Globals
+	global $table_prefix, $wpdb;
+    $user_id = get_current_user_id(); 
+    //$user_id = 218;
+	
+	// Customer Table
+	$notificationTable = $table_prefix . 'notification';
+   $result = $wpdb->get_results("SELECT * FROM $notificationTable WHERE receiver_user_id = $user_id AND (notification_type = 'event_notification' OR notification_type = 'Content_notification') ORDER BY triggered_date DESC ");
+  
+     // in the end, returns success json data
+     wp_send_json_success( $result);
+
+     // or, on error, return error json data
+     wp_send_json_error(['']);
+    //return gil_response(200, 'success', $search_results);
+}
+
+add_action('wp_ajax_update_users_notification_status', 'update_users_notification_status');
+
+// register the ajax action for unauthenticated users
+add_action('wp_ajax_nopriv_update_users_notification_status', 'update_users_notification_status');
+
+// Pass Notification id as POST value in name notification_id .
+function update_users_notification_status(){
+
+    	// WP Globals
+	global $table_prefix, $wpdb;
+    $notification_id = $_POST['notification_id'];
+    //$notification_id = 34;	
+	// Customer Table	
+    $notificationTable = $table_prefix . 'notification';
+    $result = $wpdb->get_results("SELECT * FROM $notificationTable WHERE id = $notification_id AND status = 0");
+    if(!empty($result)) :
+	$wpdb->update($notificationTable,array('status' => 1,),array('id' => $notification_id));
+    // in the end, returns success json data
+    wp_send_json_success("Notification status updated");
+    else :
+        // in the end, returns success json data
+     wp_send_json_success("Notification Status already Read");    
+    endif; 
+     // or, on error, return error json data
+     wp_send_json_error("Notification not found !");
     //return gil_response(200, 'success', $search_results);
 }

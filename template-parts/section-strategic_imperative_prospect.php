@@ -25,8 +25,14 @@ if ($content['enable_disable']) :
                     </div>
                     <button-container>
                         <a href="<?php echo $content['button']['url'] ?>"><button
-                                class="btn btn-primary btn-arrow btn-small">
+                                class="btn btn-primary btn-arrow btn-small btn-arrow-move">
                                 <?php echo $content['button']['title'] ?>
+                                <span class="btn-icon">
+                                    <svg viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1.5 1.25L7.75 7.5L1.5 13.75" stroke="white" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                </span>
                             </button>
                         </a>
                     </button-container>

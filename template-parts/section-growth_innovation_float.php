@@ -3,7 +3,7 @@ $content = get_sub_field('growth_innovation_float_prospect');
 if ($content['enable_disable']) :
     $section_class = $content['custom_classes'];
     $section_id = (!empty($content['section_id'])) ? 'id="'. $content['section_id'] .'"' : '';
-    $style = ($content['background_image'] !== 'none') ? 'style="background-image: url('. $content['background_image'] . ');"' : '';
+   
 ?>
 
 <section class="section-growth-innovation no-padding" data-aos="fade-up" data-aos-offset="-300">
@@ -25,8 +25,16 @@ if ($content['enable_disable']) :
                         <h1><?php echo $content['sub_heading'] ?></h1>
                     </div>
                     <div class="button-container">
-                        <a href = "<?php echo $content['button_link']['url'] ?>" ><button class="btn btn-primary btn-arrow btn-small">
+                        <a href="<?php echo $content['button_link']['url'] ?>"><button
+                                class="btn btn-primary btn-arrow btn-small btn-arrow-move">
                                 <?php echo $content['button_link']['title'] ?>
+                                <span class="btn-icon">
+                                    <svg width="9" height="15" viewBox="0 0 9 15" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1.5 1.25L7.75 7.5L1.5 13.75" stroke="white" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                </span>
                             </button>
                         </a>
                     </div>
@@ -34,16 +42,14 @@ if ($content['enable_disable']) :
             </div>
         </div>
     </div>
-    <div class="overlay">
-          <div class="growth-innovation-video">
-            <iframe
-              width="420"
-              height="315"
-              src="<?php echo $content['video'] ?>"
-            >
-            </iframe>
-          </div>
-        </div>
+
+
 </section>
+<div class="overlay-video overlay" data-src-video="<?php echo $content['video_file'] ?>">
+
+    <iframe src="">
+    </iframe>
+
+</div>
 <?php
 endif;

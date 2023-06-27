@@ -3,7 +3,7 @@ $content = get_sub_field('whats_happening_in_the_sectors');
 if ($content['enable_disable']) :
     $section_class = $content['custom_classes'];
     $section_id = (!empty($content['section_id'])) ? 'id="'. $content['section_id'] .'"' : '';
-    $style = ($content['background_image'] !== 'none') ? 'style="background-image: url('. $content['background_image'] . ');"' : '';
+    
 
     // echo "<pre>";
     // print_r($content['sectors']); die;

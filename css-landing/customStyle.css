@@ -1,0 +1,62 @@
+.section-think-tank-series {
+	padding: 66px 0 35px;
+	background-size: cover; }
+	@media (max-width: 768px) {
+	  .section-think-tank-series {
+		background-image: none !important; } }
+	.section-think-tank-series .header-box-outer {
+	  margin-bottom: 38px; }
+	.section-think-tank-series .thinktank-main-container {
+	  padding: 75px 46px;
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: flex-end;
+	  height: 100%;
+	  background-size: cover; }
+	@media (max-width: 768px) {
+	  .section-think-tank-series .growth-thinktank-main {
+		padding-bottom: 50px; } }
+	.section-think-tank-series .growth-thinktank-main .growth-thinktank-main-container {
+	  margin-bottom: 56px; }
+	  .section-think-tank-series .growth-thinktank-main .growth-thinktank-main-container .image-container-main {
+		border-radius: 8px; }
+	  .section-think-tank-series .growth-thinktank-main .growth-thinktank-main-container .thinktank-main-container .pill {
+		margin-bottom: 49px; }
+	  .section-think-tank-series .growth-thinktank-main .growth-thinktank-main-container .mini-article-container {
+		border-radius: 8px;
+		overflow: hidden; }
+		@media (max-width: 768px) {
+		  .section-think-tank-series .growth-thinktank-main .growth-thinktank-main-container .mini-article-container {
+			margin-top: 20px; } }
+		@media (min-width: 1200px) {
+		  .section-think-tank-series .growth-thinktank-main .growth-thinktank-main-container .mini-article-container {
+			height: 698px;
+			overflow-y: auto; } }
+		.section-think-tank-series .growth-thinktank-main .growth-thinktank-main-container .mini-article-container .slick-list {
+		  padding: 0 20% 0 0 !important; }
+		@media (max-width: 768px) {
+		  .section-think-tank-series .growth-thinktank-main .growth-thinktank-main-container .mini-article-container .mini-article .content-container {
+			border-right: 1px solid rgba(0, 0, 0, 0.3); } }
+		.section-think-tank-series .growth-thinktank-main .growth-thinktank-main-container .mini-article-container .content-container {
+		  background-color: #f5f5f5; }
+		  .section-think-tank-series .growth-thinktank-main .growth-thinktank-main-container .mini-article-container .content-container .header-box {
+			margin: 12px 0 9px; }
+			.section-think-tank-series .growth-thinktank-main .growth-thinktank-main-container .mini-article-container .content-container .header-box h3 {
+			  font-size: 24px;
+			  color: #15426b;
+			  margin: 0; }
+		  .section-think-tank-series .growth-thinktank-main .growth-thinktank-main-container .mini-article-container .content-container .text-box p {
+			color: #323232; }
+		  .section-think-tank-series .growth-thinktank-main .growth-thinktank-main-container .mini-article-container .content-container .read-more {
+			color: #dd7929; }
+		.section-think-tank-series .growth-thinktank-main .growth-thinktank-main-container .mini-article-container .mini-article {
+		  padding: 10px; }
+		  .section-think-tank-series .growth-thinktank-main .growth-thinktank-main-container .mini-article-container .mini-article:not(:last-child) .content-container-inner {
+			border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
+	.section-think-tank-series .growth-thinktank-main .pill {
+	  border-radius: 5px; }
+	  .section-think-tank-series .growth-thinktank-main .pill p {
+		font-size: 18px;
+		font-weight: 700;
+		color: #15426b;
+		margin: 0; }

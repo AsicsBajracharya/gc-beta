@@ -3,7 +3,7 @@ $content = get_sub_field('growth_council');
 if ($content['enable_disable']) :
     $section_class = $content['custom_classes'];
     $section_id = (!empty($content['section_id'])) ? 'id="'. $content['section_id'] .'"' : '';
-    $style = ($content['background_image'] !== 'none') ? 'style="background-image: url('. $content['background_image'] . ');"' : '';
+    
 ?>
 
 <section class="section-hero slider-1 slider no-padding" data-aos="fade-in" data-aos-duration="1000"

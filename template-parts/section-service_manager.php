@@ -21,7 +21,7 @@ if ($content['enable_disable']) :
     // print_r($user); die;
 
 ?>
- <section class="section-service-manager" style="background-image: url('<?php echo $content['background_image'] ?>')">
+<!-- <section class="section-service-manager" style="background-image: url('<?php echo $content['background_image'] ?>')">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-md-6">
@@ -57,7 +57,49 @@ if ($content['enable_disable']) :
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
+
+<section class="section-service-manager" style="
+        background-image: url(<?php echo $content['background_image'] ?>);
+      ">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="content-container left text-white">
+                    <h3>Concierge</h3>
+                    <h1>Your Member Service Manager</h1>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="content-container right d-flex align-items-center">
+                    <div class="image-container">
+                        <img src="<?php echo $user['profile_image'] ?>" alt="" />
+                    </div>
+                    <div class="content-container right text-white">
+                        <h3><?php echo $user['display_name'] ?></h3>
+                        <p>Membership Service Manager</p>
+                        <p><?php echo $user['phone'][0] ?></p>
+                        <div class="button-container w-100">
+                            <a href="mailto:<?php echo $user['user_email'] ?>">
+                                <button class="btn btn-white-bg btn-small btn-message w-100">
+                                    <div class="message-icon">
+                                        <svg width="15" height="13" viewBox="0 0 15 13" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M13.5 3.62109L7.5 7.37109L1.5 3.62109V2.12109L7.5 5.87109L13.5 2.12109M13.5 0.621094H1.5C0.6675 0.621094 0 1.28859 0 2.12109V11.1211C0 11.5189 0.158035 11.9004 0.43934 12.1818C0.720644 12.4631 1.10218 12.6211 1.5 12.6211H13.5C13.8978 12.6211 14.2794 12.4631 14.5607 12.1818C14.842 11.9004 15 11.5189 15 11.1211V2.12109C15 1.72327 14.842 1.34174 14.5607 1.06043C14.2794 0.779129 13.8978 0.621094 13.5 0.621094Z"
+                                                fill="#F28E36" />
+                                        </svg>
+                                    </div>
+                                    Email Now
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <?php
 
