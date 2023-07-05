@@ -13,9 +13,9 @@
 
 .section-hero {
   padding: 0;
-  h1 {
-    color: white;
-  }
+//   h1 {
+//     color: white;
+//   }
   h2 {
     color: rgba(#fff, 0.8);
   }
@@ -80,7 +80,7 @@
     }
     @media (min-width: 1200px) {
       left: calc(((100% - 1232px) / 2) - -606px);
-      bottom: 159px;
+      bottom: 110px;
     }
     // @media (min-width: 1200px) {
     //   left: calc(((100% - 1232px) / 2) - -675);

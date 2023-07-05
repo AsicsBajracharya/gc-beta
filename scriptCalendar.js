@@ -194,13 +194,16 @@ $(document).ready(function () {
           } data-title=${JSON.stringify(element.title)}
             data-id=${element.ID}
             data-registered-status=${element.register_status}
-            data-event-type = ${element.event_type[0].name}
+          
             data-event-org-name = ${element.organizer.term_name}
              >
              <div class = "d-none event-description">${
                element.description
              }</div>
                <div class = "d-none event-formatted-date">${formattedDate}</div>
+                 <div class = "d-none event-type"> ${
+                   element.event_type[0]?.name
+                 }</div>
             <div class = "event-left">
               <p class = "event-month">${months[startDate.getMonth()]}</p>
               <p class = "event-day">${startDate.getDate()}</p>
@@ -230,6 +233,7 @@ $(document).ready(function () {
           );
 
           days.toArray().forEach((day, i) => {
+            $(day).append("<span></span>");
             if ($(day).text() == startDate.getDate().toString()) {
               console.log("DAY FROM inside the loop", day);
               if (element.event_type[0].slug == "virtual-meeting") {
@@ -254,12 +258,6 @@ $(document).ready(function () {
   fetchEvents();
 
   // $('#mycalendar table tbody td')
-
-  console.log(
-    "MY CALENDAR",
-    $("#my-calendar td:not(.jsCalendar-previous):not(.jsCalendar-next)"),
-    events
-  );
 
   if (element) {
     // var myCalendar = jsCalendar.new(element);

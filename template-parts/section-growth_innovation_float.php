@@ -13,6 +13,7 @@ if ($content['enable_disable']) :
                 <div class="image-container video-thumbnail" style="
                   background-image: url('<?php echo $content['image'] ?>');
                 ">
+                    <div class="slider-overlay"></div>
                     <img src="<?php echo $content['play_icon']?>" alt="" />
                 </div>
             </div>

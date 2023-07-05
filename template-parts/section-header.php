@@ -67,12 +67,16 @@ if ($content['enable_disable']) :
             <div class="col">
                 <div class="button-group">
                     <div class="button-container">
-                        <a href="<?php echo get_home_url().'/login'; ?>"><button
+                        <?php if(isset($content['login_button']) && !empty($content['login_button'])) : ?>
+                        <a href="<?php echo $content['login_button']['url']; ?>"><button
                                 class="btn btn-transparent btn-small">LOGIN</button></a>
+                                <?php endif; ?>
                     </div>
                     <div class="button-container">
-                        <a href="<?php echo get_home_url().'/join'; ?>"><button class="btn btn-blue btn-small">SIGN
+                    <?php if(isset($content['signup_button']) && !empty($content['signup_button'])) : ?>
+                        <a href="<?php echo $content['signup_button']['url']; ?>"><button class="btn btn-blue btn-small">SIGN
                                 UP</button></a>
+                                <?php endif; ?>
                     </div>
                 </div>
             </div>

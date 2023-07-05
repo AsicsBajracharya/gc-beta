@@ -159,49 +159,65 @@ if ($content['enable_disable']) :
 <section class="section-growth-calendar"
     style="background-image: url('<?php echo $content['background_image'] ?>') ; background-size: cover;"
     data-aos="fade-in" data-aos-delay="500">
-    <div class="header-box text-center text-blue ">
-        <h1>Your Engagement Calendar</h1>
-    </div>
+
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 offset-xl-1">
+
+            <div class="col-md-6">
+                <div class="header-box-main text-center text-blue ">
+                    <h1>Your Engagement Calendar</h1>
+                </div>
                 <div class="content-container event-details">
                     <div class="image-container">
                         <div class="slider-overlay"></div>
-                        <img src="https://dev.gilcouncil.com/wp-content/uploads/2023/05/image-52.jpg" alt="">
+                        <!-- <img src="https://dev.gilcouncil.com/wp-content/uploads/2023/05/image-52.jpg" alt=""> -->
                         <!-- <img src=" <?php echo $events[0]['image'] ?>" alt=""> -->
-                        <div class="pill-2">
-                            <div class="pill-left">
-                                <div class="icon-container">
-                                    <svg viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M16 2.6416H15V0.641602H13V2.6416H5V0.641602H3V2.6416H2C0.89 2.6416 0.00999999 3.5416 0.00999999 4.6416L0 18.6416C0 19.172 0.210714 19.6807 0.585786 20.0558C0.960859 20.4309 1.46957 20.6416 2 20.6416H16C17.1 20.6416 18 19.7416 18 18.6416V4.6416C18 3.5416 17.1 2.6416 16 2.6416ZM16 18.6416H2V8.6416H16V18.6416ZM6 12.6416H4V10.6416H6V12.6416ZM10 12.6416H8V10.6416H10V12.6416ZM14 12.6416H12V10.6416H14V12.6416ZM6 16.6416H4V14.6416H6V16.6416ZM10 16.6416H8V14.6416H10V16.6416ZM14 16.6416H12V14.6416H14V16.6416Z"
-                                            fill="#323232" />
+                        <div class="image-container-inner"
+                            style="background-image: url(https://dev.gilcouncil.com/wp-content/uploads/2023/05/image-52.jpg)">
+                            <div class="pill-2 pill-small">
+                                <div class="pill-left">
+                                    <div class="icon-container">
+                                        <svg viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M16 2.6416H15V0.641602H13V2.6416H5V0.641602H3V2.6416H2C0.89 2.6416 0.00999999 3.5416 0.00999999 4.6416L0 18.6416C0 19.172 0.210714 19.6807 0.585786 20.0558C0.960859 20.4309 1.46957 20.6416 2 20.6416H16C17.1 20.6416 18 19.7416 18 18.6416V4.6416C18 3.5416 17.1 2.6416 16 2.6416ZM16 18.6416H2V8.6416H16V18.6416ZM6 12.6416H4V10.6416H6V12.6416ZM10 12.6416H8V10.6416H10V12.6416ZM14 12.6416H12V10.6416H14V12.6416ZM6 16.6416H4V14.6416H6V16.6416ZM10 16.6416H8V14.6416H10V16.6416ZM14 16.6416H12V14.6416H14V16.6416Z"
+                                                fill="#323232" />
+                                        </svg>
+                                    </div>
+                                    <p>21st May, 2023</p>
+                                </div>
+                                <div class="icon-container dash">
+                                    <svg viewBox="0 0 2 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect y="0.141602" width="2" height="31" fill="#323232" />
                                     </svg>
                                 </div>
-                                <p>21st May, 2023</p>
-                            </div>
-                            <div class="icon-container dash">
-                                <svg viewBox="0 0 2 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect y="0.141602" width="2" height="31" fill="#323232" />
-                                </svg>
-                            </div>
-                            <div class="pill-right">
-                                <div class="icon-container">
-                                    <svg viewBox="0 0 16 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M7.58333 0.808105C3.39083 0.808105 0 4.19894 0 8.39144C0 14.0789 7.58333 22.4748 7.58333 22.4748C7.58333 22.4748 15.1667 14.0789 15.1667 8.39144C15.1667 4.19894 11.7758 0.808105 7.58333 0.808105ZM7.58333 11.0998C6.86504 11.0998 6.17616 10.8144 5.66825 10.3065C5.16034 9.79861 4.875 9.10973 4.875 8.39144C4.875 7.67314 5.16034 6.98427 5.66825 6.47636C6.17616 5.96845 6.86504 5.68311 7.58333 5.68311C8.30163 5.68311 8.9905 5.96845 9.49841 6.47636C10.0063 6.98427 10.2917 7.67314 10.2917 8.39144C10.2917 9.10973 10.0063 9.79861 9.49841 10.3065C8.9905 10.8144 8.30163 11.0998 7.58333 11.0998Z"
-                                            fill="#323232" />
-                                    </svg>
+                                <div class="pill-right">
+                                    <div class="icon-container">
+                                        <svg viewBox="0 0 16 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M7.58333 0.808105C3.39083 0.808105 0 4.19894 0 8.39144C0 14.0789 7.58333 22.4748 7.58333 22.4748C7.58333 22.4748 15.1667 14.0789 15.1667 8.39144C15.1667 4.19894 11.7758 0.808105 7.58333 0.808105ZM7.58333 11.0998C6.86504 11.0998 6.17616 10.8144 5.66825 10.3065C5.16034 9.79861 4.875 9.10973 4.875 8.39144C4.875 7.67314 5.16034 6.98427 5.66825 6.47636C6.17616 5.96845 6.86504 5.68311 7.58333 5.68311C8.30163 5.68311 8.9905 5.96845 9.49841 6.47636C10.0063 6.98427 10.2917 7.67314 10.2917 8.39144C10.2917 9.10973 10.0063 9.79861 9.49841 10.3065C8.9905 10.8144 8.30163 11.0998 7.58333 11.0998Z"
+                                                fill="#323232" />
+                                        </svg>
+                                    </div>
+                                    <p>Remote</p>
                                 </div>
-                                <p>Remote</p>
+                            </div>
+                            <div class="header-box">
+                                <h2>Can Precision Health transform Sickcare to Healthcare?</h2>
+                                <h3 class="org-name">Justin Biralo</h3>
                             </div>
                         </div>
+
+
                     </div>
                     <div class="content-container-inner">
-                        <h2>Can Precision Health transform Sickcare to Healthcare?</h2>
-                        <h3 class="org-name">Justin Biralo</h3>
-                        <p class="description">Description</p>
+                        <!-- <h2>Can Precision Health transform Sickcare to Healthcare?</h2>
+                        <h3 class="org-name">Justin Biralo</h3> -->
+                        <p class="description">APAC Transformational Think Tank: Mobility Series: A collaborative
+                            platform to introduce, share and discuss a diverse range of new ideas and provoke discussion
+                            on critical issues surrounding the future of Mobility. This is where members engage with one
+                            another to share cross-industry perspectives on the forces shaping and driving new growth
+                            opportunities and areas of innovation. Topic: Transformative Trends in Software-Defined
+                            Vehicles More Details coming soon!!</p>
                         <div class="button-container">
                             <button class="btn btn-primary btn-small btn-arrow btn-arrow-move "
                                 data-function="register-event"
@@ -254,7 +270,7 @@ if ($content['enable_disable']) :
                     </div>
                 </div>
             </div>
-            <div class="col-lg-7">
+            <div class="col-md-6">
                 <div class="calendar-outer-container">
                     <!-- <div class="dropDown-container">
                         <div class="from-group" for="data-test">
