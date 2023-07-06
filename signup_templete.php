@@ -1,9 +1,165 @@
 <?php 
 /* Template Name: SignUp Page */ 
 
-global $wpdb, $user_ID;  
-//if (!$user_ID) {  
-?>
+if (!is_user_logged_in() ) {
+
+if (isset($_POST['user_registeration']) ) :
+    $random_number = rand(0,1000);
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $pass = array(); //remember to declare $pass as an array
+        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+        for ($i = 0; $i < 15; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+       $password = implode($pass); //turn the array into a string
+  //  print_r("POST data ");
+    // die;
+    // global $reg_errors;
+    // $reg_errors = new WP_Error;
+ 
+    $first_name = str_replace(" ","", $_POST['first_name']);
+    $last_name = str_replace(" ","", $_POST['last_name']);
+    $useremail = $_POST['useremail'];
+    $username = $_POST['first_name']."".$_POST['last_name']."".$random_number;
+    //$password = $pass;
+    $title =  $_POST['title'];
+    $company =  $_POST['company'];
+    $phone =  $_POST['business_phone'];
+    $country =  $_POST['country'];
+    $subscription = $_POST['subscription'];
+    $agree_tc = $_POST['agree_tc'];   
+
+    // if ( 1 > count( $reg_errors->get_error_messages() ) )
+    // {
+        // sanitize user form input
+        // global $username, $useremail;
+        // $username   =   sanitize_user($username);
+        // $useremail  =   sanitize_email( $_POST['useremail'] );
+        // $password   =   esc_attr( $_POST['password'] );
+
+        $user_data = array(
+            'user_pass'             =>  $password,
+            'user_login'            =>  $username,
+            'user_email'            =>  $useremail,
+            'first_name'            =>  $first_name,
+            'last_name'             =>  $last_name,       
+        );
+
+    $user_id = wp_insert_user($user_data);
+
+  
+    // On success.
+    if ( is_wp_error( $user_id ) ) {
+        $message = $user_id->get_error_message();
+    }
+    // print_r( $message); die;
+  
+    $measa_country = [
+        "India",
+        "Pakistan",
+        "Sri Lanka ",
+        "Middle east",
+        "Nepal",
+        "Bangladesh",
+        "Bhutan",
+        "Maldives",
+      ];
+    
+      $apac_country = [
+        "Brunei",
+        "Burma",
+        "Cambodia",
+        "Timor- Leste ",
+        "Indonesia ",
+        "Laos",
+        "Malaysia",
+        "Philippines",
+        "Singapore",
+        "Thailand",
+        "Vietnam",
+        "Australia",
+        "Japan",
+      ];
+    
+      $americas_country = ["United States", "Canada", "Mexico"];
+
+      if(in_array($country, $measa_country)){
+        $region = "APAC/MEASA";
+        $role = 'um_measa';
+      }
+      elseif(in_array($country, $apac_country)){
+        $role = 'um_apac';
+        $region = "APAC/MEASA";
+      }
+      elseif(in_array($country, $americas_country)){
+        $role = 'um_americas';
+        $region = "AMERICAS";
+      }    
+
+
+    //  if (!empty($url_params['region']) && $url_params['region'] !== 'Region' ) {
+    //     $data = (explode(" ",$url_params['region']));
+    //     $role = 'um_'.strtolower($data[0]);
+    //     if($data[1]){
+    //          $role = 'um_'.strtolower($data[0]).'-'.strtolower($data[1]);
+    //     }
+    //  }
+    //  else{
+    //       $role = '';
+    // }    
+        $wp_user_object = new WP_User($user_id);
+        $wp_user_object->remove_role('pending_user');
+        $wp_user_object->set_role('um_growth-member'); 
+        $wp_user_object->add_role($role);
+        
+    do_action( 'profile_update', $user_id, $wp_user_object, $wp_user_object );    
+        
+    if (!is_wp_error($user_id) && $user_id) {
+        $id = $user_id;
+        update_field('Title', $title, 'user_' . $id);
+        //update_field('title', $title, 'user_' . $id);
+        update_field('company', $company, 'user_' . $id);
+        update_field('business_phone', $phone, 'user_' . $id);
+        update_field('country', $country, 'user_' . $id);    
+        update_field('user_persona','Growth Member', 'user_' . $id);
+        update_field('region', $region, 'user_' . $id);        
+        update_field('event_notification', true, 'user_' . $id);
+        update_field('chat_notification', true, 'user_' . $id);
+        update_field('content_notification', true, 'user_' . $id);
+        update_field('member_connection_add_delete_notification', true, 'user_' . $id);
+        update_field('discussion_board_notification', true, 'user_' . $id);
+        update_field('registered_event_notification', true, 'user_' . $id);
+        update_field('frost_subscription',$subscription, 'user_' . $id);
+        update_field('agree_tc',$agree_tc, 'user_' . $id);
+        
+        $to =  $useremail;
+        $subject = 'Registration Verification';
+        $msg = __( $useremail." has initiated a Growth Pipeline Dialog." ) . "\r\n\r\n";
+        $msg = __( "You have successfully registered to the Growth Council. Email : ".$useremail." <br>  Password".$password) . "\r\n\r\n";
+        $msg .=  __( "- The Growth Innovation Leadership Council") . "\r\n\r\n";
+        $mail_message = $msg;
+        $mailResult = wp_mail($to, $subject, $mail_message);
+        
+       // wp_redirect( home_url()."/signin" ); exit;  
+
+        //return gil_response(200, 'Registration succesfull', null);
+    } elseif (is_wp_error($user_id)) {
+        $message = $user_id->get_error_message();
+        //return gil_error($user_id->get_error_code(), $user_id->get_error_message(), null);
+    } else {
+        //return gil_error(500, 'Something is wrong, please contact admin', null);
+    }
+endif;
+
+//}  
+
+// else {  
+//    wp_redirect( home_url() ); exit;  
+// }
+
+?>  
+
 <!-- <h3>Create your account</h3>
 <form action="" method="post" name="user_registeration">
     <label>Username <span class="error">*</span></label>
@@ -340,6 +496,11 @@ global $wpdb, $user_ID;
                                     </div>
 
                                     <div class="button-container">
+                                    <?php 
+                                if($message) :
+                                    echo '<p class="error">'.$message.'</p>';
+                                endif;
+                                ?>  
                                         <div class="btn btn-primary btn-small signup-form-1">
                                             Next
                                         </div>
@@ -781,6 +942,11 @@ global $wpdb, $user_ID;
                             </button> -->
                             <button type="submit" name="user_registeration" class="btn btn-primary btn-small"
                                 value="SignUp">Signup </button>
+                            <?php 
+                                if($message) :
+                                    echo '<p class="error">'.$message.'</p>';
+                                endif;
+                                ?>                          
                         </div>
                     </div>
                 </div>
@@ -902,169 +1068,7 @@ global $wpdb, $user_ID;
 
 </html>
 <?php 
-// echo "<pre>";
-// print_r($_POST); 
-// die;
-
-// if(isset($signUpError)){
-//     echo '<div>'.$signUpError.'</div>';
-// }
-
-if (isset($_POST['user_registeration']) ) :
-    
-  //  print_r("POST data ");
-    // die;
-    // global $reg_errors;
-    // $reg_errors = new WP_Error;
- 
-    $first_name = $_POST['first_name'];
-    $last_name = $_POST['last_name'];
-    $useremail = $_POST['useremail'];
-    $username = $_POST['first_name']." ".$_POST['last_name'];
-    $password = $_POST['password'];
-    $title =  $_POST['title'];
-    $company =  $_POST['company'];
-    $phone =  $_POST['business_phone'];
-    $country =  $_POST['country'];
-    $subscription = $_POST['subscription'];
-    $agree_tc = $_POST['agree_tc'];   
-
-    // if ( 1 > count( $reg_errors->get_error_messages() ) )
-    // {
-        // sanitize user form input
-        // global $username, $useremail;
-        // $username   =   sanitize_user($username);
-        // $useremail  =   sanitize_email( $_POST['useremail'] );
-        // $password   =   esc_attr( $_POST['password'] );
-
-        $user_data = array(
-            'user_pass'             =>  $password,
-            'user_login'            =>  $username,
-            'user_email'            =>  $useremail,
-            'first_name'            =>  $first_name,
-            'last_name'             =>  $last_name,       
-        );
-
-        // make sure we've got a valid email
-    // if( filter_var( $useremail, FILTER_VALIDATE_EMAIL ) ) {
-    //     // split on @ and return last value of array (the domain)
-    //     $domain = array_pop(explode('@', $useremail)); 
-    // }  
-    $user_id = wp_insert_user($user_data);
-    //print_r($user_id);
- 
-//     if(!in_array($domain, $public_mail_domain)) :    
-//         //print_r($user_data);  die;        
-//         $user_id = wp_insert_user($user_data);
-//         //print_r("register"); 
-//     else : 
-//         exit();
-//        // return gil_response(202, 'Please use the Business Email', null);
-//     endif;       
-//   //  }
-    $measa_country = [
-        "India",
-        "Pakistan",
-        "Sri Lanka ",
-        "Middle east",
-        "Nepal",
-        "Bangladesh",
-        "Bhutan",
-        "Maldives",
-      ];
-    
-      $apac_country = [
-        "Brunei",
-        "Burma",
-        "Cambodia",
-        "Timor- Leste ",
-        "Indonesia ",
-        "Laos",
-        "Malaysia",
-        "Philippines",
-        "Singapore",
-        "Thailand",
-        "Vietnam",
-        "Australia",
-        "Japan",
-      ];
-    
-      $americas_country = ["United States", "Canada", "Mexico"];
-
-      if(in_array($country, $measa_country)){
-        $region = "APAC/MEASA";
-        $role = 'um_measa';
-      }
-      elseif(in_array($country, $apac_country)){
-        $role = 'um_apac';
-        $region = "APAC/MEASA";
-      }
-      elseif(in_array($country, $americas_country)){
-        $role = 'um_americas';
-        $region = "AMERICAS";
-      }
-
-      print_r($region);
-      print_r($role);
-
-
-    //  if (!empty($url_params['region']) && $url_params['region'] !== 'Region' ) {
-    //     $data = (explode(" ",$url_params['region']));
-    //     $role = 'um_'.strtolower($data[0]);
-    //     if($data[1]){
-    //          $role = 'um_'.strtolower($data[0]).'-'.strtolower($data[1]);
-    //     }
-    //  }
-    //  else{
-    //       $role = '';
-    // }    
-        $wp_user_object = new WP_User($user_id);
-        $wp_user_object->remove_role('pending_user');
-        $wp_user_object->set_role('um_growth-member'); 
-        $wp_user_object->add_role($role);
-        
-    do_action( 'profile_update', $user_id, $wp_user_object, $wp_user_object );    
-        
-    if (!is_wp_error($user_id) && $user_id) {
-        $id = $user_id;
-        update_field('Title', $title, 'user_' . $id);
-        //update_field('title', $title, 'user_' . $id);
-        update_field('company', $company, 'user_' . $id);
-        update_field('business_phone', $phone, 'user_' . $id);
-        update_field('country', $country, 'user_' . $id);    
-        update_field('user_persona','Growth Member', 'user_' . $id);
-        update_field('region', $region, 'user_' . $id);        
-        update_field('event_notification', true, 'user_' . $id);
-        update_field('chat_notification', true, 'user_' . $id);
-        update_field('content_notification', true, 'user_' . $id);
-        update_field('member_connection_add_delete_notification', true, 'user_' . $id);
-        update_field('discussion_board_notification', true, 'user_' . $id);
-        update_field('registered_event_notification', true, 'user_' . $id);
-        update_field('frost_subscription',$subscription, 'user_' . $id);
-        update_field('agree_tc',$agree_tc, 'user_' . $id);
-        
-        $to =  $useremail;
-        $subject = 'Registration Verification';
-        //$msg = __( $useremail." has initiated a Growth Pipeline Dialog." ) . "\r\n\r\n";
-        $msg = __( "You havre successfully registered to the Growth Council.") . "\r\n\r\n";
-        $msg .=  __( "- The Growth Innovation Leadership Council") . "\r\n\r\n";
-        $mail_message = $msg;
-        $mailResult = wp_mail($to, $subject, $mail_message);
-        
-       // wp_redirect( home_url()."/signin" ); exit;  
-
-        //return gil_response(200, 'Registration succesfull', null);
-    } elseif (is_wp_error($user_id)) {
-        //return gil_error($user_id->get_error_code(), $user_id->get_error_message(), null);
-    } else {
-        //return gil_error(500, 'Something is wrong, please contact admin', null);
-    }
-endif;
-
-//}  
-
-// else {  
-//    wp_redirect( home_url() ); exit;  
-// }
-
+}else{
+    wp_redirect( get_home_url());
+}
 ?>

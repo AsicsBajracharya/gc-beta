@@ -70,13 +70,14 @@ if ($content['enable_disable']) :
                         <?php if(isset($content['login_button']) && !empty($content['login_button'])) : ?>
                         <a href="<?php echo $content['login_button']['url']; ?>"><button
                                 class="btn btn-transparent btn-small">LOGIN</button></a>
-                                <?php endif; ?>
+                        <?php endif; ?>
                     </div>
                     <div class="button-container">
-                    <?php if(isset($content['signup_button']) && !empty($content['signup_button'])) : ?>
-                        <a href="<?php echo $content['signup_button']['url']; ?>"><button class="btn btn-blue btn-small">SIGN
+                        <?php if(isset($content['signup_button']) && !empty($content['signup_button'])) : ?>
+                        <a href="<?php echo $content['signup_button']['url']; ?>"><button
+                                class="btn btn-blue btn-small">SIGN
                                 UP</button></a>
-                                <?php endif; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -109,6 +110,7 @@ if ($content['enable_disable']) :
 
                     <div class="icon-container notification">
                         <img class="bell" src="<?php echo $content['bell_icon'] ?>" alt="" />
+                        <div class="notification-count"></div>
                         <div class="notification-container">
                             <div class="notification-header d-flex">
                                 <p>Notifications</p>

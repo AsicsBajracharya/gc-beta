@@ -5,7 +5,7 @@ if ($content['enable_disable']) :
     $section_id = (!empty($content['section_id'])) ? 'id="'. $content['section_id'] .'"' : '';
    
 ?>
-<!-- <section class="section-stories">
+<section class="section-stories">
     <div class="header-box text-center text-blue-dark" data-aos="fade-down">
         <h1><?php echo $content['heading'] ?></h1>
     </div>
@@ -26,7 +26,7 @@ if ($content['enable_disable']) :
         </div>
         <?php endforeach; ?>
     </div>
-</section> -->
+</section>
 
 <section class="section-stories-2">
     `
@@ -34,7 +34,7 @@ if ($content['enable_disable']) :
         <div class="row">
             <div class="col-md-7">
                 <div class="image-container">
-                    <img src="./assets/images/growth-community-slider-bg.jpg" alt="" />
+                    <img src="https://beta.gilcouncil.com/wp-content/uploads/2023/07/Rectangle-1680.jpg" alt="" />
                 </div>
             </div>
             <div class="col-md-6 negative-margin">

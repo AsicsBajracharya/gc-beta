@@ -340,20 +340,16 @@ $(document).ready(function () {
         $(".nav-fixed").removeClass("visible");
         $("body").removeClass("nav-visible");
       }
-      console.log("scrolling outside");
+
       if (window.scrollY > section3Pos && window.scrollY < section4Pos) {
-        console.log("scrolling inside");
         $(".nav-item.pill:not(.section1)").removeClass("active");
         $(".section1").addClass("active");
-        console.log("between one and two");
       } else if (window.scrollY > section4Pos && window.scrollY < section5Pos) {
         $(".nav-item.pill:not(.section2)").removeClass("active");
         $(".section2").addClass("active");
-        console.log("between two and three");
       } else if (window.scrollY > section5Pos) {
         $(".nav-item.pill:not(.section3)").removeClass("active");
         $(".section3").addClass("active");
-        console.log("above 3");
       }
     });
   }
@@ -371,35 +367,6 @@ $(document).ready(function () {
         $("header").removeClass("fixed");
       }
     }
-    // console.log("section3", section3Pos, section4Pos, section5Pos);
-    // if (
-    //   currentUrl.includes("partner") ||
-    //   $("main").attr("data-home-url")?.includes("prospect") ||
-    //   currentUrl.includes("member")
-    // ) {
-    //   if (window.scrollY > section3Pos) {
-    //     $(".nav-fixed").addClass("visible");
-    //     $("body").addClass("nav-visible");
-    //   } else {
-    //     $(".nav-fixed").removeClass("visible");
-    //     $("body").removeClass("nav-visible");
-    //   }
-    //   console.log("scrolling outside");
-    //   if (window.scrollY > section3Pos && window.scrollY < section4Pos) {
-    //     console.log("scrolling inside");
-    //     $(".nav-item.pill:not(.section1)").removeClass("active");
-    //     $(".section1").addClass("active");
-    //     console.log("between one and two");
-    //   } else if (window.scrollY > section4Pos && window.scrollY < section5Pos) {
-    //     $(".nav-item.pill:not(.section2)").removeClass("active");
-    //     $(".section2").addClass("active");
-    //     console.log("between two and three");
-    //   } else if (window.scrollY > section5Pos) {
-    //     $(".nav-item.pill:not(.section3)").removeClass("active");
-    //     $(".section3").addClass("active");
-    //     console.log("above 3");
-    //   }
-    // }
 
     //FOR NOTIFICATIONS
 
@@ -540,7 +507,25 @@ jQuery(document).ready(function () {
   // });
 
   $(document).on("click", ".event-item", function () {
-    console.log($(this).attr("data-img"));
+    $(".event-item").removeClass("active");
+    $(this).addClass("active");
+    $(".pointer-icon").remove();
+    if ($(this).find(".event-type").html() == " In Person Event") {
+      $(this).prepend(`<span class = "pointer-icon">
+     <svg width="21" height="25" viewBox="0 0 21 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0.39405 12.2986L20.4082 0.394501L20.0978 24.7743L0.39405 12.2986Z" fill="#F28E36"/>
+</svg>
+
+    </span>`);
+    } else {
+      $(this).prepend(`<span class = "pointer-icon">
+      <svg width="21" height="25" viewBox="0 0 21 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0.39405 12.2986L20.4082 0.394501L20.0978 24.7743L0.39405 12.2986Z" fill="#29B1E6"/>
+</svg>
+
+    </span>`);
+    }
+
     $(".event-details .image-container-inner").attr(
       "style",
       "background-image: url(https://dev.gilcouncil.com/wp-content/uploads/2023/05/Rectangle-112.png)"
@@ -566,6 +551,8 @@ jQuery(document).ready(function () {
     console.log("formatted date", formattedDate);
     const eventType = $(this).find(".event-type").html();
     $(".event-details .pill-right p").html(eventType);
+    const orgName = $(this).attr("data-event-org-name");
+    $(".event-details .org-name").html(orgName);
   });
 
   function handleSearch(e) {

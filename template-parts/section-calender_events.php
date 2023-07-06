@@ -168,6 +168,7 @@ if ($content['enable_disable']) :
                     <h1>Your Engagement Calendar</h1>
                 </div>
                 <div class="content-container event-details">
+                    <div class="loader"></div>
                     <div class="image-container">
                         <div class="slider-overlay"></div>
                         <!-- <img src="https://dev.gilcouncil.com/wp-content/uploads/2023/05/image-52.jpg" alt=""> -->
@@ -183,7 +184,7 @@ if ($content['enable_disable']) :
                                                 fill="#323232" />
                                         </svg>
                                     </div>
-                                    <p>21st May, 2023</p>
+                                    <p></p>
                                 </div>
                                 <div class="icon-container dash">
                                     <svg viewBox="0 0 2 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -198,12 +199,12 @@ if ($content['enable_disable']) :
                                                 fill="#323232" />
                                         </svg>
                                     </div>
-                                    <p>Remote</p>
+                                    <p></p>
                                 </div>
                             </div>
                             <div class="header-box">
-                                <h2>Can Precision Health transform Sickcare to Healthcare?</h2>
-                                <h3 class="org-name">Justin Biralo</h3>
+                                <h2></h2>
+                                <h3 class="org-name"></h3>
                             </div>
                         </div>
 
@@ -212,25 +213,20 @@ if ($content['enable_disable']) :
                     <div class="content-container-inner">
                         <!-- <h2>Can Precision Health transform Sickcare to Healthcare?</h2>
                         <h3 class="org-name">Justin Biralo</h3> -->
-                        <p class="description">APAC Transformational Think Tank: Mobility Series: A collaborative
-                            platform to introduce, share and discuss a diverse range of new ideas and provoke discussion
-                            on critical issues surrounding the future of Mobility. This is where members engage with one
-                            another to share cross-industry perspectives on the forces shaping and driving new growth
-                            opportunities and areas of innovation. Topic: Transformative Trends in Software-Defined
-                            Vehicles More Details coming soon!!</p>
+                        <p class="description"></p>
                         <div class="button-container">
                             <button class="btn btn-primary btn-small btn-arrow btn-arrow-move "
                                 data-function="register-event"
                                 data-event-id=" <?php echo $highlighted_event[0]['ID'];?>">
                                 Register
-                                <span class="btn-icon">
+                                <!-- <span class="btn-icon">
                                     <svg width="16" height="13" viewBox="0 0 16 13" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M14 3.5L8 7.25L2 3.5V2L8 5.75L14 2M14 0.5H2C1.1675 0.5 0.5 1.1675 0.5 2V11C0.5 11.3978 0.658035 11.7794 0.93934 12.0607C1.22064 12.342 1.60218 12.5 2 12.5H14C14.3978 12.5 14.7794 12.342 15.0607 12.0607C15.342 11.7794 15.5 11.3978 15.5 11V2C15.5 1.60218 15.342 1.22064 15.0607 0.93934C14.7794 0.658035 14.3978 0.5 14 0.5Z"
                                             fill="white" />
                                     </svg>
-                                </span>
+                                </span> -->
 
 
 
@@ -292,6 +288,27 @@ if ($content['enable_disable']) :
                     </div> -->
                     <div id="my-calendar" data-month-format="MMM YYYY"></div>
                     <div class="event-list-container">
+                        <ul class="event-types">
+                            <li class="in-person">
+                                <div class="icon-container">
+                                    <svg width="17" height="18" viewBox="0 0 17 18" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="8.08337" cy="8.94507" r="8.08337" fill="#F28E36" />
+                                    </svg>
+
+                                </div>
+                                In Person Event
+                            </li>
+                            <li class="virtual">
+                                <div class="icon-container">
+                                    <svg width="17" height="18" viewBox="0 0 17 18" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="8.24987" cy="8.94507" r="8.08337" fill="#29B1E6" />
+                                    </svg>
+                                </div>
+                                Virtual Event
+                            </li>
+                        </ul>
                         <ul class="event-list"></ul>
                     </div>
                 </div>

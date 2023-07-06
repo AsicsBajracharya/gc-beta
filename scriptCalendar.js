@@ -123,6 +123,55 @@ $(document).ready(function () {
   //     `
   //   );
 
+  function formatDate(date) {
+    console.log("format day function", date);
+    const startDate = new Date(date);
+    var formattedDay = "";
+    var formattedDate = "";
+    if (startDate.getDate().toString().endsWith(1)) {
+      formattedDay = `${startDate.getDate()}<span>st</span>`;
+    } else if (startDate.getDate().toString().endsWith(2)) {
+      formattedDay = `${startDate.getDate()}<span>nd</span>`;
+    } else if (startDate.getDate().toString().endsWith(3)) {
+      formattedDay = `${startDate.getDate()}<span>rd</span>`;
+    } else {
+      formattedDay = `${startDate.getDate()}<span>th</span>`;
+    }
+
+    formattedDate = `${formattedDay} ${
+      months[startDate.getMonth()]
+    }, ${startDate.getFullYear()}`;
+    console.log("formatted date", formattedDate);
+    return formattedDate;
+  }
+
+  function fillEventDataInitial(data) {
+    console.log("FILL DATA FUNCTION CALLED", data);
+    $(".event-details .image-container-inner").attr(
+      "style",
+      `background-image: url(${data?.image})`
+    );
+    $(".event-details h2").html(data.title);
+    $(".event-details .description").html(data?.description);
+    $(".event-details button.btn-primary").attr("data-register", data?.title);
+    $(".event-details button.btn-primary").attr(
+      "data-register-status",
+      data?.register_status
+    );
+    if (data?.register_status) {
+      $(".event-details button.btn-primary").html("Registered");
+    } else {
+      $(".event-details button.btn-primary").html("Register");
+    }
+    const formattedDate = formatDate(data?.event_start);
+    $(".event-details .pill-left p").html(formattedDate);
+    const eventType = data?.event_type[0]?.name;
+    console.log("event type", eventType);
+    $(".event-details .pill-right p").html(eventType);
+    const orgName = data?.organizer[0]?.term_name;
+    $(".event-details .org-name").html(orgName);
+  }
+
   const events = [];
   var eventsData = [];
   var eventDates = [];
@@ -132,6 +181,10 @@ $(document).ready(function () {
   function fetchEvents(year, month, region, eventType) {
     $(".event-list").html(
       '<div class = "loader-outer"><div class="lds-dual-ring for-events"></div></div>'
+    );
+    $(".event-details").addClass("loading");
+    $(".event-details .loader").html(
+      '<div class = "loader-outer"><div class="lds-dual-ring"></div></div>'
     );
     var form_data = jQuery("#calender_form").serializeArray();
 
@@ -149,49 +202,30 @@ $(document).ready(function () {
         all_events: eventType,
       },
       success: function (output) {
-        console.log("output calendar events", output);
+        console.log("output calendar events", output.data);
         $(".lds-dual-ring.for-events").remove();
+        $(".event-details").removeClass("loading");
         const events = [];
         eventsData = output.data;
-        console.log("output calendar events data", eventsData);
-        console.log("OUTPUT DATA LENGTH FROM OUTSIDE", output.data.length);
 
         if (!output.data.length) {
-          console.log("OUTPUT DATA LENGTH", output.data.length);
           $(".event-list").html(
             '<h2 class= "text-center">No events in this month</h2>'
           );
+          $(".event-details description").html("No Events This Month");
           return;
         }
         // events = [];
         output.data.forEach((element) => {
-          // events.push(
-          //   "<li>Event title ---- " +
-          //     element.title +
-          //     " ---- with ID : " +
-          //     element.ID
-          // );
-
+          const formattedDate = formatDate(element.event_start);
           const startDate = new Date(element.event_start);
-          var formattedDay = "";
-          var formattedDate = "";
-          if (startDate.getDate().toString().endsWith(1)) {
-            formattedDay = `${startDate.getDate()}<span>st</span>`;
-          } else if (startDate.getDate().toString().endsWith(2)) {
-            formattedDay = `${startDate.getDate()}<span>nd</span>`;
-          } else if (startDate.getDate().toString().endsWith(2)) {
-            formattedDay = `${startDate.getDate()}<span>rd</span>`;
-          } else {
-            formattedDay = `${startDate.getDate()}<span>th</span>`;
-          }
-
-          formattedDate = `${formattedDay} ${
-            months[startDate.getMonth()]
-          }, ${startDate.getFullYear()}`;
-
-          events.push(`<li class = "event-item" data-img= ${
-            element.image
-          } data-title=${JSON.stringify(element.title)}
+          events.push(`<li class = "event-item ${
+            element.event_type[0].name == "Virtual Meeting"
+              ? "virtual"
+              : "in-person"
+          }" data-img= ${element.image} data-title=${JSON.stringify(
+            element.title
+          )}
             data-id=${element.ID}
             data-registered-status=${element.register_status}
           
@@ -212,30 +246,20 @@ $(document).ready(function () {
             <div class = "event-title"> <h3>${element.title}</h3></div>
             </li>`);
 
-          // $('#my-calendar table tbody tr').each((i, row) => {
-          //   //  console.log( $(row).children('td'));
-          //         $(row).children('td:not(.jsCalendar-next):not(.jsCalendar-previous)').each((index, col) =>{
-          //           if($(col).text() == startDate.getDate()){
-          //               $(col).addClass('jsCalendar-current')
-          //           }
-          //         })
-
-          //     })
           let eventMonth = startDate.getMonth() + 1;
           if (eventMonth.toString().length == 1) {
             eventMonth = "0" + eventMonth;
           }
 
-          eventDates.push(
-            `${startDate.getDate()}/${eventMonth}/${
-              (startDate.getFullYear(), events)
-            }`
-          );
+          // eventDates.push(
+          //   `${startDate.getDate()}/${eventMonth}/${
+          //     (startDate.getFullYear(), events)
+          //   }`
+          // );
 
           days.toArray().forEach((day, i) => {
             $(day).append("<span></span>");
             if ($(day).text() == startDate.getDate().toString()) {
-              console.log("DAY FROM inside the loop", day);
               if (element.event_type[0].slug == "virtual-meeting") {
                 $(day).addClass("virtual");
               } else {
@@ -248,9 +272,30 @@ $(document).ready(function () {
             }
           });
         });
+
+        $(events[0]).addClass("test");
+        console.log("EVENTS ", $(events[0]), typeof events[0]);
+
+        //         if (events[0].find(".event-type").html() == " In Person Event") {
+        //           events[0].prepend(`<span class = "pointer-icon">
+        //      <svg width="21" height="25" viewBox="0 0 21 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+        // <path d="M0.39405 12.2986L20.4082 0.394501L20.0978 24.7743L0.39405 12.2986Z" fill="#F28E36"/>
+        // </svg>
+
+        //     </span>`);
+        //         } else {
+        //           events[0].prepend(`<span class = "pointer-icon">
+        //       <svg width="21" height="25" viewBox="0 0 21 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+        // <path d="M0.39405 12.2986L20.4082 0.394501L20.0978 24.7743L0.39405 12.2986Z" fill="#29B1E6"/>
+        // </svg>
+
+        //     </span>`);
+        //         }
+        console.log("events 0", events[0]);
         jQuery(".event-list").html(events);
+        fillEventDataInitial(output.data[0]);
         // console.log("EVENTdATES", eventDates);
-        myCalendar.select(eventDates);
+        // myCalendar.select(eventDates);
       },
     });
   }
