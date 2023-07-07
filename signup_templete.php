@@ -2,7 +2,7 @@
 /* Template Name: SignUp Page */ 
 
 if (!is_user_logged_in() ) {
-
+ 
 if (isset($_POST['user_registeration']) ) :
     $random_number = rand(0,1000);
         $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
@@ -51,9 +51,9 @@ if (isset($_POST['user_registeration']) ) :
   
     // On success.
     if ( is_wp_error( $user_id ) ) {
-        $message = $user_id->get_error_message();
+        $message = $user_id->get_error_message();        
     }
-    // print_r( $message); die;
+    
   
     $measa_country = [
         "India",
@@ -96,7 +96,7 @@ if (isset($_POST['user_registeration']) ) :
         $role = 'um_americas';
         $region = "AMERICAS";
       }    
-
+     
 
     //  if (!empty($url_params['region']) && $url_params['region'] !== 'Region' ) {
     //     $data = (explode(" ",$url_params['region']));
@@ -108,14 +108,16 @@ if (isset($_POST['user_registeration']) ) :
     //  else{
     //       $role = '';
     // }    
+           
+        
+    if (!is_wp_error($user_id) && $user_id) {
         $wp_user_object = new WP_User($user_id);
         $wp_user_object->remove_role('pending_user');
         $wp_user_object->set_role('um_growth-member'); 
-        $wp_user_object->add_role($role);
+        $wp_user_object->add_role($role);     
         
-    do_action( 'profile_update', $user_id, $wp_user_object, $wp_user_object );    
-        
-    if (!is_wp_error($user_id) && $user_id) {
+        do_action( 'profile_update', $user_id, $wp_user_object, $wp_user_object );
+
         $id = $user_id;
         update_field('Title', $title, 'user_' . $id);
         //update_field('title', $title, 'user_' . $id);
@@ -133,15 +135,23 @@ if (isset($_POST['user_registeration']) ) :
         update_field('frost_subscription',$subscription, 'user_' . $id);
         update_field('agree_tc',$agree_tc, 'user_' . $id);
         
-        $to =  $useremail;
-        $subject = 'Registration Verification';
-        $msg = __( $useremail." has initiated a Growth Pipeline Dialog." ) . "\r\n\r\n";
-        $msg = __( "You have successfully registered to the Growth Council. Email : ".$useremail." <br>  Password".$password) . "\r\n\r\n";
+       
+        $msg = __( $useremail." has registered as Growth Member." ) . "\r\n\r\n";       
         $msg .=  __( "- The Growth Innovation Leadership Council") . "\r\n\r\n";
-        $mail_message = $msg;
-        $mailResult = wp_mail($to, $subject, $mail_message);
+        generic_mail_function('councils@frost.com', 'New Registration', $msg);
         
-       // wp_redirect( home_url()."/signin" ); exit;  
+        $msg = __( "Thank you for the Registration " ) . "\r\n\r\n";
+        $msg .= __( "You have successfully registered to the Growth Council.") . "\r\n\r\n";
+        $msg .= __( "Email : ".$useremail) . "\r\n";
+        $msg .= __( "Password".$password) . "\r\n";
+        $msg .=  __( "- The Growth Innovation Leadership Council") . "\r\n\r\n";     
+        generic_mail_function($useremail,  'Registration Verification', $msg);
+
+        
+        $redirect = add_query_arg( 'status', 'success', home_url()."/signin"  );
+        wp_redirect( $redirect );
+        exit;
+       //wp_redirect( home_url()."/signin" ); exit;  
 
         //return gil_response(200, 'Registration succesfull', null);
     } elseif (is_wp_error($user_id)) {
@@ -158,7 +168,7 @@ endif;
 //    wp_redirect( home_url() ); exit;  
 // }
 
-?>  
+?>
 
 <!-- <h3>Create your account</h3>
 <form action="" method="post" name="user_registeration">
@@ -393,7 +403,7 @@ endif;
                     </div>
                 </div>
             </div> -->
-            <div class="signup-form-step-1">
+            <!-- <div class="signup-form-step-1">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-6">
@@ -539,6 +549,222 @@ endif;
                         </div>
                     </div>
                 </div>
+            </div> -->
+            <div class="signup-form-step-1" style="
+            background-image: url(https://beta.gilcouncil.com/wp-content/uploads/2023/07/MicrosoftTeams-image-1.jpg);
+          ">
+                <div class="slider-overlay"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="content-container left">
+                                <div class="inner">
+                                    <div class="header-box">
+                                        <h1>Sign Up Now!</h1>
+                                    </div>
+                                    <div class="form-content">
+                                        <div class="input-group-outer">
+                                            <label for="email">Businesss Email*</label>
+                                            <div class="input-group">
+                                                <input type="text" name="useremail" class="form-control"
+                                                    id="emailSignup" />
+                                            </div>
+                                            <p class="error email"></p>
+                                        </div>
+                                        <!-- <div class="input-group-outer">
+                        <div
+                          class="label-container d-flex justify-content-between align-items-center"
+                        >
+                          <label for="password">Create Password*</label>
+                        </div>
+                        <div class="input-group">
+                          <input
+                            type="password"
+                            placeholder="Must be 8 characters long"
+                            class="form-control password"
+                            id="password"
+                            name="password"
+                          />
+                          <div
+                            class="input-group-append form-icon cursor-pointer toggle-visibility"
+                          >
+                            <svg
+                              width="18"
+                              height="12"
+                              viewBox="0 0 18 12"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="visible-icon open d-none"
+                            >
+                              <path
+                                d="M8.79851 1.60546C11.7402 1.60546 14.3637 3.25872 15.6444 5.87445C14.3637 8.49017 11.748 10.1434 8.79851 10.1434C5.84903 10.1434 3.2333 8.49017 1.95261 5.87445C3.2333 3.25872 5.85679 1.60546 8.79851 1.60546ZM8.79851 0.0531006C5.08395 0.0531006 1.88846 2.26453 0.443944 5.44191C0.319018 5.7167 0.319018 6.03219 0.443945 6.30698C1.88847 9.48436 5.08395 11.6958 8.79851 11.6958C12.5131 11.6958 15.7086 9.48436 17.1531 6.30698C17.278 6.03219 17.278 5.7167 17.1531 5.44191C15.7086 2.26453 12.5131 0.0531006 8.79851 0.0531006ZM8.79851 3.934C9.86964 3.934 10.739 4.80332 10.739 5.87445C10.739 6.94557 9.86964 7.81489 8.79851 7.81489C7.72738 7.81489 6.85806 6.94557 6.85806 5.87445C6.85806 4.80332 7.72738 3.934 8.79851 3.934ZM8.79851 2.38164C6.87358 2.38164 5.3057 3.94952 5.3057 5.87445C5.3057 7.79937 6.87358 9.36725 8.79851 9.36725C10.7234 9.36725 12.2913 7.79937 12.2913 5.87445C12.2913 3.94952 10.7234 2.38164 8.79851 2.38164Z"
+                                fill="#86C9F6"
+                              />
+                            </svg>
+                            <svg
+                              class="visible-icon closed"
+                              width="22"
+                              height="20"
+                              viewBox="0 0 22 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M9.01175 13.6515C8.4406 13.1923 8.09295 12.5681 8.09295 11.868C8.09295 10.4653 9.49549 9.33469 11.2358 9.33469C12.0969 9.33469 12.8896 9.61554 13.4508 10.0748"
+                                stroke="#86C9F6"
+                                stroke-width="1.78794"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                d="M14.3202 12.3171C14.0897 13.3493 13.0805 14.1639 11.8001 14.3511"
+                                stroke="#86C9F6"
+                                stroke-width="1.78794"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                d="M5.92654 16.1365C4.35017 15.1396 3.01518 13.6833 2.0477 11.8677C3.02511 10.0441 4.36905 8.57985 5.95535 7.57485C7.53172 6.56985 9.35045 6.02414 11.2357 6.02414C13.1319 6.02414 14.9497 6.57785 16.536 7.59005"
+                                stroke="#86C9F6"
+                                stroke-width="1.78794"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                d="M18.6338 9.35001C19.3172 10.0814 19.9182 10.9255 20.4238 11.8673C18.4699 15.5136 15.0172 17.7101 11.2357 17.7101C10.3785 17.7101 9.53322 17.598 8.7207 17.3796"
+                                stroke="#86C9F6"
+                                stroke-width="1.78794"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                d="M19.0703 5.55634L3.402 18.178"
+                                stroke="#86C9F6"
+                                stroke-width="1.78794"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                        <p class="error password"></p>
+                      </div>
+  
+                      <div
+                        class="label-container d-flex justify-content-between align-items-center"
+                      >
+                        <label for="passwordConfirm">Confirm Password*</label>
+                      </div>
+  
+                      <div class="input-group-outer">
+                        <div class="input-group">
+                          <input
+                            type="password"
+                            placeholder="Confirm Password"
+                            class="form-control passwordConfirm"
+                            id="passwordConfirm"
+                            name="password"
+                          />
+                          <div
+                            class="input-group-append form-icon cursor-pointer toggle-visibility-confirm"
+                          >
+                            <svg
+                              width="18"
+                              height="12"
+                              viewBox="0 0 18 12"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="visible-icon open d-none"
+                            >
+                              <path
+                                d="M8.79851 1.60546C11.7402 1.60546 14.3637 3.25872 15.6444 5.87445C14.3637 8.49017 11.748 10.1434 8.79851 10.1434C5.84903 10.1434 3.2333 8.49017 1.95261 5.87445C3.2333 3.25872 5.85679 1.60546 8.79851 1.60546ZM8.79851 0.0531006C5.08395 0.0531006 1.88846 2.26453 0.443944 5.44191C0.319018 5.7167 0.319018 6.03219 0.443945 6.30698C1.88847 9.48436 5.08395 11.6958 8.79851 11.6958C12.5131 11.6958 15.7086 9.48436 17.1531 6.30698C17.278 6.03219 17.278 5.7167 17.1531 5.44191C15.7086 2.26453 12.5131 0.0531006 8.79851 0.0531006ZM8.79851 3.934C9.86964 3.934 10.739 4.80332 10.739 5.87445C10.739 6.94557 9.86964 7.81489 8.79851 7.81489C7.72738 7.81489 6.85806 6.94557 6.85806 5.87445C6.85806 4.80332 7.72738 3.934 8.79851 3.934ZM8.79851 2.38164C6.87358 2.38164 5.3057 3.94952 5.3057 5.87445C5.3057 7.79937 6.87358 9.36725 8.79851 9.36725C10.7234 9.36725 12.2913 7.79937 12.2913 5.87445C12.2913 3.94952 10.7234 2.38164 8.79851 2.38164Z"
+                                fill="#86C9F6"
+                              />
+                            </svg>
+                            <svg
+                              class="visible-icon closed"
+                              width="22"
+                              height="20"
+                              viewBox="0 0 22 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M9.01175 13.6515C8.4406 13.1923 8.09295 12.5681 8.09295 11.868C8.09295 10.4653 9.49549 9.33469 11.2358 9.33469C12.0969 9.33469 12.8896 9.61554 13.4508 10.0748"
+                                stroke="#86C9F6"
+                                stroke-width="1.78794"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                d="M14.3202 12.3171C14.0897 13.3493 13.0805 14.1639 11.8001 14.3511"
+                                stroke="#86C9F6"
+                                stroke-width="1.78794"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                d="M5.92654 16.1365C4.35017 15.1396 3.01518 13.6833 2.0477 11.8677C3.02511 10.0441 4.36905 8.57985 5.95535 7.57485C7.53172 6.56985 9.35045 6.02414 11.2357 6.02414C13.1319 6.02414 14.9497 6.57785 16.536 7.59005"
+                                stroke="#86C9F6"
+                                stroke-width="1.78794"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                d="M18.6338 9.35001C19.3172 10.0814 19.9182 10.9255 20.4238 11.8673C18.4699 15.5136 15.0172 17.7101 11.2357 17.7101C10.3785 17.7101 9.53322 17.598 8.7207 17.3796"
+                                stroke="#86C9F6"
+                                stroke-width="1.78794"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                d="M19.0703 5.55634L3.402 18.178"
+                                stroke="#86C9F6"
+                                stroke-width="1.78794"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                        <p class="error passwordConfirm"></p>
+                      </div> -->
+
+                                        <div class="button-container">
+                                            <div class="btn btn-primary btn-small signup-form-1">
+                                                Next
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="content-container right">
+                                <div class="inner">
+                                    <div class="header-box">
+                                        <h2>
+                                            Already with Growth <br />Innovation Leadership
+                                            Council??
+                                        </h2>
+                                    </div>
+
+                                    <div class="button-container">
+                                        <button class="btn btn-primary btn-small">Login</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="banner-bottom">
+                        <div class="header-box">
+                            <h3>Already a Member?</h3>
+                        </div>
+                        <div class="button-container">
+                            <div class="btn btn-primary btn-small">Login</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="signup-form-step-2 d-none">
                 <div class="container">
@@ -552,40 +778,36 @@ endif;
                         <div class="col-md-4 col-sm-6">
                             <label for="firstName">First Name*</label>
                             <div class="input-group">
-                                <input type="text" placeholder="What's your First Name" class="form-control page2-input"
-                                    id="firstName" name="first_name" />
+                                <input type="text" class="form-control page2-input" id="firstName" name="first_name" />
                             </div>
                             <p class="error firstName"></p>
                         </div>
                         <div class="col-md-4 col-sm-6">
                             <label for="firstName">Last Name*</label>
                             <div class="input-group">
-                                <input type="text" placeholder="What's your Last Name" class="form-control page2-input"
-                                    id="lastName" name="last_name" />
+                                <input type="text" class="form-control page2-input" id="lastName" name="last_name" />
                             </div>
                             <p class="error lastName"></p>
                         </div>
                         <div class="col-md-4 col-sm-6">
                             <label for="title">Title*</label>
                             <div class="input-group">
-                                <input type="text" placeholder="What's your Company Title"
-                                    class="form-control page2-input" id="title" name="title" />
+                                <input type="text" class="form-control page2-input" id="title" name="title" />
                             </div>
                             <p class="error title"></p>
                         </div>
                         <div class="col-md-4 col-sm-6">
                             <label for="company">Company</label>
                             <div class="input-group">
-                                <input type="text" placeholder="What's your Company name"
-                                    class="form-control page2-input" id="company" name="company" />
+                                <input type="text" class="form-control page2-input" id="company" name="company" />
                             </div>
                             <p class="error company"></p>
                         </div>
                         <div class="col-md-4 col-sm-6">
                             <label for="phone">Business Phone</label>
                             <div class="input-group">
-                                <input type="number placeholder=" (+123) 9876543210" class="form-control page2-input"
-                                    id="phone" name="business_phone" />
+                                <input type="number " class="form-control page2-input" id="phone"
+                                    name="business_phone" />
                             </div>
                             <p class="error phone"></p>
                         </div>
@@ -594,7 +816,7 @@ endif;
                                 <label for="contry">Country</label>
                                 <select name="country" id="country" class="page2-select">
                                     <option value="" selected="selected">
-                                        Select your option
+                                        Please select one
                                     </option>
                                     <option value="Afghanistan">Afghanistan</option>
                                     <option value="Åland Islands">Åland Islands</option>
@@ -946,7 +1168,7 @@ endif;
                                 if($message) :
                                     echo '<p class="error">'.$message.'</p>';
                                 endif;
-                                ?>                          
+                                ?>
                         </div>
                     </div>
                 </div>

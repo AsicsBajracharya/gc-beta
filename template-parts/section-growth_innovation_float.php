@@ -27,7 +27,7 @@ if ($content['enable_disable']) :
                     </div>
                     <div class="button-container">
                         <a href="<?php echo $content['button_link']['url'] ?>"><button
-                                class="btn btn-primary btn-arrow btn-small btn-arrow-move">
+                                class="btn btn-transparent btn-white-border btn-arrow btn-small btn-arrow-move">
                                 <?php echo $content['button_link']['title'] ?>
                                 <span class="btn-icon">
                                     <svg width="9" height="15" viewBox="0 0 9 15" fill="none"
