@@ -54,6 +54,9 @@ if ($content['enable_disable']) :
 </footer> -->
 
 
+
+
+
 <footer class="footer">
     <div class="container">
         <div class="row">
@@ -98,7 +101,8 @@ if ($content['enable_disable']) :
         </div>
         <div class="footer-bottom">
             <p>
-                <?php echo $content['copyright_text'] ?> </p>
+                <?php echo $content['copyright_text'] ?>
+            </p>
         </div>
     </div>
 

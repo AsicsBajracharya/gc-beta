@@ -945,19 +945,18 @@ function send_mail_function(){
 
     $to =  $receiver_email;
     $subject = 'Growth Innovation Leadership Council Request';
-    $msg = __( $user_data->user_login." has initiated a Growth Pipeline Dialog." ) . "\r\n\r\n";
-    $msg .= __( "Please review their Membership details, connect with the appropriate internal team members, and reach out accordingly.") . "\r\n\r\n";
+    $msg = __( $user_email." has initiated a Growth Pipeline Dialog." ) . "\r\n\r\n";
+    $msg .= __( $msg."".$message ) . "\r\n\r\n";
     $msg .=  __( "- The Growth Innovation Leadership Council") . "\r\n\r\n";
-    $mail_message = $msg;
-    if(empty($receiver_email)) :
-     $mailResult = wp_mail($to, $subject, $mail_message); 
-    endif;     
-  
-     // in the end, returns success json data
+    $mail_message = $msg;  
+    $mailResult = wp_mail($to, $subject, $mail_message);    
+    if($mailResult) :
+          // in the end, returns success json data
      wp_send_json_success('Mail sent Successfully');
-
-     // or, on error, return error json data
+    else :
+        // or, on error, return error json data
      wp_send_json_error(['Events not found']);
+    endif;  
     //return gil_response(200, 'success', $search_results);
 }
 
@@ -1011,3 +1010,111 @@ function update_users_notification_status(){
      wp_send_json_error("Notification not found !");
     //return gil_response(200, 'success', $search_results);
 }
+
+add_action('wp_ajax_update_all_users_notification_status', 'update_all_users_notification_status');
+
+// register the ajax action for unauthenticated users
+add_action('wp_ajax_nopriv_update_all_users_notification_status', 'update_all_users_notification_status');
+
+// Pass Notification id as POST value in name notification_id .
+function update_all_users_notification_status(){
+
+    	// WP Globals
+	global $table_prefix, $wpdb;   
+    //$notification_id = 34;	
+	// Customer Table
+    $current_user_id = get_current_user_id();
+	
+	if( !empty($current_user_id) && $current_user_id !== 0 ){
+        $result_check = $wpdb->query($wpdb->prepare(" UPDATE `wpclct_notification` set status = 1 WHERE receiver_user_id = $current_user_id AND status = 0 ") );
+	}	
+ 
+    if(!empty($result_check)) :	
+    // in the end, returns success json data
+    wp_send_json_success("Notification status updated");
+    else :
+        // in the end, returns success json data
+     wp_send_json_success("Notification Status already Read");    
+    endif; 
+     // or, on error, return error json data
+     wp_send_json_error("Notification not found !");
+    //return gil_response(200, 'success', $search_results);
+}
+
+add_action('wp_ajax_update_users_meta', 'update_users_meta');
+
+// register the ajax action for unauthenticated users
+add_action('wp_ajax_nopriv_update_users_meta', 'update_users_meta');
+
+// Pass Notification id as POST value in name notification_id .
+function update_users_meta(){
+    $industry = isset($_POST['industry'])?$_POST['industry']:"";
+    $areas_of_interests = isset($_POST['areas_of_interests'])?$_POST['areas_of_interests']:"";
+    $expertise_areas = isset($_POST['expertise_areas'])?$_POST['expertise_areas']:"";
+    $id = get_current_user_id(); 
+    update_field('industry', $industry, 'user_' . $id);
+    update_field('areas_of_interests', $areas_of_interests, 'user_' . $id);
+    update_field('expertise_areas1', $expertise_areas, 'user_' . $id);
+    wp_send_json_success("Industry and Area of Interest Updated !");   
+}
+
+add_action('wp_ajax_email_exist', 'email_exist');
+
+// register the ajax action for unauthenticated users
+add_action('wp_ajax_nopriv_email_exist', 'email_exist');
+
+// Function to check if email address already exist or not in our system
+function email_exist(){
+    $email = isset($_POST['email'])?$_POST['email']:"";
+    $exists = email_exists($email);
+    if ( $exists )
+    wp_send_json_success("Email exist");
+    else
+    wp_send_json_error("Email not found !");
+    
+}
+
+// Function to change mail sender email address
+function sender_email( $original_email_address ) {
+    return 'councils@frost.com';
+}
+ 
+// Function to change sender name
+function sender_name( $original_email_from ) {
+    return 'Growth Innovation Leadership Council';
+}
+ 
+// Hooking up our functions to WordPress filters 
+add_filter( 'wp_mail_from', 'sender_email' );
+add_filter( 'wp_mail_from_name', 'sender_name' );
+
+function force_404(){
+    header( 'HTTP/1.0 404 Not Found' );
+    locate_template( '404.php', TRUE, TRUE );
+    $GLOBALS['wp_query']->is_404 = TRUE;
+    return TRUE;
+}
+
+function generic_mail_function($receiver_email, $subject, $message){
+    $mailResult = wp_mail($receiver_email, $subject, $message);     
+    //return gil_response(200, 'success', $search_results);
+}
+
+function function_new_user($user_id) { 
+    add_user_meta( $user_id, '_new_user', '1' );
+ }
+add_action( 'user_register', 'function_new_user');
+
+//  function function_check_login_redirect($user_login, $user) {
+//     $logincontrol = get_user_meta($user->ID, '_new_user', true);
+//     if ( $logincontrol ) {
+//        //set the user to old
+//        update_user_meta( $user->ID, '_new_user', '1' );
+ 
+//        //Do the redirects or whatever you need to do for the first login
+//        wp_redirect( 'http://www.example.com', 302 ); exit;
+//     }
+//  }
+//  add_action('wp_login', 'function_check_login_redirect', 10, 2);
+
+

@@ -4,7 +4,7 @@ if ($content['enable_disable']) :
     $section_class = $content['custom_classes'];
     $section_id = (!empty($content['section_id'])) ? 'id="'. $content['section_id'] .'"' : '';
     $current_user_id = get_current_user_id();
-    $service_manager = get_field('service_manager', 'user_218', false);
+    $service_manager = get_field('service_manager', 'user_'.$current_user_id, false);
     $user_object = get_user_by('ID', $service_manager);
     if (!empty($user_object)) {
       $user = array();
@@ -60,7 +60,7 @@ if ($content['enable_disable']) :
     </section> -->
 
 <section class="section-service-manager" style="
-        background-image: url(<?php echo $content['background_image'] ?>);
+        background-image: url('https://beta.gilcouncil.com/wp-content/uploads/2023/06/orange-angle-bkgd-for-WP-1.png');
       ">
     <div class="container">
         <div class="row align-items-center">
@@ -73,14 +73,16 @@ if ($content['enable_disable']) :
             <div class="col-lg-6">
                 <div class="content-container right d-flex align-items-center">
                     <div class="image-container">
-                        <img src="<?php echo $user['profile_image'] ?>" alt="" />
+                        <img src="https://beta.gilcouncil.com/wp-content/uploads/ultimatemember/24/profile_photo.png?1686868415"
+                            alt="" />
                     </div>
                     <div class="content-container right text-white">
-                        <h3><?php echo $user['display_name'] ?></h3>
+                        <h3>Brittney gasca peña</h3>
                         <p>Membership Service Manager</p>
-                        <p><?php echo $user['phone'][0] ?></p>
+                        <p>phone : 45235234523423</p>
                         <div class="button-container w-100">
-                            <a href="mailto:<?php echo $user['user_email'] ?>">
+                            <a data-mail="brittney.gasca@frost.com" class="msm-trigger"
+                                data-function="service_manager_mail_function">
                                 <button class="btn btn-white-bg btn-small btn-message w-100">
                                     <div class="message-icon">
                                         <svg width="15" height="13" viewBox="0 0 15 13" fill="none"

@@ -258,10 +258,11 @@ $(document).ready(function () {
     console.log("click on video thumbnail");
     $(".overlay-video").addClass("visible");
     $("body").addClass("overlay-visible");
-    $(".overlay-video iframe").attr(
-      "src",
-      $(".overlay-video").attr("data-src-video")
-    );
+    var sourceVideo = `${$(".overlay-video").attr(
+      "data-src-video"
+    )}&autoplay=1`;
+    // $(".overlay-video iframe").attr("src", sourceVideo);
+    // $(".overlay-video iframe").play();
   });
 
   $(".overlay").on("click", function (e) {
@@ -272,37 +273,39 @@ $(document).ready(function () {
     $("body").removeClass("overlay-visible");
   });
 
+  //FOR HAM MENU
   function openMenu() {
+    // console.log("opening menu");
     $("body").addClass("menu-opened");
-    $(".fs-ham-open").addClass("d-none");
-    $(".fs-ham-closed").removeClass("d-none");
-    $("body").addClass("overlay-visible");
-    if ($(".menu").hasClass("visible")) {
-      $(".menu").removeClass("visible");
-    } else {
-      $(".menu").addClass("visible");
-    }
+    // if ($(".nav-menu .menu").hasClass("visible")) {
+    //   $(".nav-menu .menu").removeClass("visible");
+    // } else {
+    //   $(".nav-menu .menu").addClass("visible");
+    // }
+  }
+
+  function closeMenu() {
+    // console.log("closing menu");
+    $("body").removeClass("menu-opened");
+    // if ($(".nav-menu .menu").hasClass("visible")) {
+    //   $(".nav-menu .menu").removeClass("visible");
+    // } else {
+    //   $(".nav-menu .menu").addClass("visible");
+    // }
   }
 
   $(".fs-ham-open").on("click", function (e) {
-    e.stopPropagation();
-    openMenu();
+    // e.stopPropagation();
+
+    if ($("body").hasClass("menu-opened")) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
   });
 
-  function closeMenu() {
-    $("body").removeClass("menu-opened");
-    $(".fs-ham-open").removeClass("d-none");
-    $(".fs-ham-closed").addClass("d-none");
-    $("body").removeClass("overlay-visible");
-    if ($(".menu").hasClass("visible")) {
-      $(".menu").removeClass("visible");
-    } else {
-      $(".menu").addClass("visible");
-    }
-  }
-
   $(".fs-ham-closed").on("click", function (e) {
-    e.stopPropagation();
+    console.log("clicked on close icon");
     closeMenu();
   });
 
@@ -310,15 +313,15 @@ $(document).ready(function () {
     closeMenu();
   });
 
-  $(".bell").on("click", function (e) {
+  $(".notification-icon-group").on("click", function (e) {
     e.stopPropagation();
     $(".notification-container").toggleClass("visible");
-    $(".icon-search-container").addClass("d-none");
+    $(".notification-count").addClass("d-none");
   });
 
   $(".search-icon").on("click", function (e) {
     e.stopPropagation();
-    $(".notification-count").addClass("d-none");
+    $(".search-input-container").toggleClass("visible");
   });
 
   $("body").on("click", function (e) {
@@ -328,8 +331,77 @@ $(document).ready(function () {
   });
 
   $(".notification-container").on("click", function (e) {
-    e.stopPropagation();
+    // e.stopPropagation();
   });
+
+  $(document).on("click", ".notification-item", function (e) {
+    e.stopPropagation();
+    console.log("Notification read function");
+
+    jQuery.ajax({
+      type: "POST",
+
+      url: "/wp-admin/admin-ajax.php",
+
+      data: {
+        action: "update_users_notification_status",
+
+        notification_id: $(this).attr("notification-id"),
+      },
+
+      success: function (output) {
+        console.log(output);
+
+        return output;
+      },
+    });
+  });
+
+  // //UPDATE USER //PERSONALIZE
+  //  jQuery.ajax({
+  //   type: "POST",
+
+  //   url: "/wp-admin/admin-ajax.php",
+
+  //   data: {
+  //     action: "update_users_meta",
+
+  //     industry: ,
+  //     areas_of_interests: ,
+  //     expertise_areas: ,
+  //   },
+
+  //   success: function (output) {
+  //     console.log(output);
+
+  //     return output;
+  //   },
+  // });
+
+  // //MSM //GROWTH COACH
+
+  //   $('.send-msm').on('click', function(e){
+  //     e.preventDefault()
+  // jQuery.ajax({
+  //     type: "POST",
+
+  //     url: "/wp-admin/admin-ajax.php",
+
+  //     data: {
+  //       action: "send_mail_function",
+
+  //       subject: ,
+  //       message: ,
+  //       receiver_email: ,
+  //     },
+
+  //     success: function (output) {
+  //       console.log(output);
+
+  //       return output;
+  //     },
+  //   });
+  //   })
 
   $(".menu.visible").on("click", function (e) {
     e.stopPropagation();
@@ -399,7 +471,10 @@ $(document).ready(function () {
   var currentUrl = window.location.href;
 
   $(window).on("scroll", function (event) {
-    $(".menu").removeClass("visible");
+    // $(".menu").removeClass("visible");
+    if ($(".menu").hasClass("visible")) {
+      closeMenu();
+    }
     if (!currentUrl.includes("notificaiton")) {
       if (window.scrollY > 500) {
         $("header").addClass("fixed");
@@ -662,7 +737,7 @@ jQuery(document).ready(function () {
         console.log("search api integration", output);
         var results = [];
         var counter = 0;
-        output.data.forEach((el) => {
+        output.data.events_sessions.forEach((el) => {
           if (counter < 5) {
             results.push(`<li>
         <div><a href = "${el.redirect_url}">${el.title}</a></div>
@@ -677,8 +752,9 @@ jQuery(document).ready(function () {
   });
 
   $(".gpd-trigger").on("click", function () {
-    $(".confrimation-overlay").removeClass("d-none");
-    $("body").addClass("overlay-visible");
+    // $(".confrimation-overlay").removeClass("d-none");
+    // $("body").addClass("overlay-visible");
+    $("#gpdModal").modal("show");
   });
 
   $(".confrimation-overlay").on("click", function () {
@@ -692,14 +768,15 @@ jQuery(document).ready(function () {
     console.log("confrimation box clicked");
   });
 
-  $(".confrimation-box button:not(.btn-danger)").on("click", function () {
-    console.log("clicked on yes");
-    const oldHTML = $(".confrimation-box").html();
-    $(".confrimation-box").html(
-      '<div class = "loader-outer"><div class="lds-dual-ring"></div></div>'
+  $(".gpd-confrimation").on("click", function () {
+    console.log("clickked on gpd confrimation");
+    $("#gpdModal .modal-body").html(
+      `
+        <div class="loader-outer">
+        <div class="lds-dual-ring"></div>
+      </div>
+      `
     );
-    $(".confrimation-box").html();
-
     jQuery.ajax({
       type: "POST",
       url: "/wp-admin/admin-ajax.php",
@@ -707,13 +784,11 @@ jQuery(document).ready(function () {
         action: "gpd_email_request",
       },
       success: function (output) {
-        $(".confrimation-box").html(
+        $("#gpdModal .modal-body").html(
           '<h2 class = "text-center">You are registered</h2>'
         );
         setTimeout(function () {
-          $(".confrimation-overlay").addClass("d-none");
-          $("body").removeClass("overlay-visible");
-          $(".confrimation-box").html(oldHTML);
+          $("#gpdModal").modal("hide");
         }, 1500);
       },
     });
@@ -724,6 +799,8 @@ jQuery(document).ready(function () {
     $(".confrimation-overlay").addClass("d-none");
     $("body").addClass("overlay-visible");
   });
+
+  //NOTIFICATION
 
   function fetchNotifications() {
     console.log("The Notification list fetch function is hooked up");
@@ -748,17 +825,179 @@ jQuery(document).ready(function () {
         console.log("Notification", output);
         var notificationOutput = [];
         var notificationOutputForPage = [];
-        $(".notification-count").html(output.data.length);
-        $(".notification-count").removeClass("d-none");
+        var newNotification = 0;
+
         output.data.forEach((el, index) => {
-          notificationOutput.push(
-            `
-            <li class = "notification-item" notification-id=${el.id}>
-            <a href = "https://beta.gilcouncil.com/?page_id=${el.event_id}" target="_blank">${el.notification_title}</a>
+          if (el.status == 0) {
+            newNotification++;
+          }
+          if (el.notification_type?.startsWith("event")) {
+            notificationOutput.push(
+              `
+            <li class = "notification-item ${
+              el.status == 1 ? "read" : "unread"
+            }" notification-id=${el.id}>
+            <span class = "icon-container">
+           <svg  viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="16.4502" cy="16.7246" r="15.8057" fill="#3A81BF"/>
+<path d="M20.3861 16.8089H16.4277V20.7673H20.3861V16.8089ZM19.5944 8.10059V9.68392H13.2611V8.10059H11.6777V9.68392H10.8861C10.0073 9.68392 9.31065 10.3964 9.31065 11.2673L9.30273 22.3506C9.30273 22.7705 9.46955 23.1732 9.76648 23.4702C10.0634 23.7671 10.4661 23.9339 10.8861 23.9339H21.9694C22.8402 23.9339 23.5527 23.2214 23.5527 22.3506V11.2673C23.5527 10.3964 22.8402 9.68392 21.9694 9.68392H21.1777V8.10059H19.5944ZM21.9694 22.3506H10.8861V13.6423H21.9694V22.3506Z" fill="white"/>
+</svg>
+
+
+            </span>
+            <a href = "https://beta.gilcouncil.com/?page_id=${
+              el.event_id
+            }" target="_blank">${el.notification_title}</a>
+             <span class = "dot-icon">
+            <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="3.8584" cy="3.55859" r="3.02246" fill="#3A81BF"/>
+</svg>
+            <span>
+            
             </li>
             `
-          );
+            );
+          } else if (el.notification_type?.startsWith("Content")) {
+            notificationOutput.push(
+              `
+            <li class = "notification-item ${
+              el.status == 1 ? "read" : "unread"
+            }" notification-id=${el.id}>
+            <span class = "icon-container">
+          <svg  viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="16.4502" cy="16.54" r="15.8057" fill="#3A81BF"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9277 9.94531H21.9277C22.4582 9.94531 22.9669 10.156 23.3419 10.5311C23.717 10.9062 23.9277 11.4149 23.9277 11.9453V21.9453C23.9277 22.4757 23.717 22.9845 23.3419 23.3595C22.9669 23.7346 22.4582 23.9453 21.9277 23.9453H11.9277C11.3973 23.9453 10.8886 23.7346 10.5135 23.3595C10.1384 22.9845 9.92773 22.4757 9.92773 21.9453V11.9453C9.92773 11.4149 10.1384 10.9062 10.5135 10.5311C10.8886 10.156 11.3973 9.94531 11.9277 9.94531Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9277 11.9453H21.9277C22.4582 11.9453 22.9669 12.156 23.3419 12.5311C23.717 12.9062 23.9277 13.4149 23.9277 13.9453V11.9453C23.9277 10.9453 23.0327 9.94531 21.9277 9.94531H11.9277C10.8227 9.94531 9.92773 10.9453 9.92773 11.9453V13.9453C9.92773 13.4149 10.1384 12.9062 10.5135 12.5311C10.8886 12.156 11.3973 11.9453 11.9277 11.9453Z" fill="white" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M13.9258 16.9453H14.9258M13.9258 14.9453H17.9228M13.9258 18.9453H19.9228M13.9258 20.9453H17.9228" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+
+            </span>
+            <a href = "https://beta.gilcouncil.com/?page_id=${
+              el.event_id
+            }" target="_blank">${el.notification_title}</a>
+           
+            <span class = "dot-icon">
+            <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="3.8584" cy="3.55859" r="3.02246" fill="#3A81BF"/>
+</svg>
+            <span>
+            </li>
+            `
+            );
+          } else if (el.notification_type?.startsWith("chat")) {
+            notificationOutput.push(
+              `
+            <li class = "notification-item ${
+              el.status == 1 ? "read" : "unread"
+            }" notification-id=${el.id}>
+            <span class = "icon-container">
+                 <svg  viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="16.4502" cy="16.0615" r="15.8057" fill="#3A81BF"/>
+<path d="M24.5031 11.334C24.0649 10.2882 23.4274 9.33755 22.6261 8.53517C21.8273 7.7314 20.8783 7.09235 19.8332 6.65431C18.7625 6.2034 17.6121 5.97226 16.4504 5.97463H16.4113C15.2297 5.98049 14.0871 6.21486 13.0109 6.6758C11.9747 7.11833 11.0347 7.75851 10.2433 8.56056C9.44984 9.36114 8.81965 10.3084 8.38787 11.3496C7.93966 12.4324 7.71254 13.5938 7.7199 14.7656C7.72576 16.1211 8.04998 17.4668 8.65545 18.6699V21.6387C8.65545 22.1348 9.05779 22.5371 9.55193 22.5371H12.5168C13.7255 23.1471 15.0594 23.468 16.4133 23.4746H16.4543C17.6222 23.4746 18.7531 23.2481 19.8195 22.8047C20.8594 22.3719 21.8048 21.7403 22.6027 20.9453C23.4074 20.1465 24.0402 19.2129 24.4836 18.1719C24.9426 17.0938 25.1769 15.9473 25.1828 14.7637C25.1867 13.5742 24.9562 12.4199 24.5031 11.334ZM12.5519 15.6621C12.0363 15.6621 11.6164 15.2422 11.6164 14.7246C11.6164 14.207 12.0363 13.7871 12.5519 13.7871C13.0676 13.7871 13.4875 14.207 13.4875 14.7246C13.4875 15.2422 13.0695 15.6621 12.5519 15.6621ZM16.4504 15.6621C15.9347 15.6621 15.5148 15.2422 15.5148 14.7246C15.5148 14.207 15.9347 13.7871 16.4504 13.7871C16.966 13.7871 17.3859 14.207 17.3859 14.7246C17.3859 15.2422 16.966 15.6621 16.4504 15.6621ZM20.3488 15.6621C19.8332 15.6621 19.4133 15.2422 19.4133 14.7246C19.4133 14.207 19.8332 13.7871 20.3488 13.7871C20.8644 13.7871 21.2844 14.207 21.2844 14.7246C21.2844 15.2422 20.8644 15.6621 20.3488 15.6621Z" fill="white"/>
+</svg>
+            </span
+         
+
+
+
+           
+            <a href = "https://beta.gilcouncil.com/?page_id=${
+              el.event_id
+            }" target="_blank">${el.notification_title}</a>
+            
+             <span class = "dot-icon">
+            <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="3.8584" cy="3.55859" r="3.02246" fill="#3A81BF"/>
+</svg>
+            <span>
+            </li>
+            `
+            );
+          } else if (el.notification_type?.startsWith("connection")) {
+            notificationOutput.push(
+              `
+            <li class = "notification-item ${
+              el.status == 1 ? "read" : "unread"
+            }" notification-id=${el.id}>
+              <span class = "icon-container">
+           <svg  viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="16.4502" cy="16.502" r="15.8057" fill="#3A81BF"/>
+<g clip-path="url(#clip0_4699_10942)">
+<path d="M21.498 22.2539H21.3838C21.249 21.5977 21.0117 20.9941 20.6719 20.4434C20.332 19.8926 19.9189 19.418 19.4326 19.0195C18.9463 18.6211 18.3984 18.3105 17.7891 18.0879C17.1797 17.8652 16.541 17.7539 15.873 17.7539C15.3574 17.7539 14.8594 17.8213 14.3789 17.9561C13.8984 18.0908 13.4502 18.2783 13.0342 18.5186C12.6182 18.7588 12.2402 19.0518 11.9004 19.3975C11.5605 19.7432 11.2676 20.124 11.0215 20.54C10.7754 20.9561 10.585 21.4043 10.4502 21.8848C10.3154 22.3652 10.248 22.8633 10.248 23.3789H9.12305C9.12305 22.6758 9.22559 21.999 9.43066 21.3486C9.63574 20.6982 9.93164 20.0977 10.3184 19.5469C10.7051 18.9961 11.1621 18.5068 11.6895 18.0791C12.2168 17.6514 12.8145 17.3145 13.4824 17.0684C12.8203 16.6348 12.3047 16.0898 11.9355 15.4336C11.5664 14.7773 11.3789 14.0508 11.373 13.2539C11.373 12.6328 11.4902 12.0498 11.7246 11.5049C11.959 10.96 12.2783 10.4824 12.6826 10.0723C13.0869 9.66211 13.5645 9.33984 14.1152 9.10547C14.666 8.87109 15.252 8.75391 15.873 8.75391C16.4941 8.75391 17.0771 8.87109 17.6221 9.10547C18.167 9.33984 18.6445 9.65918 19.0547 10.0635C19.4648 10.4678 19.7871 10.9453 20.0215 11.4961C20.2559 12.0469 20.373 12.6328 20.373 13.2539C20.373 13.6406 20.3262 14.0186 20.2324 14.3877C20.1387 14.7568 19.998 15.1055 19.8105 15.4336C19.623 15.7617 19.4033 16.0635 19.1514 16.3389C18.8994 16.6143 18.6035 16.8574 18.2637 17.0684C18.9199 17.3203 19.5234 17.666 20.0742 18.1055C20.625 18.5449 21.0996 19.0605 21.498 19.6523V22.2539ZM12.498 13.2539C12.498 13.7227 12.5859 14.1592 12.7617 14.5635C12.9375 14.9678 13.1777 15.3252 13.4824 15.6357C13.7871 15.9463 14.1445 16.1895 14.5547 16.3652C14.9648 16.541 15.4043 16.6289 15.873 16.6289C16.3359 16.6289 16.7725 16.541 17.1826 16.3652C17.5928 16.1895 17.9502 15.9492 18.2549 15.6445C18.5596 15.3398 18.8027 14.9824 18.9844 14.5723C19.166 14.1621 19.2539 13.7227 19.248 13.2539C19.248 12.791 19.1602 12.3545 18.9844 11.9443C18.8086 11.5342 18.5684 11.1768 18.2637 10.8721C17.959 10.5674 17.5986 10.3242 17.1826 10.1426C16.7666 9.96094 16.3301 9.87305 15.873 9.87891C15.4043 9.87891 14.9678 9.9668 14.5635 10.1426C14.1592 10.3184 13.8018 10.5586 13.4912 10.8633C13.1807 11.168 12.9375 11.5283 12.7617 11.9443C12.5859 12.3604 12.498 12.7969 12.498 13.2539ZM23.748 23.3789H25.998V24.5039H23.748V26.7539H22.623V24.5039H20.373V23.3789H22.623V21.1289H23.748V23.3789Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_4699_10942">
+<rect width="18" height="18" fill="white" transform="translate(7.99805 8.75391)"/>
+</clipPath>
+</defs>
+</svg>
+
+
+
+            </span>
+            <a href = "https://beta.gilcouncil.com/?page_id=${
+              el.event_id
+            }" target="_blank">${el.notification_title}</a>
+            <span class = "dot-icon">
+            <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="3.8584" cy="3.55859" r="3.02246" fill="#3A81BF"/>
+</svg>
+            <span>
+            </li>
+            `
+            );
+          } else {
+            notificationOutput.push(
+              `
+            <li class = "notification-item ${
+              el.status == 1 ? "read" : "unread"
+            }" notification-id=${el.id}>
+              <span class = "icon-container">
+           <svg  viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="16.4502" cy="16.502" r="15.8057" fill="#3A81BF"/>
+<g clip-path="url(#clip0_4699_10942)">
+<path d="M21.498 22.2539H21.3838C21.249 21.5977 21.0117 20.9941 20.6719 20.4434C20.332 19.8926 19.9189 19.418 19.4326 19.0195C18.9463 18.6211 18.3984 18.3105 17.7891 18.0879C17.1797 17.8652 16.541 17.7539 15.873 17.7539C15.3574 17.7539 14.8594 17.8213 14.3789 17.9561C13.8984 18.0908 13.4502 18.2783 13.0342 18.5186C12.6182 18.7588 12.2402 19.0518 11.9004 19.3975C11.5605 19.7432 11.2676 20.124 11.0215 20.54C10.7754 20.9561 10.585 21.4043 10.4502 21.8848C10.3154 22.3652 10.248 22.8633 10.248 23.3789H9.12305C9.12305 22.6758 9.22559 21.999 9.43066 21.3486C9.63574 20.6982 9.93164 20.0977 10.3184 19.5469C10.7051 18.9961 11.1621 18.5068 11.6895 18.0791C12.2168 17.6514 12.8145 17.3145 13.4824 17.0684C12.8203 16.6348 12.3047 16.0898 11.9355 15.4336C11.5664 14.7773 11.3789 14.0508 11.373 13.2539C11.373 12.6328 11.4902 12.0498 11.7246 11.5049C11.959 10.96 12.2783 10.4824 12.6826 10.0723C13.0869 9.66211 13.5645 9.33984 14.1152 9.10547C14.666 8.87109 15.252 8.75391 15.873 8.75391C16.4941 8.75391 17.0771 8.87109 17.6221 9.10547C18.167 9.33984 18.6445 9.65918 19.0547 10.0635C19.4648 10.4678 19.7871 10.9453 20.0215 11.4961C20.2559 12.0469 20.373 12.6328 20.373 13.2539C20.373 13.6406 20.3262 14.0186 20.2324 14.3877C20.1387 14.7568 19.998 15.1055 19.8105 15.4336C19.623 15.7617 19.4033 16.0635 19.1514 16.3389C18.8994 16.6143 18.6035 16.8574 18.2637 17.0684C18.9199 17.3203 19.5234 17.666 20.0742 18.1055C20.625 18.5449 21.0996 19.0605 21.498 19.6523V22.2539ZM12.498 13.2539C12.498 13.7227 12.5859 14.1592 12.7617 14.5635C12.9375 14.9678 13.1777 15.3252 13.4824 15.6357C13.7871 15.9463 14.1445 16.1895 14.5547 16.3652C14.9648 16.541 15.4043 16.6289 15.873 16.6289C16.3359 16.6289 16.7725 16.541 17.1826 16.3652C17.5928 16.1895 17.9502 15.9492 18.2549 15.6445C18.5596 15.3398 18.8027 14.9824 18.9844 14.5723C19.166 14.1621 19.2539 13.7227 19.248 13.2539C19.248 12.791 19.1602 12.3545 18.9844 11.9443C18.8086 11.5342 18.5684 11.1768 18.2637 10.8721C17.959 10.5674 17.5986 10.3242 17.1826 10.1426C16.7666 9.96094 16.3301 9.87305 15.873 9.87891C15.4043 9.87891 14.9678 9.9668 14.5635 10.1426C14.1592 10.3184 13.8018 10.5586 13.4912 10.8633C13.1807 11.168 12.9375 11.5283 12.7617 11.9443C12.5859 12.3604 12.498 12.7969 12.498 13.2539ZM23.748 23.3789H25.998V24.5039H23.748V26.7539H22.623V24.5039H20.373V23.3789H22.623V21.1289H23.748V23.3789Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_4699_10942">
+<rect width="18" height="18" fill="white" transform="translate(7.99805 8.75391)"/>
+</clipPath>
+</defs>
+</svg>
+
+
+
+            </span>
+            <a href = "https://beta.gilcouncil.com/?page_id=${
+              el.event_id
+            }" target="_blank">${el.notification_title}</a>
+             <span class = "dot-icon">
+            <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="3.8584" cy="3.55859" r="3.02246" fill="#3A81BF"/>
+</svg>
+            <span>
+            
+            </li>
+            `
+            );
+          }
         });
+        $(".notification-count").html(newNotification);
+
+        if (newNotification) {
+          $(".notification-count").removeClass("d-none");
+        }
+        if (!newNotification) {
+          // $(".notification-count").removeClass("d-none");
+          console.log(
+            "NOT NEW NOTIFICATION",
+            $(".notification-header .active").html()
+          );
+          $(".notification-header .active").html("No new notification");
+          $(".notification-header .active").addClass("text-muted");
+        }
+
         if (window.location.href.includes("notification")) {
           $(".notification-list").html(notificationOutput);
         }
@@ -767,6 +1006,29 @@ jQuery(document).ready(function () {
     });
   }
   fetchNotifications();
+
+  $(".mark-all-as-read").on("click", function () {
+    jQuery.ajax({
+      type: "POST",
+
+      url: "/wp-admin/admin-ajax.php",
+
+      data: {
+        action: "update_users_notification_status",
+
+        notification_id: "",
+      },
+
+      success: function (output) {
+        console.log(output, "from the mark all as read function");
+
+        return output;
+      },
+    });
+    console.log("clicked on mark as read");
+  });
+
+  // setInterval()
 
   // if (element) {
   //   myCalendar.onDateClick(function (event, date) {
@@ -1027,36 +1289,62 @@ jQuery(document).ready(function () {
 
     public_mail_domain.forEach((el, index) => {
       if (el == emailValue) {
-        $(".error.email").html("Please provide a correct email format");
+        $(".error.email").html("Please provide a business email");
         errorCount++;
       }
+      // //email verification
     });
+    var buttonText = $(this).text();
+    $(".signup-form-1").text("Validating email..");
+    jQuery.ajax({
+      type: "POST",
 
-    // if (!$("#password").val()) {
-    //   $(".error.password").text("This field is required");
-    //   errorCount++;
-    // }
-    // if (!$("#passwordConfirm").val()) {
-    //   $(".error.passwordConfirm").text("This field is required");
-    //   errorCount++;
-    // }
-    // if ($("#passwordConfirm").val() !== $("#password").val()) {
-    //   $(".error.passwordConfirm").text("Password do not match");
-    //   errorCount++;
-    // }
-    if (!errorCount) {
-      $(".signup-form-step-2").removeClass("d-none");
-      $(".signup-form-step-1").addClass("d-none");
-      inSignupPageTwo = true;
-    }
+      url: "/wp-admin/admin-ajax.php",
+
+      data: {
+        action: "email_exist",
+
+        email: $("#emailSignup").val(),
+      },
+
+      success: function (output) {
+        console.log(output);
+        if (!output.success) {
+          if (!errorCount) {
+            $(".signup-form-step-2").removeClass("d-none");
+            $(".signup-form-step-1").addClass("d-none");
+            inSignupPageTwo = true;
+          }
+        }
+        $(".error.email").html("Email already exist.");
+      },
+      error: function (err) {
+        $(".error.email").html("Something went wrong");
+      },
+    });
+    $(".signup-form-1").text(buttonText);
   });
 
   $("#firstName").on("change paste keyup", function () {
     $(".error.firstName").html("");
   });
 
+  $("#firstName").on("blur", function () {
+    if (!$(this).val().length) {
+      $(".error.firstName").html("This field is required");
+      return;
+    }
+  });
+
   $("#lastName").on("change paste keyup", function () {
     $(".error.lastName").html("");
+  });
+
+  $("#lastName").on("blur", function () {
+    if (!$(this).val().length) {
+      $(".error.lastName").html("This field is required");
+      return;
+    }
   });
 
   $("#title").on("blur", function () {
@@ -1194,52 +1482,97 @@ jQuery(document).ready(function () {
   //   }
   // });
 
-  // $(".signup-form").on("submit", function (e) {
-  //   e.stopImmediatePropagation();
-  //   console.log("BUTTON CLICKED");
-  //   var form2ErrorCount = 0;
-  //   if (!$("#firstName").val()) {
-  //     $(".error.firstName").text("This field is required");
-  //     form2ErrorCount++;
-  //   }
-  //   if (!$("#lastName").val()) {
-  //     $(".error.lastName").text("This field is required");
-  //     form2ErrorCount++;
-  //   }
-  //   if (!$("#title").val()) {
-  //     $(".error.title").text("This field is required");
-  //     form2ErrorCount++;
-  //   }
-  //   if (!$("#company").val()) {
-  //     $(".error.company").text("This field is required");
-  //     form2ErrorCount++;
-  //   }
-  //   if (!$("#phone").val()) {
-  //     $(".error.phone").text("This field is required");
-  //     form2ErrorCount++;
-  //   }
-  //   if (!$("#country").val()) {
-  //     $(".error.country").text("This field is required");
-  //     form2ErrorCount++;
-  //   }
-  //   if (!$("#terms2").is(":checked")) {
-  //     $(".terms2").addClass("error");
-  //     form2ErrorCount++;
-  //   }
-  //   if (!$("#terms1").is(":checked")) {
-  //     $(".terms1").addClass("error");
-  //     form2ErrorCount++;
-  //   }
-  //   console.log("errorCount", form2ErrorCount);
-  //   if (!form2ErrorCount) {
-  //     //submit form here
-  //     console.log("ready to submit", $(".signup-form").get(0));
-  //     $(".signup-form").get(0).submit();
-  //     // $(".signup-form-dummy").click();
-  //     // $(".signup-form-dummy").trigger("click");
-  //     // window.location = document.location.href;
-  //   }
-  // });
+  $(".signup-form").on("submit", function (e) {
+    e.preventDefault();
+    console.log("BUTTON CLICKED");
+    var form2ErrorCount = 0;
+    if (!$("#firstName").val()) {
+      $(".error.firstName").text("This field is required");
+      form2ErrorCount++;
+    }
+    if (!$("#lastName").val()) {
+      $(".error.lastName").text("This field is required");
+      form2ErrorCount++;
+    }
+    if (!$("#title").val()) {
+      $(".error.title").text("This field is required");
+      form2ErrorCount++;
+    }
+    if (!$("#company").val()) {
+      $(".error.company").text("This field is required");
+      form2ErrorCount++;
+    }
+    if (!$("#phone").val()) {
+      $(".error.phone").text("This field is required");
+      form2ErrorCount++;
+    }
+    if (!$("#country").val()) {
+      $(".error.country").text("This field is required");
+      form2ErrorCount++;
+    }
+    if (!$("#terms2").is(":checked")) {
+      $(".terms2").addClass("error");
+      form2ErrorCount++;
+    }
+    if (!$("#terms1").is(":checked")) {
+      $(".terms1").addClass("error");
+      form2ErrorCount++;
+    }
+    console.log("errorCount", form2ErrorCount);
+    if (!form2ErrorCount) {
+      console.log("READY TO SUBMIT");
+
+      var error = $("h2.form-error");
+      var successModal = $("#successModal");
+      var errorModal = $("#errorModal");
+      const data = jQuery.ajax({
+        type: "POST",
+
+        url: "/wp-admin/admin-ajax.php",
+
+        data: {
+          action: "user_register_function",
+          first_name: $("#firstName").val(),
+          last_name: $("#lastName").val(),
+          useremail: $("#emailSignup").val(),
+          title: $("#title").val(),
+          company: $("#company").val(),
+          phone: $("#phone").val(),
+          country: $("#country").val(),
+          subscription: true,
+          agree_tc: true,
+        },
+
+        success: function (output) {
+          // window.location.href =
+          //   "https://beta.gilcouncil.com/signin?signup=success";
+          // console.log(typeof output.success, output.success);
+          if (!output.success) {
+            error.addClass("visible");
+            errorModal.modal("show");
+            $(errorModal).find(".modalbody p").html(output.data);
+            console.log("false from the if statement");
+          } else {
+            successModal.modal("show");
+          }
+
+          return output;
+        },
+        error: function (error) {
+          console.log("something went wrong");
+        },
+      });
+
+      // console.log("output", data?.responseJSON);
+      // if (data.status == 200) {
+      //   $("#successModal .modal-body").html(
+      //     `<h2>${data.responseJSON.data}</h2>`
+      //   );
+      // } else {
+      //   $("#errorModal .modal-body").html(`<h2>${data.responseJSON.data}</h2>`);
+      // }
+    }
+  });
 
   // $(".signup-form-dummy").on("click", function (e) {
   //   e.stopPropagation();
@@ -1273,4 +1606,8 @@ jQuery(document).ready(function () {
   //     $(".signup-form-dummy").attr("disabled", "false");
   //   }
   // });
+  $(".msm-trigger").on("click", function () {
+    $("#msmModal").modal("show");
+    $("#msmModal").find(".send-msm").attr("email", $(this).attr("data-email"));
+  });
 });

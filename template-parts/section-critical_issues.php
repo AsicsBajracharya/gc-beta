@@ -156,6 +156,7 @@ if ($content['enable_disable']) :
 
     <?php if(isset($content['button']) && !empty($content['button'])) :?>
     <div class="button-container d-flex justify-content-center">
+
         <a href="<?php echo $content['button']['url']; ?>">
             <button class="btn btn-white-border btn-small btn-arrow btn-arrow-move btn-transparent-arrow-move">
                 <?php echo $content['button']['title']; ?>
@@ -167,6 +168,7 @@ if ($content['enable_disable']) :
                 </span>
             </button>
         </a>
+
     </div>
     <?php endif; ?>
 

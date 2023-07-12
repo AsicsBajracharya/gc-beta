@@ -1,14 +1,26 @@
 <div class="overlay"></div>
-<div class="confrimation-overlay d-none">
-
-    <div class="confrimation-box">
-        <h2>Schedule my complimentary Growth Pipeline Dialog™ ?</h2>
-        <div class="button-group d-flex justify-content-center">
-            <div class="button-container"><button class="btn btn-primary btn-small">Yes</button></div>
-            <div class="button-container"><button class="btn btn-primary btn-small btn-danger">No</button></div>
+<!-- GPD Modal -->
+<div class="modal fade" id="gpdModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <!-- <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> -->
+            <div class="modal-body">
+                <h2>Schedule my complimentary Growth Pipeline Dialog™ ?</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-small" data-dismiss="modal">Not Now</button>
+                <button type="button" class="btn btn-primary btn-small gpd-confrimation">Let's Go</button>
+            </div>
         </div>
     </div>
 </div>
+<?php if($pagename !== 'details') : ?>
 <div class="floating-button gpd-trigger">
     <svg viewBox="0 0 139 136" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g filter="url(#filter0_d_512_4155)">
@@ -84,6 +96,8 @@
         </defs>
     </svg>
 </div>
+<?php endif; ?>
+
 <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
     crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -102,6 +116,7 @@
     integrity="sha384-0LaRLH/U5g8eCAwewLGQRyC/O+g0kXh8P+5pWpzijxwYczD3nKETIqUyhuA8B/UB" crossorigin="anonymous">
 </script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://player.vimeo.com/api/player.js"></script>
 <!-- <script  type="text/javascript" src="https://beta.gilcouncil.com/wp-content/themes/divi-child-theme/sliderScript.js"></script>
   <script  type="text/javascript" src="https://beta.gilcouncil.com/wp-content/themes/divi-child-theme/script.js"></script> -->
 <script type="text/javascript" src="<?php echo get_theme_file_uri('/sliderScript.js'); ?>"></script>

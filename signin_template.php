@@ -45,52 +45,58 @@ endif;
             <div class="row justify-content-between align-items-center flex-nowrap">
                 <div class="col">
                     <div class="d-flex flex-nowrap align-items-center">
-                        <!-- <div class="fs-ham fs-ham-open">
+                        <div class="fs-ham fs-ham-open">
                             <svg viewBox="0 0 38 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M0.25 25.5V21.3333H37.75V25.5H0.25ZM0.25 15.0833V10.9167H37.75V15.0833H0.25ZM0.25 4.66667V0.5H37.75V4.66667H0.25Z"
                                     fill="#0C355C"></path>
                             </svg>
-                        </div> -->
-                        <!-- <div class="fs-ham fs-ham-closed d-none">
+                        </div>
+                        <div class="fs-ham fs-ham-closed d-none">
                             <svg viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="0.891113" y="27.1177" width="37.5" height="4.16504"
                                     transform="rotate(-45 0.891113 27.1177)" fill="#0C355C"></rect>
                                 <rect x="3.83594" y="0.601074" width="37.5" height="4.16504"
                                     transform="rotate(45 3.83594 0.601074)" fill="#0C355C"></rect>
                             </svg>
-                        </div> -->
+                        </div>
                         <div class="logo-container">
                             <a href="https://beta.gilcouncil.com" target="_blank"><img
                                     src="https://beta.gilcouncil.com/wp-content/uploads/2023/06/Logo-big.png"
-                                    alt=""></a>
+                                    alt="" /></a>
                         </div>
                     </div>
                 </div>
                 <div class="col">
-                    <!-- <div class="button-group">
+                    <div class="button-group">
                         <div class="button-container">
-                            <a href="https://beta.gilcouncil.com/login" target="_blank"><button
+                            <a href="https://beta.gilcouncil.com/signin" target="_blank"><button
                                     class="btn btn-transparent btn-small">
                                     LOGIN
                                 </button></a>
                         </div>
                         <div class="button-container">
-                            <a href="https://beta.gilcouncil.com/join" target="_blank"><button
+                            <a href="https://beta.gilcouncil.com/signup" target="_blank"><button
                                     class="btn btn-blue btn-small">SIGN UP</button></a>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
     </header>
+    <?php if ( filter_input( INPUT_GET, 'status' ) === 'success' ) : ?>
+
+    Congrats!
+
+    <?php endif ?>
+
     <div class="page-login">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
                     <div class="content-container left">
                         <div class="header-box">
-                            <h1>LOGIN</h1>
+                            <h1>Login</h1>
                         </div>
                         <form name="loginform-custom" id="loginform-custom" action="" method="post"
                             class="form login-form form-login gc-form">
@@ -160,8 +166,8 @@ endif;
                 </div>
                 <div class="col-md-5 offset-md-1">
                     <div class="content-container right" style="
-                    background-image: url(https://beta.gilcouncil.com/wp-content/uploads/2023/07/MicrosoftTeams-image-1.jpg);
-                  ">
+            background-image: url(https://beta.gilcouncil.com/wp-content/uploads/2023/07/MicrosoftTeams-image-1.jpg);
+          ">
                         <div class="slider-overlay"></div>
                         <div class="header-box">
                             <h1>
@@ -177,9 +183,9 @@ endif;
                 <li>Get the most from Growth Council;</li>
               </ul> -->
                         <div class="button-container">
-                            <a href="https://beta.gilcouncil.com/signup/">
-                                <button class="btn btn-primary">Sign Up</button>
 
+                            <a href="<?php echo get_home_url()."/signin" ?>">
+                                <button class="btn btn-primary btn-small">Sign Up</button>
                             </a>
 
                         </div>
@@ -192,7 +198,9 @@ endif;
                 <h3>Not a Member?</h3>
             </div>
             <div class="button-container">
-                <div class="btn btn-primary btn-small login-form-btn">Signup</div>
+                <a href="<?php echo get_home_url()."/signin" ?>">
+                    <button class="btn btn-primary btn-small">Sign Up</button>
+                </a>
             </div>
         </div>
     </div>

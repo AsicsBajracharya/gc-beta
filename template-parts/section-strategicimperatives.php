@@ -144,6 +144,57 @@ if ($content['enable_disable']) :
 
 </section> -->
 
+
+<!-- Modal -->
+<div class="modal fade" id="msmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg gpd-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="
+              background-image: url('https://beta.gilcouncil.com/wp-content/uploads/2023/07/MicrosoftTeams-image-4.jpg');
+            ">
+                <span aria-hidden="true" class="icon-close" data-dismiss="modal" aria-label="Close"><svg width="29"
+                        height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="14.627" cy="14.1063" r="13.6543" fill="#15426B" />
+                        <path
+                            d="M19.4331 20.3376L14.626 15.5304L9.81887 20.3376L8.39453 18.9132L13.2017 14.1061L8.39453 9.29897L9.81887 7.87463L14.626 12.6818L19.4331 7.87463L20.8575 9.29897L16.0503 14.1061L20.8575 18.9132L19.4331 20.3376Z"
+                            fill="white" />
+                    </svg>
+                </span>
+            </div>
+            <div class="modal-body">
+                <div class="header-box">
+                    <h1>
+                        I would like to initiate my personal Growth Pipeline Dialog
+                    </h1>
+                </div>
+                <form>
+                    <div class="input-group">
+                        <textarea rows="8" cols="30" class="form-control">
+Default value here</textarea>
+                    </div>
+
+                    <!-- <div class="button-container">
+                <button class="btn btn-small">Send</button>
+              </div> -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!-- <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button> -->
+                <button type="button" class="btn btn-primary btn-small send-msm">
+                    Send
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php if( !empty( $strategic_imperatives ) || !empty($daliy_quote) )  : ?>
 <section class="section-hero-outer">
     <div class="section-hero slider-1 slider">
@@ -177,9 +228,9 @@ if ($content['enable_disable']) :
                 </div>
                 <div class="button-container-outer">
                     <div class="button-container">
-                    <?php if (isset($content['button']['title']) && !empty($content['button']['title'])) : ?>
-                        <button class="btn btn-primary btn-arrow btn-arrow-no-move">
-                        <?php echo $content['button']['title'] ?>
+                        <?php if (isset($content['button']['title']) && !empty($content['button']['title'])) : ?>
+                        <button class="btn btn-primary btn-arrow btn-arrow-no-move gpd-trigger">
+                            <?php echo $content['button']['title'] ?>
                             <span class="btn-icon">
                                 <svg width="9" height="15" viewBox="0 0 9 15" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -221,17 +272,17 @@ if ($content['enable_disable']) :
       endif;
       ?>
 
-<?php if(!empty($daliy_quote)) :  ?>
+        <?php if(!empty($daliy_quote)) :  ?>
         <div class="slider-single-main" style="
             background-image: url('<?php echo isset($value->background_image) ? $value->background_image  :  get_the_post_thumbnail_url($value->ID, 'full'); ?>');
           ">
             <div class="container">
                 <div class="content-container">
                     <div class="text-box" data-aos="fade-up">
-                    <?php if (isset($daliy_quote[0]['daily_quote']) && !empty($daliy_quote[0]['daily_quote'])) : ?>
+                        <?php if (isset($daliy_quote[0]['daily_quote']) && !empty($daliy_quote[0]['daily_quote'])) : ?>
                         <div class="text-box_primary dashed" data-aos="fade-up">
                             <h1>
-                            <?php echo $daliy_quote[0]['daily_quote'] ?>
+                                <?php echo $daliy_quote[0]['daily_quote'] ?>
                             </h1>
                         </div>
                         <?php endif; ?>
@@ -244,9 +295,9 @@ if ($content['enable_disable']) :
                 </div>
                 <div class="button-container-outer">
                     <div class="button-container">
-                    <?php if (isset($content['button']['title']) && !empty($content['button']['title'])) : ?>
+                        <?php if (isset($content['button']['title']) && !empty($content['button']['title'])) : ?>
                         <button class="btn btn-primary btn-arrow btn-arrow-no-move">
-                        <?php echo $content['button']['title'] ?>
+                            <?php echo $content['button']['title'] ?>
                             <span class="btn-icon">
                                 <svg width="9" height="15" viewBox="0 0 9 15" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">

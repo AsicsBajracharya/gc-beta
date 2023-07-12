@@ -26,8 +26,9 @@ if ($content['enable_disable']) :
                         <h1><?php echo $content['sub_heading'] ?></h1>
                     </div>
                     <div class="button-container">
-                        <a href="<?php echo $content['button_link']['url'] ?>"><button
-                                class="btn btn-transparent btn-white-border btn-arrow btn-small btn-arrow-move">
+                        <form action="<?php echo $content['button_link']['url'] ?>" method="post">
+                        <input name="cta-prospect" value="growth_council" hidden>
+                            <button type="submit" class="btn btn-transparent btn-white-border btn-arrow btn-small btn-arrow-move">
                                 <?php echo $content['button_link']['title'] ?>
                                 <span class="btn-icon">
                                     <svg width="9" height="15" viewBox="0 0 9 15" fill="none"
@@ -37,7 +38,7 @@ if ($content['enable_disable']) :
                                     </svg>
                                 </span>
                             </button>
-                        </a>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -46,7 +47,8 @@ if ($content['enable_disable']) :
 
 
 </section>
-<div class="overlay-video overlay" data-src-video="<?php echo $content['video_file'] ?>">
+<div class="overlay-video overlay"
+    data-src-video="<?php echo (isset($content['video_link']) && !empty($content['video_link']) ) ? $content['video_link'] : $content['video_file'] ?>">
 
     <iframe src="">
     </iframe>

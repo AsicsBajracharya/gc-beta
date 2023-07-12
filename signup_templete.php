@@ -3,164 +3,181 @@
 
 if (!is_user_logged_in() ) {
  
-if (isset($_POST['user_registeration']) ) :
-    $random_number = rand(0,1000);
-        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-        $pass = array(); //remember to declare $pass as an array
-        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
-        for ($i = 0; $i < 15; $i++) {
-            $n = rand(0, $alphaLength);
-            $pass[] = $alphabet[$n];
-        }
-       $password = implode($pass); //turn the array into a string
-  //  print_r("POST data ");
-    // die;
-    // global $reg_errors;
-    // $reg_errors = new WP_Error;
+// if (isset($_POST['user_registeration']) ) :
+//     $random_number = rand(0,1000);
+//         $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+//         $pass = array(); //remember to declare $pass as an array
+//         $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+//         for ($i = 0; $i < 15; $i++) {
+//             $n = rand(0, $alphaLength);
+//             $pass[] = $alphabet[$n];
+//         }
+//        $password = implode($pass); //turn the array into a string
+//   //  print_r("POST data ");
+//     // die;
+//     // global $reg_errors;
+//     // $reg_errors = new WP_Error;
  
-    $first_name = str_replace(" ","", $_POST['first_name']);
-    $last_name = str_replace(" ","", $_POST['last_name']);
-    $useremail = $_POST['useremail'];
-    $username = $_POST['first_name']."".$_POST['last_name']."".$random_number;
-    //$password = $pass;
-    $title =  $_POST['title'];
-    $company =  $_POST['company'];
-    $phone =  $_POST['business_phone'];
-    $country =  $_POST['country'];
-    $subscription = $_POST['subscription'];
-    $agree_tc = $_POST['agree_tc'];   
+//     $first_name = str_replace(" ","", $_POST['first_name']);
+//     $last_name = str_replace(" ","", $_POST['last_name']);
+//     $useremail = $_POST['useremail'];
+//     $username = $_POST['first_name']."".$_POST['last_name']."".$random_number;
+//     //$password = $pass;
+//     $title =  $_POST['title'];
+//     $company =  $_POST['company'];
+//     $phone =  $_POST['business_phone'];
+//     $country =  $_POST['country'];
+//     $subscription = $_POST['subscription'];
+//     $agree_tc = $_POST['agree_tc'];   
 
-    // if ( 1 > count( $reg_errors->get_error_messages() ) )
-    // {
-        // sanitize user form input
-        // global $username, $useremail;
-        // $username   =   sanitize_user($username);
-        // $useremail  =   sanitize_email( $_POST['useremail'] );
-        // $password   =   esc_attr( $_POST['password'] );
+//     // if ( 1 > count( $reg_errors->get_error_messages() ) )
+//     // {
+//         // sanitize user form input
+//         // global $username, $useremail;
+//         // $username   =   sanitize_user($username);
+//         // $useremail  =   sanitize_email( $_POST['useremail'] );
+//         // $password   =   esc_attr( $_POST['password'] );
 
-        $user_data = array(
-            'user_pass'             =>  $password,
-            'user_login'            =>  $username,
-            'user_email'            =>  $useremail,
-            'first_name'            =>  $first_name,
-            'last_name'             =>  $last_name,       
-        );
+//         $user_data = array(
+//             'user_pass'             =>  $password,
+//             'user_login'            =>  $username,
+//             'user_email'            =>  $useremail,
+//             'first_name'            =>  $first_name,
+//             'last_name'             =>  $last_name,       
+//         );
 
-    $user_id = wp_insert_user($user_data);
+//     $user_id = wp_insert_user($user_data);
 
   
-    // On success.
-    if ( is_wp_error( $user_id ) ) {
-        $message = $user_id->get_error_message();        
-    }
+//     // On success.
+//     if ( is_wp_error( $user_id ) ) {
+//         $message = $user_id->get_error_message();        
+//     }
     
   
-    $measa_country = [
-        "India",
-        "Pakistan",
-        "Sri Lanka ",
-        "Middle east",
-        "Nepal",
-        "Bangladesh",
-        "Bhutan",
-        "Maldives",
-      ];
+//     $measa_country = [
+//         "India",
+//         "Pakistan",
+//         "Sri Lanka ",
+//         "Middle east",
+//         "Nepal",
+//         "Bangladesh",
+//         "Bhutan",
+//         "Maldives",
+//       ];
     
-      $apac_country = [
-        "Brunei",
-        "Burma",
-        "Cambodia",
-        "Timor- Leste ",
-        "Indonesia ",
-        "Laos",
-        "Malaysia",
-        "Philippines",
-        "Singapore",
-        "Thailand",
-        "Vietnam",
-        "Australia",
-        "Japan",
-      ];
+//       $apac_country = [
+//         "Brunei",
+//         "Burma",
+//         "Cambodia",
+//         "Timor- Leste ",
+//         "Indonesia ",
+//         "Laos",
+//         "Malaysia",
+//         "Philippines",
+//         "Singapore",
+//         "Thailand",
+//         "Vietnam",
+//         "Australia",
+//         "Japan",
+//       ];
     
-      $americas_country = ["United States", "Canada", "Mexico"];
+//       $americas_country = ["United States", "Canada", "Mexico"];
 
-      if(in_array($country, $measa_country)){
-        $region = "APAC/MEASA";
-        $role = 'um_measa';
-      }
-      elseif(in_array($country, $apac_country)){
-        $role = 'um_apac';
-        $region = "APAC/MEASA";
-      }
-      elseif(in_array($country, $americas_country)){
-        $role = 'um_americas';
-        $region = "AMERICAS";
-      }    
+//       if(in_array($country, $measa_country)){
+//         $region = "APAC/MEASA";
+//         $role = 'um_measa';
+//       }
+//       elseif(in_array($country, $apac_country)){
+//         $role = 'um_apac';
+//         $region = "APAC/MEASA";
+//       }
+//       elseif(in_array($country, $americas_country)){
+//         $role = 'um_americas';
+//         $region = "AMERICAS";
+//       }
+//       else{
+//         $role = 'um_americas';
+//         $region = "AMERICAS";
+//       }   
      
 
-    //  if (!empty($url_params['region']) && $url_params['region'] !== 'Region' ) {
-    //     $data = (explode(" ",$url_params['region']));
-    //     $role = 'um_'.strtolower($data[0]);
-    //     if($data[1]){
-    //          $role = 'um_'.strtolower($data[0]).'-'.strtolower($data[1]);
-    //     }
-    //  }
-    //  else{
-    //       $role = '';
-    // }    
+//     //  if (!empty($url_params['region']) && $url_params['region'] !== 'Region' ) {
+//     //     $data = (explode(" ",$url_params['region']));
+//     //     $role = 'um_'.strtolower($data[0]);
+//     //     if($data[1]){
+//     //          $role = 'um_'.strtolower($data[0]).'-'.strtolower($data[1]);
+//     //     }
+//     //  }
+//     //  else{
+//     //       $role = '';
+//     // }    
            
         
-    if (!is_wp_error($user_id) && $user_id) {
-        $wp_user_object = new WP_User($user_id);
-        $wp_user_object->remove_role('pending_user');
-        $wp_user_object->set_role('um_growth-member'); 
-        $wp_user_object->add_role($role);     
+//     if (!is_wp_error($user_id) && $user_id) {
+//         $wp_user_object = new WP_User($user_id);
+//         $wp_user_object->remove_role('pending_user');
+//         $wp_user_object->set_role('um_growth-member'); 
+//         $wp_user_object->add_role($role);     
         
-        do_action( 'profile_update', $user_id, $wp_user_object, $wp_user_object );
+//         do_action( 'profile_update', $user_id, $wp_user_object, $wp_user_object );
 
-        $id = $user_id;
-        update_field('Title', $title, 'user_' . $id);
-        //update_field('title', $title, 'user_' . $id);
-        update_field('company', $company, 'user_' . $id);
-        update_field('business_phone', $phone, 'user_' . $id);
-        update_field('country', $country, 'user_' . $id);    
-        update_field('user_persona','Growth Member', 'user_' . $id);
-        update_field('region', $region, 'user_' . $id);        
-        update_field('event_notification', true, 'user_' . $id);
-        update_field('chat_notification', true, 'user_' . $id);
-        update_field('content_notification', true, 'user_' . $id);
-        update_field('member_connection_add_delete_notification', true, 'user_' . $id);
-        update_field('discussion_board_notification', true, 'user_' . $id);
-        update_field('registered_event_notification', true, 'user_' . $id);
-        update_field('frost_subscription',$subscription, 'user_' . $id);
-        update_field('agree_tc',$agree_tc, 'user_' . $id);
-        
-       
-        $msg = __( $useremail." has registered as Growth Member." ) . "\r\n\r\n";       
-        $msg .=  __( "- The Growth Innovation Leadership Council") . "\r\n\r\n";
-        generic_mail_function('councils@frost.com', 'New Registration', $msg);
-        
-        $msg = __( "Thank you for the Registration " ) . "\r\n\r\n";
-        $msg .= __( "You have successfully registered to the Growth Council.") . "\r\n\r\n";
-        $msg .= __( "Email : ".$useremail) . "\r\n";
-        $msg .= __( "Password".$password) . "\r\n";
-        $msg .=  __( "- The Growth Innovation Leadership Council") . "\r\n\r\n";     
-        generic_mail_function($useremail,  'Registration Verification', $msg);
+//         $id = $user_id;
+//         update_field('Title', $title, 'user_' . $id);
+//         //update_field('title', $title, 'user_' . $id);
+//         update_field('company', $company, 'user_' . $id);
+//         update_field('business_phone', $phone, 'user_' . $id);
+//         update_field('country', $country, 'user_' . $id);    
+//         update_field('user_persona','Growth Member', 'user_' . $id);
+//         update_field('region', $region, 'user_' . $id);        
+//         update_field('event_notification', true, 'user_' . $id);
+//         update_field('chat_notification', true, 'user_' . $id);
+//         update_field('content_notification', true, 'user_' . $id);
+//         update_field('member_connection_add_delete_notification', true, 'user_' . $id);
+//         update_field('discussion_board_notification', true, 'user_' . $id);
+//         update_field('registered_event_notification', true, 'user_' . $id);
+//         update_field('frost_subscription',$subscription, 'user_' . $id);
+//         update_field('agree_tc',$agree_tc, 'user_' . $id);
+               
+//         $msg = __( "Hello ".$username."," ) . "\r\n\r\n";
+//         $msg .= __( "Thank you for becoming a valued member of our growing community! We are delighted to welcome you as a Growth Member and are confident that our services will provide you with valuable insights and resources to enhance your professional journey.") . "\r\n\r\n";
+//         $msg .= __( "Your account has been successfully registered, and we are pleased to share your login details. Please find your member login credentials below:") . "\r\n";
+//         $msg .= __( "Email : ".$useremail) . "\r\n";
+//         $msg .= __( "Password: ".$password) . "\r\n";
+//         $msg .=  __( "With your Growth Membership, you gain access to a range of benefits, including educational materials, industry insights, exclusive events, and networking opportunities. We believe that this membership will support your ongoing professional development and help you stay ahead in your field.") . "\r\n\r\n";
+//         $msg .=  __( "At the Growth Innovation Leadership Council, we are committed to delivering high-quality services and continuously adding value to your membership experience. Our dedicated team is available to assist you with any queries, offer guidance, and ensure that you maximize the benefits of your membership.") . "\r\n\r\n";
+//         $msg .=  __( "We encourage you to explore our platform, participate in discussions, and connect with fellow Growth Members who share your passion for innovation and growth. Together, we can create a thriving community that fosters collaboration and learning.") . "\r\n\r\n";
+//         $msg .=  __( "Once again, welcome to our Growth Membership! We are excited to have you on board and look forward to supporting your growth and success.") . "\r\n\r\n";
+//         $msg .=  __( "Best regards,") . "\r\n\r\n";
+//         $msg .=  __( "The Growth Innovation Leadership Council") . "\r\n\r\n";     
+//         generic_mail_function($useremail, 'Registration Verification', $msg);       
+               
+//         $msg = __( "Hello " ) . "\r\n\r\n";
+//         $msg .= __( "I hope this email finds you well. I am writing to inform you that we have successfully registered a new Growth Member in our system. Please find the member's details below: ") . "\r\n\r\n";
+//         $msg .= __( "Your account has been successfully registered, and we are pleased to share your login details. Please find your member login credentials below:") . "\r\n";
+//         $msg .= __( "Name : ".$_POST['first_name']." ".$_POST['last_name']) . "\r\n";
+//         $msg .= __( "Company: ".$company) . "\r\n";
+//         $msg .= __( "Email : ".$useremail) . "\r\n";
+//         $msg .= __( "Username: ".$username) . "\r\n";
+//         $msg .= __( "Registration Date: ".date("m/d/Y")). "\r\n";
+//         $msg .=  __( "Thank you for your dedication to delivering exceptional service to our members.") . "\r\n\r\n";      
+//         $msg .=  __( "Best regards,") . "\r\n\r\n";         
+//         generic_mail_function("councils@frost.com", 'New Registration', $msg);
 
         
-        $redirect = add_query_arg( 'status', 'success', home_url()."/signin"  );
-        wp_redirect( $redirect );
-        exit;
-       //wp_redirect( home_url()."/signin" ); exit;  
+//        // Start the session
+//        session_start();
+//        // Set session variables
+//        $_SESSION["signup_success"] = "Thank you for Registration. The login credentials has been emailed to you. Pleas contact us for if you didn't receiced. ";     
+//        wp_redirect( home_url()."/signin" );
 
-        //return gil_response(200, 'Registration succesfull', null);
-    } elseif (is_wp_error($user_id)) {
-        $message = $user_id->get_error_message();
-        //return gil_error($user_id->get_error_code(), $user_id->get_error_message(), null);
-    } else {
-        //return gil_error(500, 'Something is wrong, please contact admin', null);
-    }
-endif;
+//     } elseif (is_wp_error($user_id)) {
+//         $message = $user_id->get_error_message();
+//         //return gil_error($user_id->get_error_code(), $user_id->get_error_message(), null);
+//     } else {
+//         //return gil_error(500, 'Something is wrong, please contact admin', null);
+//     }
+//endif;
 
 //}  
 
@@ -202,83 +219,31 @@ endif;
 
 
 <body>
-    <!-- <header class="header-for-menu fixed">
-        <div class="menu">
+    <header class="" data-aos="fade-in">
+
+        <div class="header-inner">
             <div class="container">
-                <ul class="menu-list">
-                    <li class="menu-item">
-                        <a href=" https://www.frost.com/analytics/best-practices-recognition/" target="_blank">
-                            What is Growth Innovation Leadership Council ?
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href=" https://beta.gilcouncil.com/strategic_imperative/imperative-strategic/"
-                            target="_blank">
-                            Growth Council Experince
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href=" #section5" target="_blank">
-                            Begin your Transformational Growth Journey
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href=" https://beta.gilcouncil.com/members/diagnostics/" target="_blank">
-                            Growth Diagnostic
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href=" https://member.frost.com/login" target="_blank">
-                            Visionary Trends Analytics
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </header> -->
-    <header class="header-logged-out aos-init aos-animate fixed" data-aos="fade-in">
-        <div class="container header-inner">
-            <div class="row justify-content-between align-items-center flex-nowrap">
-                <div class="col">
-                    <div class="d-flex flex-nowrap align-items-center">
-                        <!-- <div class="fs-ham fs-ham-open">
-                            <svg viewBox="0 0 38 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M0.25 25.5V21.3333H37.75V25.5H0.25ZM0.25 15.0833V10.9167H37.75V15.0833H0.25ZM0.25 4.66667V0.5H37.75V4.66667H0.25Z"
-                                    fill="#0C355C"></path>
-                            </svg>
-                        </div> -->
-                        <!-- <div class="fs-ham fs-ham-closed d-none">
-                            <svg viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="0.891113" y="27.1177" width="37.5" height="4.16504"
-                                    transform="rotate(-45 0.891113 27.1177)" fill="#0C355C"></rect>
-                                <rect x="3.83594" y="0.601074" width="37.5" height="4.16504"
-                                    transform="rotate(45 3.83594 0.601074)" fill="#0C355C"></rect>
-                            </svg>
-                        </div> -->
-                        <div class="logo-container">
-                            <a href="https://beta.gilcouncil.com" target="_blank"><img
-                                    src="https://beta.gilcouncil.com/wp-content/uploads/2023/06/Logo-big.png"
-                                    alt="" /></a>
+                <div class="row justify-content-between align-items-center flex-nowrap">
+                    <div class="col">
+                        <div class="d-flex flex-nowrap align-items-center">
+
+
+                            <div class="logo-container">
+                                <a href="https://beta.gilcouncil.com"><img
+                                        src="https://beta.gilcouncil.com/wp-content/uploads/2023/06/Logo-big.png"
+                                        alt="" /></a>
+
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <!-- <div class="button-group">
-                        <div class="button-container">
-                            <a href="https://beta.gilcouncil.com/login" target="_blank"><button
-                                    class="btn btn-transparent btn-small">
-                                    LOGIN
-                                </button></a>
-                        </div>
-                        <div class="button-container">
-                            <a href="https://beta.gilcouncil.com/join" target="_blank"><button
-                                    class="btn btn-blue btn-small">SIGN UP</button></a>
-                        </div>
-                    </div> -->
+
+
+
                 </div>
             </div>
         </div>
+
+
     </header>
     <div class="page-signup">
         <?php 
@@ -745,12 +710,15 @@ endif;
                                     <div class="header-box">
                                         <h2>
                                             Already with Growth <br />Innovation Leadership
-                                            Council??
+                                            Council?
                                         </h2>
                                     </div>
 
                                     <div class="button-container">
-                                        <button class="btn btn-primary btn-small">Login</button>
+                                        <a href="<?php echo get_home_url()."/signin" ?>">
+
+                                            <button class="btn btn-primary btn-small">Login</button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -760,16 +728,17 @@ endif;
                         <div class="header-box">
                             <h3>Already a Member?</h3>
                         </div>
-                        <div class="button-container">
-                            <div class="btn btn-primary btn-small">Login</div>
-                        </div>
+                        <a href="<?php echo get_home_url()."/signin" ?>">
+
+                            <button class="btn btn-primary btn-small">Login</button>
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="signup-form-step-2 d-none">
                 <div class="container">
                     <div class="header-box">
-                        <h1>Signup</h1>
+                        <h1>Sign Up</h1>
                     </div>
                 </div>
 
@@ -778,43 +747,46 @@ endif;
                         <div class="col-md-4 col-sm-6">
                             <label for="firstName">First Name*</label>
                             <div class="input-group">
-                                <input type="text" class="form-control page2-input" id="firstName" name="first_name" />
+                                <input type="text" required class="form-control page2-input" id="firstName"
+                                    name="first_name" />
                             </div>
                             <p class="error firstName"></p>
                         </div>
                         <div class="col-md-4 col-sm-6">
                             <label for="firstName">Last Name*</label>
                             <div class="input-group">
-                                <input type="text" class="form-control page2-input" id="lastName" name="last_name" />
+                                <input type="text" required class="form-control page2-input" id="lastName"
+                                    name="last_name" />
                             </div>
                             <p class="error lastName"></p>
                         </div>
                         <div class="col-md-4 col-sm-6">
                             <label for="title">Title*</label>
                             <div class="input-group">
-                                <input type="text" class="form-control page2-input" id="title" name="title" />
+                                <input type="text" required class="form-control page2-input" id="title" name="title" />
                             </div>
                             <p class="error title"></p>
                         </div>
                         <div class="col-md-4 col-sm-6">
-                            <label for="company">Company</label>
+                            <label for="company">Company*</label>
                             <div class="input-group">
-                                <input type="text" class="form-control page2-input" id="company" name="company" />
+                                <input type="text" required class="form-control page2-input" id="company"
+                                    name="company" />
                             </div>
                             <p class="error company"></p>
                         </div>
                         <div class="col-md-4 col-sm-6">
-                            <label for="phone">Business Phone</label>
+                            <label for="phone">Business Phone*</label>
                             <div class="input-group">
-                                <input type="number " class="form-control page2-input" id="phone"
+                                <input type="number" required class="form-control page2-input" id="phone"
                                     name="business_phone" />
                             </div>
                             <p class="error phone"></p>
                         </div>
                         <div class="col-md-4 col-sm-6">
                             <div class="input-container">
-                                <label for="contry">Country</label>
-                                <select name="country" id="country" class="page2-select">
+                                <label for="contry">Country*</label>
+                                <select name="country" required id="country" class="page2-select">
                                     <option value="" selected="selected">
                                         Please select one
                                     </option>
@@ -1142,7 +1114,7 @@ endif;
                         </div>
                         <div class="terms-conditions-box">
                             <div class="input-group d-flex align-items-center">
-                                <input name="subscription" type="checkbox" class="page2-input" id="terms1" />
+                                <input name="subscription" required type="checkbox" class="page2-input" id="terms1" />
                                 <p class="terms1">
                                     Frost & Sullivan may use your contact information to provide
                                     you information about our research, insights, services or
@@ -1150,7 +1122,7 @@ endif;
                                 </p>
                             </div>
                             <div class="input-group d-flex align-items-center">
-                                <input name="agree_tc" type="checkbox" class="page2-input" id="terms2" />
+                                <input name="agree_tc" required type="checkbox" class="page2-input" id="terms2" />
                                 <p class="terms2">
                                     By clicking submit, I agree to Frost & Sullivan's Terms of
                                     Use and Privacy Policy*
@@ -1163,7 +1135,7 @@ endif;
                                 Submit
                             </button> -->
                             <button type="submit" name="user_registeration" class="btn btn-primary btn-small"
-                                value="SignUp">Signup </button>
+                                value="SignUp">Sign Up </button>
                             <?php 
                                 if($message) :
                                     echo '<p class="error">'.$message.'</p>';
@@ -1198,9 +1170,86 @@ endif;
             <!-- <input type="text" name="username"> -->
             <button type="button" class="d-none">submit here</button>
             <input type="submit" name="user_registeration" class="d-none" value="SignUp" />
+            <h2 class="error from-error"></h2>
         </form>
 
         <?php } ?>
+    </div>
+
+    <!-- error modal   -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <!-- <div class="modal-header">
+                    <h1 class="modal-title" id="exampleModalLongTitle"> Oops...</h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div> -->
+                <div class="modal-body text-center">
+                    <div class="icon-container">
+                        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="Group 5173">
+                                <circle id="Ellipse 2947" cx="32.3398" cy="32.4479" r="30" stroke="#15426B"
+                                    stroke-width="3" />
+                                <path id="!"
+                                    d="M33.9228 39.0578C33.9228 39.1719 33.8943 39.2717 33.8372 39.3573C33.7945 39.4428 33.7089 39.5141 33.5805 39.5712C33.4522 39.6282 33.2882 39.671 33.0885 39.6995C32.8889 39.728 32.6393 39.7423 32.3398 39.7423C32.0404 39.7423 31.7908 39.728 31.5911 39.6995C31.3915 39.671 31.2275 39.6282 31.0991 39.5712C30.9708 39.5141 30.8781 39.4428 30.8211 39.3573C30.7783 39.2717 30.7569 39.1719 30.7569 39.0578L30.3932 18.6504C30.379 18.4793 30.4004 18.3295 30.4574 18.2012C30.5144 18.0728 30.6143 17.9659 30.7569 17.8803C30.9138 17.7948 31.1134 17.7377 31.3558 17.7092C31.6125 17.6664 31.9405 17.645 32.3398 17.645C32.7249 17.645 33.0386 17.6664 33.2811 17.7092C33.5378 17.752 33.7374 17.8162 33.88 17.9017C34.0369 17.9873 34.1438 18.0942 34.2009 18.2226C34.2579 18.3367 34.2865 18.4793 34.2865 18.6504L33.9228 39.0578ZM34.5859 44.8121C34.5859 45.2827 34.5503 45.6748 34.479 45.9886C34.4219 46.2881 34.3007 46.5376 34.1153 46.7373C33.9442 46.9227 33.716 47.051 33.4308 47.1223C33.1456 47.2079 32.7819 47.2507 32.3398 47.2507C31.8978 47.2507 31.527 47.2079 31.2275 47.1223C30.9423 47.051 30.7141 46.9227 30.543 46.7373C30.3718 46.5376 30.2506 46.2881 30.1793 45.9886C30.1223 45.6748 30.0938 45.2827 30.0938 44.8121C30.0938 44.3414 30.1223 43.9493 30.1793 43.6355C30.2506 43.3075 30.3718 43.058 30.543 42.8868C30.7141 42.7014 30.9423 42.5731 31.2275 42.5018C31.527 42.4162 31.8978 42.3734 32.3398 42.3734C32.7819 42.3734 33.1456 42.4162 33.4308 42.5018C33.716 42.5731 33.9442 42.7014 34.1153 42.8868C34.3007 43.058 34.4219 43.3075 34.479 43.6355C34.5503 43.9493 34.5859 44.3414 34.5859 44.8121Z"
+                                    fill="#15426B" />
+                            </g>
+                        </svg>
+
+
+                    </div>
+                    <h2>An error occurred, please try again</h2>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-small" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- success modal -->
+
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <!-- <div class="modal-header">
+                    <h1 class="modal-title" id="exampleModalLongTitle"></h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div> -->
+                <div class="modal-body text-center">
+                    <div class="icon-container">
+                        <svg width="61" height="60" viewBox="0 0 61 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_4816_12439)">
+                                <path
+                                    d="M16.332 29.9991L28.332 39.9991L44.332 19.9991M30.332 57.9991C26.655 57.9991 23.014 57.2748 19.6169 55.8677C16.2198 54.4606 13.1331 52.3981 10.533 49.7981C7.933 47.198 5.87054 44.1113 4.4634 40.7142C3.05627 37.3171 2.33203 33.6761 2.33203 29.9991C2.33203 26.3221 3.05627 22.6811 4.4634 19.2839C5.87054 15.8868 7.933 12.8001 10.533 10.2001C13.1331 7.60005 16.2198 5.53759 19.6169 4.13046C23.014 2.72333 26.655 1.99908 30.332 1.99908C37.7581 1.99908 44.88 4.94908 50.131 10.2001C55.382 15.4511 58.332 22.573 58.332 29.9991C58.332 37.4251 55.382 44.5471 50.131 49.7981C44.88 55.0491 37.7581 57.9991 30.332 57.9991Z"
+                                    stroke="#29B1E6" stroke-width="3" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_4816_12439">
+                                    <rect width="60" height="60" fill="white"
+                                        transform="translate(0.332031 -0.000915527)" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+
+                    </div>
+                    <h2>Email was sent successfully.</h2>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-small" data-dismiss="modal">Close</button>
+                    <a href="https://beta.gilcouncil.com/signin/">
+                        <button type="button" class="btn btn-primary btn-small">Go to Login</button>
+                    </a>
+
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer class="footer">

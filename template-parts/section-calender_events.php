@@ -163,7 +163,7 @@ if ($content['enable_disable']) :
     <div class="container">
         <div class="row">
 
-            <div class="col-md-6">
+            <div class="col-lg-6">
                 <div class="header-box-main text-center text-blue ">
                     <h1>Your Engagement Calendar</h1>
                 </div>
@@ -266,7 +266,7 @@ if ($content['enable_disable']) :
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-lg-6">
                 <div class="calendar-outer-container">
                     <!-- <div class="dropDown-container">
                         <div class="from-group" for="data-test">
