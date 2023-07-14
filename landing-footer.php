@@ -1,4 +1,120 @@
 <div class="overlay"></div>
+<!-- PERSONALIZATION MODAL -->
+<div class="modal fade" id="pdModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg gpd-modal personalize-dialouge" role="document">
+        <div class="modal-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="content-container left">
+                            <div class="header-box text-white">
+                                <h1>Personalize Your Landing Page</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="content-container right">
+                            <form action="" class="form-personalize gc-form">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Example select</label>
+                                    <select class="form-control" id="exampleFormControlSelect1">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                                <div class="field-outer">
+                                    <label for="industry">Industry</label>
+                                    <select name="" id="" class="form-control">
+                                        <option value="Aerospace & Defense">
+                                            Aerospace & Defense
+                                        </option>
+                                        <option value="Chemicals, Materials & Nutrition">
+                                            Chemicals, Materials & Nutrition
+                                        </option>
+                                        <option value="Energy & Environment">
+                                            Energy & Environment
+                                        </option>
+                                        <option value="Healthcare">Healthcare</option>
+                                        <option value="Industrial">Industrial</option>
+                                        <option value="Information & Communications Technology">
+                                            Information & Communications Technology
+                                        </option>
+                                        <option value="Supply Chain & Logistics">
+                                            Supply Chain & Logistics
+                                        </option>
+                                        <option value="Supply Chain & Logistics">
+                                            Supply Chain & Logistics
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="field-outer">
+                                    <label for="expertise">Area of Experties</label>
+                                    <select name="" id="" multiple="true" multiselect-search="true"
+                                        multiselect-select-all="true">
+                                        <option value="Business Development">
+                                            Business Development
+                                        </option>
+                                        <option value="Corporate Strategy">
+                                            Corporate Strategy
+                                        </option>
+                                        <option value="Marketing">Marketing</option>
+                                        <option value="Product Strategy/Development">
+                                            Product Strategy/Development
+                                        </option>
+                                        <option value="Research & Development/Innovation">
+                                            Research & Development/Innovation
+                                        </option>
+                                        <option value="Marketing">Marketing</option>
+                                        <option value="Corporate Strategy">
+                                            Corporate Strategy
+                                        </option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="field-outer">
+                                    <label for="expertise">Area of Intrests</label>
+                                    <select name="" id="" multiple="true" multiselect-search="true"
+                                        multiselect-select-all="true">
+                                        <option value="Business Development">
+                                            Business Development
+                                        </option>
+                                        <option value="Corporate Strategy">
+                                            Corporate Strategy
+                                        </option>
+                                        <option value="Marketing">Marketing</option>
+                                        <option value="Product Strategy/Development">
+                                            Product Strategy/Development
+                                        </option>
+                                        <option value="Research & Development/Innovation">
+                                            Research & Development/Innovation
+                                        </option>
+                                        <option value="Marketing">Marketing</option>
+                                        <option value="Corporate Strategy">
+                                            Corporate Strategy
+                                        </option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="button-group">
+                                    <span class="text-cyan cursor-pointer" data-dismiss="modal">Maybe Later</span>
+                                    <div class="button-container">
+                                        <button class="btn btn-primary btn-arrow btn-small">
+                                            Personalize Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- GPD Modal -->
 <div class="modal fade" id="gpdModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
@@ -16,6 +132,62 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-small" data-dismiss="modal">Not Now</button>
                 <button type="button" class="btn btn-primary btn-small gpd-confrimation">Let's Go</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- error -->
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg gpd-modal" role="document">
+        <div class="modal-content">
+            <div class="icon-container">
+                <svg width="61" height="60" viewBox="0 0 61 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_4816_12439)">
+                        <path
+                            d="M16.332 29.9991L28.332 39.9991L44.332 19.9991M30.332 57.9991C26.655 57.9991 23.014 57.2748 19.6169 55.8677C16.2198 54.4606 13.1331 52.3981 10.533 49.7981C7.933 47.198 5.87054 44.1113 4.4634 40.7142C3.05627 37.3171 2.33203 33.6761 2.33203 29.9991C2.33203 26.3221 3.05627 22.6811 4.4634 19.2839C5.87054 15.8868 7.933 12.8001 10.533 10.2001C13.1331 7.60005 16.2198 5.53759 19.6169 4.13046C23.014 2.72333 26.655 1.99908 30.332 1.99908C37.7581 1.99908 44.88 4.94908 50.131 10.2001C55.382 15.4511 58.332 22.573 58.332 29.9991C58.332 37.4251 55.382 44.5471 50.131 49.7981C44.88 55.0491 37.7581 57.9991 30.332 57.9991Z"
+                            stroke="#29B1E6" stroke-width="3" />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_4816_12439">
+                            <rect width="60" height="60" fill="white" transform="translate(0.332031 -0.000915527)" />
+                        </clipPath>
+                    </defs>
+                </svg>
+            </div>
+            <div class="text-container">
+                <h2>An error occurred, please try again.</h2>
+            </div>
+            <div class="modal-footer">
+                <div class="button-container">
+                    <button class="btn btn-small" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- success -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg gpd-modal" role="document">
+        <div class="modal-content">
+            <div class="icon-container">
+                <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="32.3398" cy="32.4479" r="30" stroke="#15426B" stroke-width="3" />
+                    <path
+                        d="M33.9228 39.0578C33.9228 39.1719 33.8943 39.2717 33.8372 39.3573C33.7945 39.4428 33.7089 39.5141 33.5805 39.5712C33.4522 39.6282 33.2882 39.671 33.0885 39.6995C32.8889 39.728 32.6393 39.7423 32.3398 39.7423C32.0404 39.7423 31.7908 39.728 31.5911 39.6995C31.3915 39.671 31.2275 39.6282 31.0991 39.5712C30.9708 39.5141 30.8781 39.4428 30.8211 39.3573C30.7783 39.2717 30.7569 39.1719 30.7569 39.0578L30.3932 18.6504C30.379 18.4793 30.4004 18.3295 30.4574 18.2012C30.5144 18.0728 30.6143 17.9659 30.7569 17.8803C30.9138 17.7948 31.1134 17.7377 31.3558 17.7092C31.6125 17.6664 31.9405 17.645 32.3398 17.645C32.7249 17.645 33.0386 17.6664 33.2811 17.7092C33.5378 17.752 33.7374 17.8162 33.88 17.9017C34.0369 17.9873 34.1438 18.0942 34.2009 18.2226C34.2579 18.3367 34.2865 18.4793 34.2865 18.6504L33.9228 39.0578ZM34.5859 44.8121C34.5859 45.2827 34.5503 45.6748 34.479 45.9886C34.4219 46.2881 34.3007 46.5376 34.1153 46.7373C33.9442 46.9227 33.716 47.051 33.4308 47.1223C33.1456 47.2079 32.7819 47.2507 32.3398 47.2507C31.8978 47.2507 31.527 47.2079 31.2275 47.1223C30.9423 47.051 30.7141 46.9227 30.543 46.7373C30.3718 46.5376 30.2506 46.2881 30.1793 45.9886C30.1223 45.6748 30.0938 45.2827 30.0938 44.8121C30.0938 44.3414 30.1223 43.9493 30.1793 43.6355C30.2506 43.3075 30.3718 43.058 30.543 42.8868C30.7141 42.7014 30.9423 42.5731 31.2275 42.5018C31.527 42.4162 31.8978 42.3734 32.3398 42.3734C32.7819 42.3734 33.1456 42.4162 33.4308 42.5018C33.716 42.5731 33.9442 42.7014 34.1153 42.8868C34.3007 43.058 34.4219 43.3075 34.479 43.6355C34.5503 43.9493 34.5859 44.3414 34.5859 44.8121Z"
+                        fill="#15426B" />
+                </svg>
+            </div>
+            <div class="text-container">
+                <h2>Email was sent successfully..</h2>
+            </div>
+            <div class="modal-footer">
+                <div class="button-container">
+                    <button class="btn btn-small" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
@@ -117,6 +289,7 @@
 </script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="https://player.vimeo.com/api/player.js"></script>
+<script src="<?php echo get_theme_file_uri('/multiselect-dropdown.js'); ?>"></script>
 <!-- <script  type="text/javascript" src="https://beta.gilcouncil.com/wp-content/themes/divi-child-theme/sliderScript.js"></script>
   <script  type="text/javascript" src="https://beta.gilcouncil.com/wp-content/themes/divi-child-theme/script.js"></script> -->
 <script type="text/javascript" src="<?php echo get_theme_file_uri('/sliderScript.js'); ?>"></script>

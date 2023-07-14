@@ -74,6 +74,57 @@ if ($content['enable_disable']) :
 </div>
 </section> -->
 
+<!-- gcm Modal -->
+<div class="modal fade" id="gcmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg gpd-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="
+              background-image: url('https://beta.gilcouncil.com/wp-content/uploads/2023/07/MicrosoftTeams-image-4.jpg');
+            ">
+                <span aria-hidden="true" class="icon-close" data-dismiss="modal" aria-label="Close"><svg width="29"
+                        height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="14.627" cy="14.1063" r="13.6543" fill="#15426B" />
+                        <path
+                            d="M19.4331 20.3376L14.626 15.5304L9.81887 20.3376L8.39453 18.9132L13.2017 14.1061L8.39453 9.29897L9.81887 7.87463L14.626 12.6818L19.4331 7.87463L20.8575 9.29897L16.0503 14.1061L20.8575 18.9132L19.4331 20.3376Z"
+                            fill="white" />
+                    </svg>
+                </span>
+            </div>
+            <div class="modal-body">
+                <div class="header-box">
+                    <h1>
+                        I would like to initiate my personal Growth Pipeline Dialog
+                    </h1>
+                </div>
+                <form>
+                    <div class="input-group">
+                        <textarea rows="4" cols="30" class="form-control gcm-message">
+                            Default value here
+                        </textarea>
+                    </div>
+
+                    <!-- <div class="button-container">
+                <button class="btn btn-small">Send</button>
+              </div> -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!-- <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button> -->
+                <button type="button" class="btn btn-primary btn-small gcm-send">
+                    Send
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <section class="section-pipeline" style="
         background-image: url(https://dev.gilcouncil.com/wp-content/uploads/2023/05/unsplash_qIZMt-o2RIk.jpg);
@@ -138,7 +189,7 @@ if ($content['enable_disable']) :
                     </div>
 
                     <div class="button-container">
-                        <a href="mailto:swati.mohtra@frost.com">
+                        <a data-mail="swati.mohtra@frost.com" class="gcm-trigger">
                             <button class="btn btn-primary">
                                 Connect with your Growth Coach
                             </button>

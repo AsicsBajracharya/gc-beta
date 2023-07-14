@@ -4,7 +4,7 @@ if ($content['enable_disable']) :
     $section_class = $content['custom_classes'];
     $section_id = (!empty($content['section_id'])) ? 'id="'. $content['section_id'] .'"' : '';
     $current_user_id = get_current_user_id();
-    $service_manager = get_field('service_manager', 'user_'.$current_user_id, false);
+    $service_manager = get_field('service_manager', 'user_218', false);
     $user_object = get_user_by('ID', $service_manager);
     if (!empty($user_object)) {
       $user = array();
@@ -58,9 +58,59 @@ if ($content['enable_disable']) :
         </div>
       </div>
     </section> -->
+<!-- MSM Modal -->
+<div class="modal fade" id="msmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg gpd-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="
+              background-image: url('https://beta.gilcouncil.com/wp-content/uploads/2023/07/MicrosoftTeams-image-4.jpg');
+            ">
+                <span aria-hidden="true" class="icon-close" data-dismiss="modal" aria-label="Close"><svg width="29"
+                        height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="14.627" cy="14.1063" r="13.6543" fill="#15426B" />
+                        <path
+                            d="M19.4331 20.3376L14.626 15.5304L9.81887 20.3376L8.39453 18.9132L13.2017 14.1061L8.39453 9.29897L9.81887 7.87463L14.626 12.6818L19.4331 7.87463L20.8575 9.29897L16.0503 14.1061L20.8575 18.9132L19.4331 20.3376Z"
+                            fill="white" />
+                    </svg>
+                </span>
+            </div>
+            <div class="modal-body initial">
+                <div class="header-box">
+                    <h1>
+                        I would like to initiate my personal Growth Pipeline Dialog
+                    </h1>
+                </div>
+                <form>
+                    <div class="input-group">
+                        <textarea rows="4" cols="30" class="form-control msm-message">
+                            Default value here
+                        </textarea>
+                    </div>
+
+                    <!-- <div class="button-container">
+                            <button class="btn btn-small">Send</button>
+                          </div> -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!-- <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Close
+                    </button> -->
+                <button type="button" class="btn btn-primary btn-small msm-send">
+                    Send
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <section class="section-service-manager" style="
-        background-image: url('https://beta.gilcouncil.com/wp-content/uploads/2023/06/orange-angle-bkgd-for-WP-1.png');
+        background-image: url(<?php echo $content['background_image'] ?>);
       ">
     <div class="container">
         <div class="row align-items-center">
@@ -73,13 +123,12 @@ if ($content['enable_disable']) :
             <div class="col-lg-6">
                 <div class="content-container right d-flex align-items-center">
                     <div class="image-container">
-                        <img src="https://beta.gilcouncil.com/wp-content/uploads/ultimatemember/24/profile_photo.png?1686868415"
-                            alt="" />
+                        <img src="<?php echo $user['profile_image'] ?>" alt="" />
                     </div>
                     <div class="content-container right text-white">
-                        <h3>Brittney gasca peña</h3>
+                        <h3><?php echo $user['display_name'] ?></h3>
                         <p>Membership Service Manager</p>
-                        <p>phone : 45235234523423</p>
+                        <p><?php echo $user['phone'][0] ?></p>
                         <div class="button-container w-100">
                             <a data-mail="brittney.gasca@frost.com" class="msm-trigger"
                                 data-function="service_manager_mail_function">

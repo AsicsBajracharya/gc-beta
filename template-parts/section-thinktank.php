@@ -542,7 +542,7 @@ if (!is_wp_error($exclusive_think_tank)) {
                                 <div class="button-container">
                                     <?php if($partner_exclusive_think_tank[0]['register_status'] == false) :?>
                                     <button class="btn btn-primary btn-small btn-arrow btn-message-arrow"
-                                        data-function="register-event" data-register="9580"
+                                        data-register="9580"
                                         data-event-id="<?php echo $partner_exclusive_think_tank[0]['ID'];?>">
                                         <span class="message-icon">
                                             <svg width="16" height="13" viewBox="0 0 16 13" fill="none"
@@ -594,8 +594,7 @@ if (!is_wp_error($exclusive_think_tank)) {
                                         </span>
                                     </button>
                                     <?php else : ?>
-                                    <button class="btn btn-small btn-success" data-function="register-event"
-                                        data-register="9580"
+                                    <button class="btn btn-small btn-success" data-register="9580"
                                         data-event-id="<?php echo $partner_exclusive_think_tank[0]['ID'];?>">
 
                                         Registered
@@ -658,7 +657,7 @@ if (!is_wp_error($exclusive_think_tank)) {
                                 <div class="button-container">
                                     <?php if($partner_exclusive_think_tank[1]['register_status'] == false) : ?>
                                     <button class="btn btn-primary btn-small btn-arrow btn-message-arrow"
-                                        data-function="register-event" data-register="9580"
+                                        data-register="9580"
                                         data-event-id="(<?php echo $partner_exclusive_think_tank[1]['ID']; ?>">
                                         <span class="message-icon">
                                             <svg width="16" height="13" viewBox="0 0 16 13" fill="none"
@@ -709,8 +708,7 @@ if (!is_wp_error($exclusive_think_tank)) {
                                         </span>
                                     </button>
                                     <?php else : ?>
-                                    <button class="btn btn-small btn-success" data-function="register-event"
-                                        data-register="9580"
+                                    <button class="btn btn-small btn-success" data-register="9580"
                                         data-event-id="<?php echo $partner_exclusive_think_tank[1]['ID'];?>">
 
                                         Registered
@@ -770,7 +768,7 @@ if (!is_wp_error($exclusive_think_tank)) {
                                 <div class="button-container">
                                     <?php if($partner_exclusive_think_tank[2]['register_status'] == false) : ?>
                                     <button class="btn btn-primary btn-small btn-arrow btn-message-arrow"
-                                        data-function="register-event" data-register="9580"
+                                        data-register="9580"
                                         data-event-id="(<?php echo $partner_exclusive_think_tank[2]['ID']; ?>">
                                         <span class="message-icon">
                                             <svg width="16" height="13" viewBox="0 0 16 13" fill="none"
@@ -821,8 +819,7 @@ if (!is_wp_error($exclusive_think_tank)) {
                                         </span>
                                     </button>
                                     <?php else : ?>
-                                    <button class="btn btn-small btn-success" data-function="register-event"
-                                        data-register="9580"
+                                    <button class="btn btn-small btn-success" data-register="9580"
                                         data-event-id="<?php echo $partner_exclusive_think_tank[2]['ID'];?>">
 
                                         Registered
@@ -891,8 +888,7 @@ if (!is_wp_error($exclusive_think_tank)) {
                                     <div class="button-container">
                                         <?php if($think_tank[$x]['register_status'] == false) : ?>
                                         <button class="btn btn-primary btn-small btn-arrow btn-message-arrow"
-                                            data-function="register-event" data-register="9580"
-                                            data-event-id="(<?php echo $think_tank[$x]['ID']; ?>">
+                                            data-register="9580" data-event-id="(<?php echo $think_tank[$x]['ID']; ?>">
                                             <span class="message-icon">
                                                 <svg width="16" height="13" viewBox="0 0 16 13" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
@@ -944,8 +940,7 @@ if (!is_wp_error($exclusive_think_tank)) {
                                             </span>
                                         </button>
                                         <?php else : ?>
-                                        <button class="btn btn-small btn-success" data-function="register-event"
-                                            data-register="9580"
+                                        <button class="btn btn-small btn-success" data-register="9580"
                                             data-event-id="<?php echo $highlighted_event[0]['ID'];?>">
 
                                             Registered

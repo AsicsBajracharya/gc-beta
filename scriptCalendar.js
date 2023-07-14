@@ -144,6 +144,12 @@ $(document).ready(function () {
     console.log("formatted date", formattedDate);
     return formattedDate;
   }
+  function noDataFormUndefined(data) {
+    if (!data) {
+      return "No Data!";
+    }
+    return data;
+  }
 
   function fillEventDataInitial(data) {
     console.log("FILL DATA FUNCTION CALLED", data);
@@ -151,8 +157,10 @@ $(document).ready(function () {
       "style",
       `background-image: url(${data?.image})`
     );
-    $(".event-details h2").html(data.title);
-    $(".event-details .description").html(data?.description);
+    $(".event-details h2").html(noDataFormUndefined(data.title));
+    $(".event-details .description").html(
+      noDataFormUndefined(data?.description)
+    );
     $(".event-details button.btn-primary").attr("data-register", data?.title);
     $(".event-details button.btn-primary").attr(
       "data-register-status",
@@ -167,8 +175,8 @@ $(document).ready(function () {
     $(".event-details .pill-left p").html(formattedDate);
     const eventType = data?.event_type[0]?.name;
     console.log("event type", eventType);
-    $(".event-details .pill-right p").html(eventType);
-    const orgName = data?.organizer[0]?.term_name;
+    $(".event-details .pill-right p").html(noDataFormUndefined(eventType));
+    const orgName = noDataFormUndefined(data?.organizer[0]?.term_name);
     $(".event-details .org-name").html(orgName);
   }
 
@@ -217,22 +225,22 @@ $(document).ready(function () {
         }
         // events = [];
         output.data.forEach((element) => {
-          const formattedDate = formatDate(element.event_start);
-          const startDate = new Date(element.event_start);
+          const formattedDate = formatDate(element?.event_start);
+          const startDate = new Date(element?.event_start);
           events.push(`<li class = "event-item ${
-            element.event_type[0].name == "Virtual Meeting"
+            element?.event_type[0]?.name == "Virtual Meeting"
               ? "virtual"
               : "in-person"
-          }" data-img= ${element.image} data-title=${JSON.stringify(
-            element.title
+          }" data-img= ${element?.image} data-title=${JSON.stringify(
+            element?.title
           )}
-            data-id=${element.ID}
-            data-registered-status=${element.register_status}
+            data-id=${element?.ID}
+            data-registered-status=${element?.register_status}
           
-            data-event-org-name = ${element.organizer.term_name}
+            data-event-org-name = ${element?.organizer?.term_name}
              >
              <div class = "d-none event-description">${
-               element.description
+               element?.description
              }</div>
                <div class = "d-none event-formatted-date">${formattedDate}</div>
                  <div class = "d-none event-type"> ${
@@ -260,7 +268,7 @@ $(document).ready(function () {
           days.toArray().forEach((day, i) => {
             $(day).append("<span></span>");
             if ($(day).text() == startDate.getDate().toString()) {
-              if (element.event_type[0].slug == "virtual-meeting") {
+              if (element.event_type[0]?.slug == "virtual-meeting") {
                 $(day).addClass("virtual");
               } else {
                 $(day).addClass("in-person");
